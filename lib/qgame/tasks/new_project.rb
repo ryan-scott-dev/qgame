@@ -16,21 +16,15 @@ module QGame
       QGame::NewProject.create_vanilla_project project_name
 
       # Clone mruby & other deps
-      QGame::NewProject::git_clone('git://github.com/mruby/mruby.git', "#{project_name}/build/mruby")
-      
+      # QGame::NewProject::git_clone('git://github.com/mruby/mruby.git', "#{project_name}/build/mruby")
     end
 
     def self.create_folders(project_name)
       FileUtils.mkdir_p "#{project_name}"
-      FileUtils.mkdir_p "#{project_name}/assets"
-      FileUtils.mkdir_p "#{project_name}/build"
-      FileUtils.mkdir_p "#{project_name}/config"
-      FileUtils.mkdir_p "#{project_name}/game"
-      FileUtils.mkdir_p "#{project_name}/lib"
+      FileUtils.cp_r "./lib/structure/", "#{project_name}/"
     end
 
     def self.create_vanilla_project(project_name)
-      
     end
 
     def self.git_clone(git_url, path)

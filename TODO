@@ -1,0 +1,4 @@
+- Create mruby gem for QGame
+- Compile QGame with application source
+- Compile application native code to application executable
+- Run application
