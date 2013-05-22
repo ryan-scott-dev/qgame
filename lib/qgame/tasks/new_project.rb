@@ -1,34 +1,36 @@
 require 'fileutils'
 
 task :new, :args do |t, args|
-  QGame::NewProject.run(args)
+  QGame::NewProjectTask.run(args)
 end
 
 module QGame
-  module NewProject
-    def self.run(args)
-      project_name = args[0]
-
-      # Create the folder directory
-      QGame::NewProject::create_folders project_name
-      
-      # Create vanilla project
-      QGame::NewProject.create_vanilla_project project_name
-
-      # Clone mruby & other deps
-      # QGame::NewProject::git_clone('git://github.com/mruby/mruby.git', "#{project_name}/build/mruby")
+  class NewProjectTask
+    def initialize(args)
+      @project_name = args[0]
     end
 
-    def self.create_folders(project_name)
-      FileUtils.mkdir_p "#{project_name}"
-      FileUtils.cp_r "./lib/structure/", "#{project_name}/"
+    def run
+      create_from_skeleteon
+      customise_created_skeleton
+
+      # git_clone('git://github.com/mruby/mruby.git', "#{@project_name}/build/mruby")
     end
 
-    def self.create_vanilla_project(project_name)
+    def create_from_skeleteon
+      FileUtils.cp_r "lib/structure/", "#{@project_name}/"
     end
 
-    def self.git_clone(git_url, path)
+    def customise_created_skeleton
+    end
+    
+    def git_clone(git_url, path)
       FileUtils.sh "git clone #{git_url} #{path}"
     end
+
+    def self.run(args)
+      NewProjectTask.new(args).run
+    end
+
   end
 end
