@@ -22,8 +22,9 @@ module QGame
     end
 
     def customise_created_skeleton
+      # Find a reserved word, and replace with the project name
     end
-    
+
     def git_clone(git_url, path)
       FileUtils.sh "git clone #{git_url} #{path}"
     end
