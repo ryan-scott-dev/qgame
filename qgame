@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # -*- mode: ruby -*-
 
+QGAME_ROOT = ENV['QGAME_ROOT'] || File.dirname(__FILE__)
+
 lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 
