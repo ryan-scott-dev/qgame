@@ -11,7 +11,7 @@ module QGame
     RESERVED_NAMES = %w[application]
 
     def initialize(args)
-      @project_name = args[0]
+      @project_name = args[:args][0]
 
       validate_project_name
     end
