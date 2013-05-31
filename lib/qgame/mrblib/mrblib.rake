@@ -4,7 +4,6 @@ QGame.each_target do
   current_build_dir = "#{build_dir}/#{relative_from_root}"
   
   self.libqgame << objfile("#{current_build_dir}/mrblib")
-  puts "QGame Lib: #{current_build_dir}"
   
   file objfile("#{current_build_dir}/mrblib") => "#{current_build_dir}/mrblib.c"
   file "#{current_build_dir}/mrblib.c" => [mrbcfile] + Dir.glob("#{current_dir}/*.rb").sort do |t|

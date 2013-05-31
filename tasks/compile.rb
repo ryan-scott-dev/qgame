@@ -21,21 +21,18 @@ load "#{MRUBY_ROOT}/tasks/mrbgem_spec.rake"
 load "#{QGAME_ROOT}/tasks/qgame_build.rake"
 
 # load configuration file
-# load "#{PROJECT_ROOT}/config/build_config.rb"
+load "#{PROJECT_ROOT}/config/build_config.rb"
 MRUBY_CONFIG = (ENV['BUILD_CONFIG'] && ENV['BUILD_CONFIG'] != '') ? ENV['BUILD_CONFIG'] : "#{PROJECT_ROOT}/config/platforms/#{PLATFORM.to_s}/build_config.rb"
 load MRUBY_CONFIG
 
 # load basic rules
 MRuby.each_target do |build|
   build.define_rules
-  p "Mruby build"
 end
 
 # load basic rules
 QGame.each_target do |build|
   build.define_rules
-
-  p "QGame build"
 end
 
 load "#{QGAME_ROOT}/tasks/mruby_compile.rake"
