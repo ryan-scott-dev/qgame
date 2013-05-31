@@ -31,9 +31,17 @@ module QGame
 
         @file_separator = '/'
         @cc = MRuby::Command::Compiler.new(self, %w(.c))
+        @cc.include_paths << ["#{QGAME_ROOT}/include"]
+
         @cxx = MRuby::Command::Compiler.new(self, %w(.cc .cxx .cpp))
+        @cxx.include_paths << ["#{QGAME_ROOT}/include"]
+        
         @objc = MRuby::Command::Compiler.new(self, %w(.m))
+        @objc.include_paths << ["#{QGAME_ROOT}/include"]
+        
         @asm = MRuby::Command::Compiler.new(self, %w(.S .asm))
+        @asm.include_paths << ["#{QGAME_ROOT}/include"]
+        
         @linker = MRuby::Command::Linker.new(self)
         @archiver = MRuby::Command::Archiver.new(self)
         @yacc = MRuby::Command::Yacc.new(self)
@@ -68,6 +76,7 @@ module QGame
         else
           compiler.defines += %w(DISABLE_GEMS) 
         end
+        p "Path: #{File.expand_path(File.join(File.dirname(__FILE__), '..'))}"
         compiler.define_rules build_dir, File.expand_path(File.join(File.dirname(__FILE__), '..'))
       end
     end

@@ -18,7 +18,7 @@ MRUBY_BUILD_HOST_IS_CYGWIN = RUBY_PLATFORM.include?('cygwin')
 load "#{MRUBY_ROOT}/tasks/ruby_ext.rake"
 load "#{MRUBY_ROOT}/tasks/mruby_build.rake"
 load "#{MRUBY_ROOT}/tasks/mrbgem_spec.rake"
-load "#{QGAME_ROOT}/lib/qgame/tasks/qgame_build.rake"
+load "#{QGAME_ROOT}/tasks/qgame_build.rake"
 
 # load configuration file
 # load "#{PROJECT_ROOT}/config/build_config.rb"
@@ -38,9 +38,8 @@ QGame.each_target do |build|
   p "QGame build"
 end
 
-load 'qgame/tasks/qgame_build.rake'
-load 'qgame/tasks/mruby_compile.rake'
-load 'qgame/tasks/qgame_compile.rake'
+load "#{QGAME_ROOT}/tasks/mruby_compile.rake"
+load "#{QGAME_ROOT}/tasks/qgame_compile.rake"
 
 desc "build all targets, install (locally) in-repo"
 task :compile do |args|

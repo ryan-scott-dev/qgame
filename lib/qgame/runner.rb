@@ -1,8 +1,8 @@
 require 'rake'
 
-load 'qgame/tasks/new_project.rb'
-load 'qgame/tasks/run.rb'
-load 'qgame/tasks/compile.rb'
+load "#{QGAME_ROOT}/tasks/new_project.rb"
+load "#{QGAME_ROOT}/tasks/run.rb"
+load "#{QGAME_ROOT}/tasks/compile.rb"
 
 module QGame
   module Runner
