@@ -1,6 +1,6 @@
 $PROJ_NAME::Build.new do |conf|
   toolchain :clang
-  
+ 
   # C compiler settings
   conf.cc do |cc|
     cc.include_paths = ["#{QGAME_ROOT}/include", "#{MRUBY_ROOT}/include"]
@@ -18,9 +18,13 @@ end
 QGame::Build.new do |conf|
   toolchain :clang
 
+  gem_include_paths = Dir.glob("build/mrbgems/**/include")
+
   # C compiler settings
   conf.cc do |cc|
     cc.include_paths = ["#{QGAME_ROOT}/include", "#{MRUBY_ROOT}/include"]
+    cc.include_paths.concat gem_include_paths
+    cc.include_paths.concat ['/Library/Frameworks/SDL.framework/Headers']
   end
 
   # Linker settings

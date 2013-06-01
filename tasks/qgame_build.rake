@@ -45,8 +45,16 @@ module QGame
         QGame.targets[@name] = self
       end
 
+      MRuby::Build.current = QGame.targets[@name]
       QGame::Build.current = QGame.targets[@name]
       QGame.targets[@name].instance_eval(&block)
+
+      QGame.targets[@name].instance_eval do
+        gembox = File.expand_path("qgame.gembox", "#{QGAME_ROOT}/mrbgems")
+        fail "Can't find gembox '#{gembox}'" unless File.exists?(gembox)
+        MRuby::GemBox.config = self
+        instance_eval File.read(gembox)
+      end
     end
 
     def root
