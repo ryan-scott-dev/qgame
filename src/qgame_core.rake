@@ -6,7 +6,7 @@ QGame.each_target do
   objs = Dir.glob("#{current_dir}/*.c").map { |f| objfile(f.pathmap("#{current_build_dir}/%n")) }
   self.libqgame << objs
 
-  file libfile("#{build_dir}/lib/libmruby_core") => objs do |t|
+  file libfile("#{build_dir}/lib/libqgame_core") => objs do |t|
     archiver.run t.name, t.prerequisites
   end
 end

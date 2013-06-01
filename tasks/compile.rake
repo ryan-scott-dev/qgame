@@ -9,7 +9,6 @@ def default_platform
   end
 end
 
-PROJECT_ROOT = Dir.pwd
 MRUBY_ROOT = ENV['MRUBY_ROOT'] || "#{PROJECT_ROOT}/build/mruby"
 PLATFORM = ENV['PLATFORM'] || default_platform
 MRUBY_BUILD_HOST_IS_CYGWIN = RUBY_PLATFORM.include?('cygwin')
@@ -19,6 +18,7 @@ load "#{MRUBY_ROOT}/tasks/ruby_ext.rake"
 load "#{MRUBY_ROOT}/tasks/mruby_build.rake"
 load "#{MRUBY_ROOT}/tasks/mrbgem_spec.rake"
 load "#{QGAME_ROOT}/tasks/qgame_build.rake"
+load "#{QGAME_ROOT}/tasks/game_build.rake"
 
 # load configuration file
 load "#{PROJECT_ROOT}/config/build_config.rb"
@@ -37,6 +37,7 @@ end
 
 load "#{QGAME_ROOT}/tasks/mruby_compile.rake"
 load "#{QGAME_ROOT}/tasks/qgame_compile.rake"
+load "#{QGAME_ROOT}/tasks/game_compile.rake"
 
 desc "build all targets, install (locally) in-repo"
 task :compile do |args|
@@ -61,7 +62,7 @@ task :compile do |args|
   puts "----------------------------------"
   puts "Compiling your files..."
   puts "----------------------------------"
-  # Rake::Task['compile:game'].invoke(args)
+  Rake::Task['game:compile'].invoke(args)
   # This should produce a runnable application
   puts "----------------------------------"
   puts "Done!"

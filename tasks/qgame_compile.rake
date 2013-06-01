@@ -9,7 +9,6 @@ namespace :qgame do
   # load custom rules
   task :qgame_prepare do
     load "#{QGAME_ROOT}/src/qgame_core.rake"
-    load "#{QGAME_ROOT}/lib/qgame/mrblib/mrblib.rake"
     load "#{QGAME_ROOT}/tasks/libqgame.rake"
 
     Rake::Task["qgame:dependencies"].invoke
