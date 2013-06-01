@@ -8,6 +8,7 @@ module QGame
   module Runner
     def self.start(given_args=ARGV)
       p "Executing task #{given_args[0]}"
+      Rake.verbose(true)
       Rake::Task[given_args[0]].invoke(given_args[1..-1])
     end
   end
