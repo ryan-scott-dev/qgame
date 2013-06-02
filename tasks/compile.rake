@@ -68,7 +68,7 @@ task :compile do |args|
   puts "----------------------------------"
   puts "Compiling mruby..."
   puts "----------------------------------"
-  Rake::Task['compile:mruby'].invoke(args)
+  Rake::Task['mruby:compile'].invoke(args)
   # This should produce a linkable mruby library
   puts "----------------------------------"
   puts "Done!"
@@ -92,4 +92,19 @@ task :compile do |args|
   puts "Done!"
   puts ""
   puts ""
+end
+
+task :clean do
+  MRuby.each_target do |t|
+    FileUtils.rm_rf t.build_dir, { :verbose => $verbose }
+  end
+  QGame.each_target do |t|
+    FileUtils.rm_rf t.build_dir, { :verbose => $verbose }
+  end
+
+  Rake::Task['mruby:clean'].invoke
+  Rake::Task['qgame:clean'].invoke
+  Rake::Task['game:clean'].invoke
+
+  puts "Cleaned up build folders"
 end

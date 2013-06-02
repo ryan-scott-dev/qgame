@@ -18,4 +18,11 @@ namespace :game do
   desc "build all targets, install (locally) in-repo"
   task :compile => :game_prepare do |args|
   end
+
+  task :clean do
+    Game.each_target do |t|
+      FileUtils.rm_rf t.build_dir, { :verbose => $verbose }
+    end
+    FileUtils.rm_f depfiles, { :verbose => $verbose }
+  end
 end

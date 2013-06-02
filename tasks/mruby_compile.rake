@@ -1,4 +1,4 @@
-namespace :compile do
+namespace :mruby do
   # load custom rules
   load "#{MRUBY_ROOT}/src/mruby_core.rake"
   load "#{MRUBY_ROOT}/mrblib/mrblib.rake"
@@ -65,7 +65,14 @@ namespace :compile do
   }.flatten
 
   desc "build all targets, install (locally) in-repo"
-  task :mruby => mruby_depfiles do |args|
+  task :compile => mruby_depfiles do |args|
     
+  end
+
+  task :clean do
+    MRuby.each_target do |t|
+      FileUtils.rm_rf t.build_dir, { :verbose => $verbose }
+    end
+    FileUtils.rm_f mruby_depfiles, { :verbose => $verbose }
   end
 end
