@@ -12,7 +12,7 @@ module QGame
       # run generated executable
 
       # Execute with mruby
-      FileUtils.sh ".#{PROJECT_ROOT}/bin/dev_application"
+      FileUtils.sh "./build/host/tools/main"
     end
   end
 end

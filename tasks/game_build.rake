@@ -41,6 +41,7 @@ module Game
         @git = MRuby::Command::Git.new(self)
         @mrbc = MRuby::Command::Mrbc.new(self)
 
+        @bins = %w(main)
         @gems, @libgame = MRuby::Gem::List.new, []
         Game.targets[@name] = self
       end
@@ -58,9 +59,9 @@ module Game
       "#{PROJECT_ROOT}/build/#{self.name}"
     end
 
-    def mrbcfile
-      Game.targets['host'].exefile("#{Game.targets['host'].build_dir}/bin/mrbc")
-    end
+    # def mrbcfile
+    #   MR.targets['host'].exefile("#{Game.targets['host'].build_dir}/bin/mrbc")
+    # end
 
     def define_rules
       compilers.each do |compiler|
@@ -69,7 +70,7 @@ module Game
         else
           compiler.defines += %w(DISABLE_GEMS) 
         end
-        
+
         compiler.define_rules build_dir, File.expand_path(File.join(File.dirname(__FILE__), '..'))
       end
     end

@@ -26,19 +26,43 @@ MRUBY_CONFIG = (ENV['BUILD_CONFIG'] && ENV['BUILD_CONFIG'] != '') ? ENV['BUILD_C
 load MRUBY_CONFIG
 
 # load basic rules
+puts ""
+puts "----------------------------------"
+p "Define MRuby build rules"
+puts "----------------------------------"
 MRuby.each_target do |build|
   build.define_rules
 end
 
 # load basic rules
+puts ""
+puts "----------------------------------"
+p "Define QGame build rules"
+puts "----------------------------------"
 QGame.each_target do |build|
   build.define_rules
 end
 
+# load basic rules
+puts ""
+puts "----------------------------------"
+p "Define Game build rules"
+puts "----------------------------------"
+Game.each_target do |build|
+  build.define_rules
+end
+
+puts ""
+puts "----------------------------------"
+puts "Loading Compile rules"
+puts "----------------------------------"
+
 load "#{QGAME_ROOT}/tasks/mruby_compile.rake"
 load "#{QGAME_ROOT}/tasks/qgame_compile.rake"
 load "#{QGAME_ROOT}/tasks/game_compile.rake"
-
+puts "----------------------------------"
+puts "----------------------------------"
+puts ""
 desc "build all targets, install (locally) in-repo"
 task :compile do |args|
   puts "----------------------------------"
