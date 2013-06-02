@@ -17,6 +17,12 @@
 #include <mruby/string.h>
 #include <mruby/variable.h>
 
+void 
+mrb_init_qgamelib(mrb_state *);
+
+void
+mrb_init_application(mrb_state *);
+
 int
 main(int argc, char **argv)
 {
@@ -30,6 +36,9 @@ main(int argc, char **argv)
   }
   
   printf("%s\n", "Hello World");
+  mrb_init_qgamelib(mrb);
+  mrb_init_application(mrb);
+
   mrb_close(mrb);
 
   return EXIT_SUCCESS;

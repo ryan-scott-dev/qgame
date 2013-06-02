@@ -59,10 +59,6 @@ module Game
       "#{PROJECT_ROOT}/build/#{self.name}"
     end
 
-    # def mrbcfile
-    #   MR.targets['host'].exefile("#{Game.targets['host'].build_dir}/bin/mrbc")
-    # end
-
     def define_rules
       compilers.each do |compiler|
         if respond_to?(:enable_gems?) && enable_gems?

@@ -16,8 +16,13 @@ Game.each_target do
   end
 
   driver_obj = objfile("#{current_build_dir}/driver")
+  dependencies = [driver_obj, application_lib]
+  dependencies << libfile("#{QGame::Build.current.build_dir}/lib/libmruby")
+  dependencies << libfile("#{QGame::Build.current.build_dir}/lib/libqgame")
 
-  file exec => [driver_obj, application_lib, libfile("#{build_dir}/lib/libmruby"), libfile("#{build_dir}/lib/libqgame")] do |t|
+  p "dependencies: #{dependencies}"
+
+  file exec => dependencies do |t|
     gem_flags = gems.map { |g| g.linker.flags }
     gem_flags_before_libraries = gems.map { |g| g.linker.flags_before_libraries }
     gem_flags_after_libraries = gems.map { |g| g.linker.flags_after_libraries }
@@ -32,7 +37,7 @@ Game.each_target do
     FileUtils.mkdir_p File.dirname(clib)
     open(clib, 'w') do |f|
       f.puts IO.read(init)
-      mrbc.run f, application, 'mrbtest_irep'
+      mrbc.run f, application, 'mrbapp_irep'
     end
   end
 end

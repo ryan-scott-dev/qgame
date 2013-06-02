@@ -65,10 +65,6 @@ module QGame
       "#{QGAME_ROOT}/build/#{self.name}"
     end
 
-    def mrbcfile
-      QGame.targets['host'].exefile("#{QGame.targets['host'].build_dir}/bin/mrbc")
-    end
-
     def define_rules
       compilers.each do |compiler|
         if respond_to?(:enable_gems?) && enable_gems?
