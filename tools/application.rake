@@ -4,14 +4,13 @@ Game.each_target do
   current_build_dir = "#{build_dir}/#{relative_from_root}"
 
   exec = exefile("#{current_build_dir}/main")
-  p "Generating Exectuable: #{exec}"
   clib = "#{current_build_dir}/main.c"
   mlib = clib.ext(exts.object)
   init = "#{current_dir}/init_application.c"
   config = "#{PROJECT_ROOT}/config/application.rb"
   application = "#{PROJECT_ROOT}/game/lib/application.rb"
   
-  application_lib = libfile("#{current_build_dir}/mrbtest")
+  application_lib = libfile("#{current_build_dir}/main")
   file application_lib => [mlib].flatten do |t|
     archiver.run t.name, t.prerequisites
   end
@@ -20,8 +19,6 @@ Game.each_target do
   dependencies = [driver_obj, application_lib]
   dependencies << libfile("#{QGame::Build.current.build_dir}/lib/libmruby")
   dependencies << libfile("#{QGame::Build.current.build_dir}/lib/libqgame")
-
-  p "dependencies: #{dependencies}"
 
   file exec => dependencies do |t|
     gem_flags = gems.map { |g| g.linker.flags }
