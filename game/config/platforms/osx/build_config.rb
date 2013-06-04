@@ -8,8 +8,8 @@ Game::Build.new do |conf|
 
   # Linker settings
   conf.linker do |linker|
-    # linker.libraries = %w(libmruby, libqgame)
-    # linker.library_paths = ["#{PROJECT_ROOT}/build/host/lib"]
+    linker.libraries = %w(SDL2)
+    linker.library_paths = ["/Users/administrator/SDL/lib"]
   end
 
   # load specific platform settings

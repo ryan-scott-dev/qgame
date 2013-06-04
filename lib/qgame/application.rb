@@ -2,8 +2,8 @@ module QGame
   class Application
     def run(&block)
       SDL.init
-      @window = SDL.set_video_mode(640, 480, 32, [:hw_surface, :double_buffer])
-
+      @window = Window.create("Test Window", 0, 0, 640, 480, [:shown, :opengl])
+      
       block.call
     end
   end

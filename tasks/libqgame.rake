@@ -1,5 +1,6 @@
 QGame.each_target do
-  file libfile("#{build_dir}/lib/libqgame") => libqgame.flatten do |t|
+  puts "Library: #{(libmruby + libqgame).flatten}"
+  file libfile("#{build_dir}/lib/libqgame") => (libqgame + libmruby).flatten do |t|
     archiver.run t.name, t.prerequisites
     open("#{build_dir}/lib/libqgame.flags.mak", 'w') do |f|
       f.puts 'QGAME_CFLAGS = %s' % cc.all_flags.gsub('"', '\\"') 

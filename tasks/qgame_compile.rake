@@ -10,6 +10,7 @@ namespace :qgame do
   task :qgame_prepare do
     load "#{QGAME_ROOT}/src/qgame_core.rake"
     load "#{QGAME_ROOT}/lib/qgame/qgamelib.rake"
+    load "#{QGAME_ROOT}/tasks/qgame_gems.rake"
     load "#{QGAME_ROOT}/tasks/libqgame.rake"
 
     Rake::Task["qgame:dependencies"].invoke

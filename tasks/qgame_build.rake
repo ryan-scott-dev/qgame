@@ -17,7 +17,7 @@ module QGame
   end
 
   class Build < MRuby::Build
-    attr_reader :libqgame
+    attr_reader :libqgame, :libmruby
 
     def initialize(name='host', &block)
       @name = name.to_s
@@ -41,7 +41,8 @@ module QGame
         @git = MRuby::Command::Git.new(self)
         @mrbc = MRuby::Command::Mrbc.new(self)
 
-        @gems, @libqgame = MRuby::Gem::List.new, []
+        @gems = MRuby::Gem::List.new
+        @libqgame, @libmruby = [], []
         QGame.targets[@name] = self
       end
 

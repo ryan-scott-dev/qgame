@@ -23,6 +23,12 @@ mrb_init_qgamelib(mrb_state *);
 void
 mrb_init_application(mrb_state *);
 
+void 
+mrb_mruby_sdl_gem_init(mrb_state *);
+
+void 
+mrb_init_mrbgems(mrb_state *);
+
 int
 main(int argc, char **argv)
 {
@@ -36,6 +42,9 @@ main(int argc, char **argv)
   }
   
   printf("%s\n", "Hello World");
+  mrb_init_mrbgems(mrb);
+  
+  mrb_mruby_sdl_gem_init(mrb);
   mrb_init_qgamelib(mrb);
   mrb_init_application(mrb);
 
