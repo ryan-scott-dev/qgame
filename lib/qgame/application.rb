@@ -31,7 +31,7 @@ module QGame
     end
 
     def quit
-      # @window.destroy
+      @window.destroy
       SDL.quit
     end
   end
