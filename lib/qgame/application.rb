@@ -17,6 +17,8 @@ module QGame
     end
 
     def handle_event(event_type, event)
+      return nil unless @event_handlers.has_key? event_type
+      
       @event_handlers[event_type].each do |handler|
         handler.call(event)
       end
@@ -29,7 +31,7 @@ module QGame
     end
 
     def quit
-      @window.destroy
+      # @window.destroy
       SDL.quit
     end
   end
