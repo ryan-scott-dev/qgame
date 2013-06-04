@@ -7,8 +7,8 @@ module QGame
     def run(&block)
       SDL.init
       @window = Window.create("Test Window", 0, 0, 640, 480, [:shown, :opengl])
-
-      block.call(self)
+      
+      instance_eval &block
     end
 
     def on_event(event_type, &block)
