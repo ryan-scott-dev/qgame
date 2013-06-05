@@ -6,9 +6,11 @@ module QGame
 
     def run(&block)
       SDL.init
+      SDL.set_gl_version(3, 2)
       @window = Window.create("Test Window", 0, 0, 640, 480, [:shown, :opengl])
-      
-      instance_eval &block
+      @context = @window.create_gl_context
+
+      instance_eval(&block)
     end
 
     def on_event(event_type, &block)
@@ -31,6 +33,7 @@ module QGame
     end
 
     def quit
+      @context.destroy
       @window.destroy
       SDL.quit
     end
