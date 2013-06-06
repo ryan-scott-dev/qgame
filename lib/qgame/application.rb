@@ -6,11 +6,13 @@ module QGame
 
     def run(&block)
       start
-      
+
       instance_eval(&block)
     end
 
     def start
+      QGame::AssetManager.load("/Users/administrator/Projects/qgame/game/assets")
+
       SDL.init
       SDL.set_gl_version(3, 2)
       @window = SDL::Window.create("Test Window", 0, 0, 640, 480, [:shown, :opengl])

@@ -1,6 +1,9 @@
 #include "qgame.h"
-#include "application.h"
+
 #include "mrb_sdl.h"
+
+#include "application.h"
+#include "asset_manager.h"
 
 void
 qgame_init(mrb_state* mrb) {
@@ -8,4 +11,5 @@ qgame_init(mrb_state* mrb) {
 
   mrb_mruby_sdl_gem_init(mrb);
   qgame_application_init(mrb);
+  qgame_asset_manager_init(mrb, qgame);
 }
