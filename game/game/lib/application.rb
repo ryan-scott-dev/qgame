@@ -10,7 +10,14 @@ Game::Application.run do
     handle_events
 
     # update
+
     # render
+    GL.clear_color(0.713, 0.788, 0.623, 1)
+    GL.clear [:color]
+
+    # render logic
+
+    @window.swap_gl_window
   end
 
   # End of application lifecycle

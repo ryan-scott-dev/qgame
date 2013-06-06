@@ -8,8 +8,11 @@ Game::Build.new do |conf|
 
   # Linker settings
   conf.linker do |linker|
-    linker.libraries = %w(SDL2)
-    linker.library_paths = ["/Users/administrator/SDL/lib"]
+    linker.libraries = %w(SDL2 GLEW GL)
+
+    linker.library_paths << "/Users/administrator/SDL/lib"
+    linker.library_paths << "/System/Library/Frameworks/OpenGL.framework/Libraries"
+    linker.library_paths << "/usr/lib"
   end
 
   # load specific platform settings
