@@ -11,13 +11,13 @@ module QGame
     end
 
     def start
-      QGame::AssetManager.load("/Users/administrator/Projects/qgame/game/assets")
-
       SDL.init
       SDL.set_gl_version(3, 2)
       @window = SDL::Window.create("Test Window", 0, 0, 640, 480, [:shown, :opengl])
       @context = @window.create_gl_context
       GLEW.init
+
+      QGame::AssetManager.load
     end
 
     def on_event(event_type, &block)

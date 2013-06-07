@@ -18,6 +18,8 @@ Game::Application.run do
     # render logic
 
     @window.swap_gl_window
+
+    SDL.delay(16)
   end
 
   # End of application lifecycle
