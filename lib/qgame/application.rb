@@ -17,7 +17,7 @@ module QGame
       @context = @window.create_gl_context
       GLEW.init
 
-      QGame::AssetManager.load
+      AssetManager.load
     end
 
     def on_event(event_type, &block)

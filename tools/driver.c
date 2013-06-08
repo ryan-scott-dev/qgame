@@ -27,9 +27,6 @@ void
 qgame_init(mrb_state *);
 
 void 
-mrb_mruby_sdl_gem_init(mrb_state *);
-
-void 
 mrb_init_mrbgems(mrb_state *);
 
 int
