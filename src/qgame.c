@@ -8,6 +8,7 @@
 #include "assets/shader_asset.h"
 #include "assets/model_asset.h"
 #include "assets/texture_asset.h"
+#include "assets/sound_asset.h"
 
 void
 qgame_init(mrb_state* mrb) {
@@ -20,4 +21,5 @@ qgame_init(mrb_state* mrb) {
   qgame_shader_asset_init(mrb, qgame);
   qgame_model_asset_init(mrb, qgame);
   qgame_texture_asset_init(mrb, qgame);
+  qgame_sound_asset_init(mrb, qgame);
 }
