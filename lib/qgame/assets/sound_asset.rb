@@ -6,6 +6,10 @@ module QGame
       @name = name
     end
 
+    def type
+      :sound
+    end
+
     def self.from_file(file)
       name = asset_name_from_file(file)
       

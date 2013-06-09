@@ -1,7 +1,7 @@
 module QGame
   module AssetManager
     @@asset_loaders = {}
-    @@assets = []
+    @@assets = {}
 
     def self.load
       start = Time.now
@@ -30,7 +30,8 @@ module QGame
       if loader.nil?
         puts "Don't know how to process asset type '#{asset_type}'"  
       else
-        loader.load(asset_path)
+        asset = loader.load(asset_path)
+        add_asset(asset)
       end
     end
 
@@ -44,10 +45,20 @@ module QGame
       @@asset_loaders[asset_type] = loader
     end
 
-    def self.add_asset(asset_type, asset)
-      @@assets[asset_type] = [] unless @@assets.has_key? asset_type
-      @@assets[asset_type][asset.name] = {} unless @@assets[asset_type].has_key? asset.name
-      @@assets[asset_type][asset.name] = asset
+    def self.assets
+      @@assets
+    end
+
+    def self.add_asset(asset)
+      unless assets.has_key? asset.type
+        assets[asset.type] = {} 
+        singleton_class.define_method asset.type do |name|
+          assets[asset.type][name]
+        end
+      end
+
+      assets[asset.type][asset.name] = {} unless assets[asset.type].has_key? asset.name
+      assets[asset.type][asset.name] = asset
     end
   end
 end

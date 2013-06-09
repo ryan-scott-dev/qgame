@@ -6,6 +6,8 @@ Game::Application.run do
     @running = false
   end
 
+  puts Game::AssetManager.model('triangle').inspect
+
   while(@running)
     handle_events
 

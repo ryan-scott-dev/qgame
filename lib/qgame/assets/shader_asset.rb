@@ -6,7 +6,7 @@ module QGame
       @name = name
       @type = ShaderAsset.type_to_sym(type)
     end
-
+    
     def self.type_to_sym(type)
       case type
       when 'frag'
