@@ -24,6 +24,9 @@ module QGame
 
       shader = ShaderAsset.new(name, type)
       shader.load_from_file(shader.type, file)
+      puts "Loaded #{file}"
+
+      shader
     end
 
     def self.shader_name_from_file(file)

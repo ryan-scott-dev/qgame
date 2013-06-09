@@ -9,35 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char* read_file(const char* path) {
-  char *source = NULL;
-  FILE *fp = fopen(path, "r");
-  if (fp != NULL) {
-    /* Go to the end of the file. */
-    if (fseek(fp, 0L, SEEK_END) == 0) {
-      /* Get the size of the file. */
-      long bufsize = ftell(fp);
-      if (bufsize == -1) { /* Error */ }
-
-      /* Allocate our buffer to that size. */
-      source = malloc(sizeof(char) * (bufsize + 1));
-
-      /* Go back to the start of the file. */
-      if (fseek(fp, 0L, SEEK_SET) == 0) { /* Error */ }
-
-      /* Read the entire file into memory. */
-      size_t newLen = fread(source, sizeof(char), bufsize, fp);
-      if (newLen == 0) {
-        fputs("Error reading file", stderr);
-      } else {
-        source[++newLen] = '\0'; /* Just to be safe. */
-      }
-    }
-    fclose(fp);
-  }
-
-  return source;
-}
+#include "utils.h"
 
 GLenum 
 shader_type_sym_to_enum(mrb_state* mrb, mrb_sym shader_type) {
@@ -66,6 +38,8 @@ qgame_shader_asset_load_from_file(mrb_state* mrb, mrb_value self)
 
   char* shader_source = read_file(mrb_string_value_ptr(mrb, path));
   glShaderSource(shader, 1, (const GLchar**)&shader_source, NULL);
+  
+  printf("%s\n", shader_source);
   glCompileShader(shader);
   free(shader_source);
 
@@ -79,7 +53,7 @@ qgame_shader_asset_load_from_file(mrb_state* mrb, mrb_value self)
       glGetShaderInfoLog(shader, infoLogLength, NULL, strInfoLog);
 
       glDeleteShader(shader); shader = NULL;
-      mrb_raisef(mrb, E_RUNTIME_ERROR, "Failed compiling shader: %S", mrb_str_new_cstr(mrb, &strInfoLog));
+      mrb_raisef(mrb, E_RUNTIME_ERROR, "Failed compiling shader '%S': %S", path, mrb_str_new_cstr(mrb, &strInfoLog));
   }
 
   mrb_value shader_id = mrb_fixnum_value(shader);
