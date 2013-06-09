@@ -28,12 +28,14 @@ QGame::Build.new do |conf|
     cc.include_paths = ["#{QGAME_ROOT}/include", "#{MRUBY_ROOT}/include"]
     cc.include_paths.concat gem_include_paths
     cc.include_paths.concat ['/Users/administrator/SDL/include']
+    cc.include_paths << "/usr/include/GL"
   end
 
   # Linker settings
   conf.linker do |linker|
     linker.libraries = %w(libmruby)
     linker.library_paths = ["#{QGAME_ROOT}/build/host/lib"]
+    linker.library_paths << "/usr/lib"
   end
 end
 

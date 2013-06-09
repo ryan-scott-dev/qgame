@@ -17,6 +17,8 @@ module QGame
       @context = @window.create_gl_context
       GLEW.init
 
+      AssetManager.register_asset_loader("shaders", ShaderAssetLoader.new)
+      AssetManager.register_asset_loader("models", ModelAssetLoader.new)
       AssetManager.load
     end
 

@@ -6,7 +6,7 @@ QGame.each_target do
   self.libqgame << objfile("#{current_build_dir}/qgamelib")
   
   file objfile("#{current_build_dir}/qgamelib") => "#{current_build_dir}/qgamelib.c"
-  file "#{current_build_dir}/qgamelib.c" => [mrbcfile] + Dir.glob("#{current_dir}/*.rb").sort do |t|
+  file "#{current_build_dir}/qgamelib.c" => [mrbcfile] + Dir.glob("#{current_dir}/**/*.rb").sort do |t|
     mrbc_, *rbfiles = t.prerequisites
     FileUtils.mkdir_p File.dirname(t.name)
     open(t.name, 'w') do |f|
