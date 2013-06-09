@@ -7,6 +7,7 @@
 #include "asset_manager.h"
 #include "assets/shader_asset.h"
 #include "assets/model_asset.h"
+#include "assets/texture_asset.h"
 
 void
 qgame_init(mrb_state* mrb) {
@@ -18,4 +19,5 @@ qgame_init(mrb_state* mrb) {
   qgame_asset_manager_init(mrb, qgame);
   qgame_shader_asset_init(mrb, qgame);
   qgame_model_asset_init(mrb, qgame);
+  qgame_texture_asset_init(mrb, qgame);
 }

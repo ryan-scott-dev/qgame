@@ -19,6 +19,7 @@ module QGame
 
       AssetManager.register_asset_loader("shaders", ShaderAssetLoader.new)
       AssetManager.register_asset_loader("models", ModelAssetLoader.new)
+      AssetManager.register_asset_loader("textures", TextureAssetLoader.new)
       AssetManager.load
     end
 

@@ -38,8 +38,6 @@ qgame_shader_asset_load_from_file(mrb_state* mrb, mrb_value self)
 
   char* shader_source = read_file(mrb_string_value_ptr(mrb, path));
   glShaderSource(shader, 1, (const GLchar**)&shader_source, NULL);
-  
-  printf("%s\n", shader_source);
   glCompileShader(shader);
   free(shader_source);
 
