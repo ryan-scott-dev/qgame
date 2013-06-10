@@ -6,18 +6,20 @@ Game::Application.run do
     @running = false
   end
 
-  puts Game::AssetManager.model('triangle').inspect
+  sprite = Game::Sprite.new
 
   while(@running)
     handle_events
 
     # update
+    sprite.update
 
     # render
-    GL.clear_color(0.713, 0.788, 0.623, 1)
+    GL.clear_color(0, 0, 0, 1)
     GL.clear [:color]
 
     # render logic
+    Game::RenderManager.render
 
     @window.swap_gl_window
 

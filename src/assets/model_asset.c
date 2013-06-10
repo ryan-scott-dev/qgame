@@ -58,10 +58,45 @@ qgame_model_asset_load_from_file(mrb_state* mrb, mrb_value self)
   return self;
 }
 
+mrb_value
+qgame_model_asset_bind(mrb_state* mrb, mrb_value self)
+{
+  mrb_value vao_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "vao_id"));
+  GLuint vao = mrb_fixnum(vao_id);
+
+  mrb_value vbo_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "vbo_id"));
+  GLuint vbo = mrb_fixnum(vbo_id);
+  
+  glBindBuffer(GL_ARRAY_BUFFER, vbo);
+  glBindVertexArray(vao);
+
+  return self;
+}
+
+mrb_value
+qgame_model_asset_unbind(mrb_state* mrb, mrb_value self)
+{
+  glBindVertexArray(0);
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+  return self;
+}
+
+mrb_value
+qgame_model_asset_render(mrb_state* mrb, mrb_value self)
+{
+  glDrawArrays(GL_TRIANGLES, 0, 3);
+
+  return self;
+}
+
 void
 qgame_model_asset_init(mrb_state* mrb, struct RClass* mrb_qgame_class) {
   struct RClass *model_asset_class = mrb_define_class_under(mrb, mrb_qgame_class, 
     "ModelAsset", mrb->object_class);
 
   mrb_define_method(mrb, model_asset_class, "load_from_file", qgame_model_asset_load_from_file, ARGS_REQ(1));
+  mrb_define_method(mrb, model_asset_class, "render", qgame_model_asset_render, ARGS_NONE());
+  mrb_define_method(mrb, model_asset_class, "bind", qgame_model_asset_bind, ARGS_NONE());
+  mrb_define_method(mrb, model_asset_class, "unbind", qgame_model_asset_unbind, ARGS_NONE());
 }

@@ -52,6 +52,7 @@ qgame_shader_asset_load_from_file(mrb_state* mrb, mrb_value self)
 
       glDeleteShader(shader); shader = NULL;
       mrb_raisef(mrb, E_RUNTIME_ERROR, "Failed compiling shader '%S': %S", path, mrb_str_new_cstr(mrb, &strInfoLog));
+      return self;
   }
 
   mrb_value shader_id = mrb_fixnum_value(shader);
