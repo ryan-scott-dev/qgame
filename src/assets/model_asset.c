@@ -4,7 +4,6 @@
 #include <mruby/variable.h>
 
 #include <glew.h>
-#include <SDL2/SDL_opengl.h>
 
 #include <stdlib.h>
 #include <string.h>
@@ -27,23 +26,29 @@ qgame_model_asset_load_from_file(mrb_state* mrb, mrb_value self)
 
   char *model_source = read_file(mrb_string_value_ptr(mrb, path));
 
+  char* count_source = strdup(model_source);
+
   /* Parse the file into a float array */
-  char* tokens = strtok(model_source, " ,\n");
+  char* tokens = strtok(count_source, " ,\n");
   int model_size = 0;
   while (tokens != NULL) {
     model_size++;
     tokens = strtok (NULL, " ,\n");
   }
-
+  free(count_source);
+  char* data_source = strdup(model_source);
+  
   GLfloat vertexData[model_size];
   int index = 0;
-  tokens = strtok(model_source, " ,\n");
+  tokens = strtok(data_source, " ,\n");
   while (tokens != NULL) {
     vertexData[index++] = atof(tokens);
     tokens = strtok (NULL, " ,\n");
   }
 
+  free(data_source);
   free(model_source);
+
   glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
 
   mrb_value vao_id = mrb_fixnum_value(vao);

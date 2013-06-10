@@ -15,7 +15,7 @@ Game::Application.run do
     sprite.update
 
     # render
-    GL.clear_color(0, 0, 0, 1)
+    GL.clear_color(0.713, 0.788, 0.623, 1)
     GL.clear [:color]
 
     # render logic
@@ -24,6 +24,11 @@ Game::Application.run do
     @window.swap_gl_window
 
     SDL.delay(16)
+
+    error = GL.error
+    unless error.nil?
+      puts "GL Error: #{error}"
+    end
   end
 
   # End of application lifecycle

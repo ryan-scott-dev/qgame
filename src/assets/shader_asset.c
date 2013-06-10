@@ -4,7 +4,6 @@
 #include <mruby/variable.h>
 
 #include <glew.h>
-#include <SDL2/SDL_opengl.h>
 
 #include <stdio.h>
 #include <stdlib.h>

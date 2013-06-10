@@ -4,7 +4,6 @@
 #include <mruby/variable.h>
 
 #include <glew.h>
-#include <SDL2/SDL_opengl.h>
 
 mrb_value
 qgame_shader_program_asset_link(mrb_state* mrb, mrb_value self)
