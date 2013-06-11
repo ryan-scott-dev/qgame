@@ -3,7 +3,8 @@ module QGame
     @@model = nil
     @@shader = nil
 
-    def initialize
+    def initialize(args = {})
+      @texture = args[:texture]
     end
 
     def self.model
@@ -23,8 +24,12 @@ module QGame
       Sprite.model.bind
       Sprite.shader.bind
       
+      @texture.bind unless @texture.nil?
+      Sprite.shader.set_uniform('tex', 0)
+
       Sprite.model.render
       
+      @texture.unbind unless @texture.nil?
       Sprite.shader.unbind
       Sprite.model.unbind
     end

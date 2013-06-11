@@ -6,7 +6,7 @@ Game::Application.run do
     @running = false
   end
 
-  sprite = Game::Sprite.new
+  sprite = Game::Sprite.new(:texture => Game::AssetManager.texture('wood'))
 
   while(@running)
     handle_events

@@ -59,9 +59,14 @@ qgame_texture_asset_load_from_file(mrb_state* mrb, mrb_value self)
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
    
     // Edit the texture object's image data using the information SDL_Surface gives us
-    glTexImage2D( GL_TEXTURE_2D, 0, nOfColors, surface->w, surface->h, 0,
+    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, surface->w, surface->h, 0,
                         texture_format, GL_UNSIGNED_BYTE, surface->pixels );
-
+    
+    GLenum err = glGetError();
+    if (err != GL_NO_ERROR) {
+      printf("Error: %i\n", err);
+    }
+    
     mrb_value texture_id = mrb_fixnum_value(texture);
     mrb_iv_set(mrb, self, mrb_intern(mrb, "texture_id"), texture_id);
   
@@ -78,10 +83,32 @@ qgame_texture_asset_load_from_file(mrb_state* mrb, mrb_value self)
   return self;
 }
 
+mrb_value
+qgame_texture_asset_bind(mrb_state* mrb, mrb_value self)
+{
+  mrb_value mrb_texture_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "texture_id"));
+  GLuint texture_id = mrb_fixnum(mrb_texture_id);
+  
+  glActiveTexture(GL_TEXTURE0);
+  glBindTexture(GL_TEXTURE_2D, texture_id);
+
+  return self;
+}
+
+mrb_value
+qgame_texture_asset_unbind(mrb_state* mrb, mrb_value self)
+{
+  glBindTexture(GL_TEXTURE_2D, 0);
+
+  return self;
+}
+
 void
 qgame_texture_asset_init(mrb_state* mrb, struct RClass* mrb_qgame_class) {
   struct RClass *texture_asset_class = mrb_define_class_under(mrb, mrb_qgame_class, 
     "TextureAsset", mrb->object_class);
 
   mrb_define_method(mrb, texture_asset_class, "load_from_file", qgame_texture_asset_load_from_file, ARGS_REQ(1));
+  mrb_define_method(mrb, texture_asset_class, "bind", qgame_texture_asset_bind, ARGS_NONE());
+  mrb_define_method(mrb, texture_asset_class, "unbind", qgame_texture_asset_unbind, ARGS_NONE());
 }

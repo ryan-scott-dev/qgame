@@ -50,6 +50,9 @@ qgame_model_asset_load_from_file(mrb_state* mrb, mrb_value self)
   free(model_source);
 
   glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
+  int triangle_size = 5;
+  mrb_value triangle_count = mrb_fixnum_value(model_size / triangle_size);
+  mrb_iv_set(mrb, self, mrb_intern(mrb, "triangle_count"), triangle_count);
 
   mrb_value vao_id = mrb_fixnum_value(vao);
   mrb_iv_set(mrb, self, mrb_intern(mrb, "vao_id"), vao_id);
@@ -90,7 +93,10 @@ qgame_model_asset_unbind(mrb_state* mrb, mrb_value self)
 mrb_value
 qgame_model_asset_render(mrb_state* mrb, mrb_value self)
 {
-  glDrawArrays(GL_TRIANGLES, 0, 3);
+  mrb_value mrb_triangle_count = mrb_iv_get(mrb, self, mrb_intern(mrb, "triangle_count"));
+  int triangle_count = mrb_fixnum(mrb_triangle_count);
+  
+  glDrawArrays(GL_TRIANGLES, 0, triangle_count);
 
   return self;
 }

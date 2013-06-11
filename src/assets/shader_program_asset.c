@@ -9,7 +9,6 @@ mrb_value
 qgame_shader_program_asset_link(mrb_state* mrb, mrb_value self)
 {
   mrb_value vertex_asset, fragment_asset;  
-  
   mrb_get_args(mrb, "oo", &vertex_asset, &fragment_asset);
 
   GLuint program = glCreateProgram();
@@ -59,10 +58,13 @@ qgame_shader_program_asset_bind(mrb_state* mrb, mrb_value self)
   glUseProgram(program);
 
   // connect the xyz to the "vert" attribute of the vertex shader
-  GLint attrib = glGetAttribLocation(program, "vert");
-  
+  GLint attrib = glGetAttribLocation(program, "vert");  
   glEnableVertexAttribArray(attrib);
-  glVertexAttribPointer(attrib, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+  glVertexAttribPointer(attrib, 3, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), NULL);
+
+  GLint attribTex = glGetAttribLocation(program, "vertTexCoord");  
+  glEnableVertexAttribArray(attribTex);
+  glVertexAttribPointer(attribTex, 2, GL_FLOAT, GL_TRUE, 5*sizeof(GLfloat), (const GLvoid*)(3 * sizeof(GLfloat)));
 
   return self;
 }
@@ -75,6 +77,28 @@ qgame_shader_program_asset_unbind(mrb_state* mrb, mrb_value self)
   return self;
 }
 
+mrb_value
+qgame_shader_program_asset_set_uniform(mrb_state* mrb, mrb_value self)
+{
+  mrb_value program_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "program_id"));
+  GLuint program = mrb_fixnum(program_id);
+
+  mrb_value mrb_uniform_name;
+  mrb_int value;
+  mrb_get_args(mrb, "Si", &mrb_uniform_name, &value);
+  char* uniform_name = mrb_string_value_ptr(mrb, mrb_uniform_name);
+
+  GLint uniform_id = glGetUniformLocation(program, uniform_name);
+  if(uniform_id == -1) {
+    printf("Program uniform not found: %s\n", uniform_name);
+    return self;
+  }
+  
+  glUniform1i(uniform_id, value);
+
+  return self;
+}
+
 void
 qgame_shader_program_asset_init(mrb_state* mrb, struct RClass* mrb_qgame_class) {
   struct RClass *shader_program_asset_class = mrb_define_class_under(mrb, mrb_qgame_class, 
@@ -83,4 +107,5 @@ qgame_shader_program_asset_init(mrb_state* mrb, struct RClass* mrb_qgame_class) 
   mrb_define_method(mrb, shader_program_asset_class, "link", qgame_shader_program_asset_link, ARGS_REQ(2));
   mrb_define_method(mrb, shader_program_asset_class, "bind", qgame_shader_program_asset_bind, ARGS_NONE());
   mrb_define_method(mrb, shader_program_asset_class, "unbind", qgame_shader_program_asset_unbind, ARGS_NONE());
+  mrb_define_method(mrb, shader_program_asset_class, "set_uniform", qgame_shader_program_asset_set_uniform, ARGS_REQ(2));
 }
