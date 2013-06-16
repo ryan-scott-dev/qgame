@@ -6,13 +6,23 @@ Game::Application.run do
     @running = false
   end
 
-  sprite = Game::Sprite.new(:texture => Game::AssetManager.texture('wood'))
+  sprites = []
+  size = 60
+  (1..10).each do |offset_x|
+    (1..10).each do |offset_y|
+      sprites << Game::Sprite.new(:texture => Game::AssetManager.texture('wood'), 
+        :position => Vec2.new(offset_x * size, offset_y * size), :scale => Vec2.new(size))
+    end
+  end
+  
 
   while(@running)
     handle_events
 
     # update
-    sprite.update
+    sprites.each do |sprite|
+      sprite.update
+    end
 
     # render
     GL.clear_color(0.713, 0.788, 0.623, 1)
