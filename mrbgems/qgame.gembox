@@ -1,4 +1,5 @@
 MRuby::GemBox.new do |conf|
   conf.gem :github => 'Archytaus/mruby-sdl', :branch => 'master'
   conf.gem :github => 'Archytaus/mruby-dir', :branch => 'master'
+  conf.gem :github => 'Archytaus/mruby-gmath', :branch => 'master'
 end

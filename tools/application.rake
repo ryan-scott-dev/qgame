@@ -17,7 +17,7 @@ Game.each_target do
 
   driver_obj = objfile("#{current_build_dir}/driver")
   dependencies = [driver_obj, application_lib]
-  dependencies << libfile("#{QGame::Build.current.build_dir}/lib/libmruby")
+  dependencies << libfile("#{MRuby::Build.current.build_dir}/lib/libmruby")
   dependencies << libfile("#{QGame::Build.current.build_dir}/lib/libqgame")
 
   file exec => dependencies do |t|
