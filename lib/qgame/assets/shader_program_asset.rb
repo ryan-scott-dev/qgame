@@ -12,6 +12,10 @@ module QGame
     def set_uniform(name, value)
       if value.is_a? Fixnum
         set_uniform_fixnum(name, value)
+      elsif value.is_a? Float
+        set_uniform_float(name, value)
+      elsif value.is_a? Vec2
+        set_uniform_vec2(name, value)
       elsif value.is_a? Mat4
         set_uniform_mat4(name, value)
       end

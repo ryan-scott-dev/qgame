@@ -2,7 +2,10 @@
 
 #include <mruby/string.h>
 #include <mruby/variable.h>
+
+#include "mrb_vec2.h"
 #include "mrb_mat4.h"
+
 #include <glew.h>
 
 mrb_value
@@ -100,6 +103,52 @@ qgame_shader_program_asset_set_uniform_fixnum(mrb_state* mrb, mrb_value self)
 }
 
 mrb_value
+qgame_shader_program_asset_set_uniform_float(mrb_state* mrb, mrb_value self)
+{
+  mrb_value program_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "program_id"));
+  GLuint program = mrb_fixnum(program_id);
+
+  mrb_value mrb_uniform_name;
+  mrb_float value;
+  mrb_get_args(mrb, "Sf", &mrb_uniform_name, &value);
+  char* uniform_name = mrb_string_value_ptr(mrb, mrb_uniform_name);
+
+  GLint uniform_id = glGetUniformLocation(program, uniform_name);
+  if(uniform_id == -1) {
+    printf("Program uniform not found: %s\n", uniform_name);
+    return self;
+  }
+  
+  glUniform1f(uniform_id, value);
+
+  return self;
+}
+
+mrb_value
+qgame_shader_program_asset_set_uniform_vec2(mrb_state* mrb, mrb_value self)
+{
+  mrb_value program_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "program_id"));
+  GLuint program = mrb_fixnum(program_id);
+
+  mrb_value mrb_uniform_name;
+  mrb_value value;
+  mrb_get_args(mrb, "So", &mrb_uniform_name, &value);
+  char* uniform_name = mrb_string_value_ptr(mrb, mrb_uniform_name);
+
+  GLint uniform_id = glGetUniformLocation(program, uniform_name);
+  if(uniform_id == -1) {
+    printf("Program uniform not found: %s\n", uniform_name);
+    return self;
+  }
+  
+  struct vec2* vector = vec2_get_ptr(mrb, value);
+  glUniform2fv(uniform_id, 1, vector);
+
+  return self;
+}
+
+
+mrb_value
 qgame_shader_program_asset_set_uniform_mat4(mrb_state* mrb, mrb_value self)
 {
   mrb_value program_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "program_id"));
@@ -132,5 +181,7 @@ qgame_shader_program_asset_init(mrb_state* mrb, struct RClass* mrb_qgame_class) 
   mrb_define_method(mrb, shader_program_asset_class, "unbind", qgame_shader_program_asset_unbind, ARGS_NONE());
 
   mrb_define_method(mrb, shader_program_asset_class, "set_uniform_fixnum", qgame_shader_program_asset_set_uniform_fixnum, ARGS_REQ(2));
+  mrb_define_method(mrb, shader_program_asset_class, "set_uniform_float", qgame_shader_program_asset_set_uniform_float, ARGS_REQ(2));
   mrb_define_method(mrb, shader_program_asset_class, "set_uniform_mat4", qgame_shader_program_asset_set_uniform_mat4, ARGS_REQ(2));
+  mrb_define_method(mrb, shader_program_asset_class, "set_uniform_vec2", qgame_shader_program_asset_set_uniform_vec2, ARGS_REQ(2));
 }
