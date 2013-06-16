@@ -6,7 +6,10 @@ Game.each_target do
   self.libgame << objfile("#{current_build_dir}/gamelib")
   
   file objfile("#{current_build_dir}/gamelib") => "#{current_build_dir}/gamelib.c"
-  file "#{current_build_dir}/gamelib.c" => [mrbcfile] + Dir.glob("#{current_dir}/**/*.rb").sort do |t|
+  ruby_files = Dir.glob("#{current_dir}/**/*.rb")
+  ruby_files.reject! {|file| file.include? 'application.rb'}
+  
+  file "#{current_build_dir}/gamelib.c" => [mrbcfile] + ruby_files.sort do |t|
     mrbc_, *rbfiles = t.prerequisites
     FileUtils.mkdir_p File.dirname(t.name)
     open(t.name, 'w') do |f|

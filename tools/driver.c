@@ -18,6 +18,9 @@
 #include <mruby/variable.h>
 
 void 
+mrb_init_gamelib(mrb_state *);
+
+void 
 mrb_init_qgamelib(mrb_state *);
 
 void
@@ -45,6 +48,7 @@ main(int argc, char **argv)
   
   qgame_init(mrb);
   mrb_init_qgamelib(mrb);
+  mrb_init_gamelib(mrb);
   
   mrb_init_application(mrb);
 

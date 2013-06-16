@@ -9,8 +9,6 @@ module QGame
       @rotation = args[:rotation] || 0.0
       @scale = args[:scale] || Vec2.new(1)
       @offset = args[:offset] || Vec2.new(0.5)
-
-      @timestep = 0
     end
 
     def self.model
@@ -23,11 +21,6 @@ module QGame
     end
 
     def update
-      @timestep += 0.01
-      # @position.x = 3 + Math.sin(@timestep)
-      # @position.y = 2 + Math.cos(@timestep)
-      @rotation = @timestep
-
       QGame::RenderManager.submit(self)
     end
 

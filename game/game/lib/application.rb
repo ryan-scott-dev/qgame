@@ -10,8 +10,8 @@ Game::Application.run do
   size = 60
   (1..10).each do |offset_x|
     (1..10).each do |offset_y|
-      sprites << Game::Sprite.new(:texture => Game::AssetManager.texture('wood'), 
-        :position => Vec2.new(offset_x * size, offset_y * size), :scale => Vec2.new(size))
+      sprites << Game::WoodSprite.new(:position => Vec2.new(offset_x * size, offset_y * size), 
+        :scale => Vec2.new(size))
     end
   end
   
