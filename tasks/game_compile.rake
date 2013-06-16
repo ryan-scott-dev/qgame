@@ -8,8 +8,9 @@ namespace :game do
 
   # load custom rules
   task :game_prepare do
-    load "#{PROJECT_ROOT}/game/src/game_core.rake"
-    # load "#{QGAME_ROOT}/tasks/libgame.rake"
+    # load "#{PROJECT_ROOT}/game/src/game_core.rake"
+    load "#{PROJECT_ROOT}/game/lib/gamelib.rake"
+    load "#{QGAME_ROOT}/tasks/libgame.rake"
     load "#{QGAME_ROOT}/tools/application.rake"
 
     Rake::Task["game:dependencies"].invoke

@@ -19,6 +19,7 @@ Game.each_target do
   dependencies = [driver_obj, application_lib]
   dependencies << libfile("#{MRuby::Build.current.build_dir}/lib/libmruby")
   dependencies << libfile("#{QGame::Build.current.build_dir}/lib/libqgame")
+  dependencies << libfile("#{Game::Build.current.build_dir}/lib/libgame")
 
   file exec => dependencies do |t|
     gem_flags = gems.map { |g| g.linker.flags }

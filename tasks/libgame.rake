@@ -1,4 +1,5 @@
 Game.each_target do
+  puts "Library: #{libgame.flatten}"
   file libfile("#{build_dir}/lib/libgame") => libgame.flatten do |t|
     archiver.run t.name, t.prerequisites
     open("#{build_dir}/lib/libgame.flags.mak", 'w') do |f|
