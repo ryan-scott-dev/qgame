@@ -5,9 +5,10 @@ module QGame
 
     def initialize(args = {})
       @texture = args[:texture]
-      @position = args[:position] || Vec2.new
+      @position = args[:position] || Vec2.new(2)
       @rotation = args[:rotation] || 0.0
       @scale = args[:scale] || Vec2.new(1)
+      @offset = args[:offset] || Vec2.new(0.5)
     end
 
     def self.model
@@ -34,6 +35,7 @@ module QGame
       Sprite.shader.set_uniform('position', @position)
       Sprite.shader.set_uniform('rotation', @rotation)
       Sprite.shader.set_uniform('scale', @scale)
+      Sprite.shader.set_uniform('offset', @offset)
 
       Sprite.model.render
       
