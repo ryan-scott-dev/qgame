@@ -2,7 +2,7 @@
 
 #include <mruby/string.h>
 #include <mruby/variable.h>
-
+#include "mrb_mat4.h"
 #include <glew.h>
 
 mrb_value
@@ -78,7 +78,7 @@ qgame_shader_program_asset_unbind(mrb_state* mrb, mrb_value self)
 }
 
 mrb_value
-qgame_shader_program_asset_set_uniform(mrb_state* mrb, mrb_value self)
+qgame_shader_program_asset_set_uniform_fixnum(mrb_state* mrb, mrb_value self)
 {
   mrb_value program_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "program_id"));
   GLuint program = mrb_fixnum(program_id);
@@ -99,6 +99,29 @@ qgame_shader_program_asset_set_uniform(mrb_state* mrb, mrb_value self)
   return self;
 }
 
+mrb_value
+qgame_shader_program_asset_set_uniform_mat4(mrb_state* mrb, mrb_value self)
+{
+  mrb_value program_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "program_id"));
+  GLuint program = mrb_fixnum(program_id);
+
+  mrb_value mrb_uniform_name;
+  mrb_value value;
+  mrb_get_args(mrb, "So", &mrb_uniform_name, &value);
+  char* uniform_name = mrb_string_value_ptr(mrb, mrb_uniform_name);
+
+  GLint uniform_id = glGetUniformLocation(program, uniform_name);
+  if(uniform_id == -1) {
+    printf("Program uniform not found: %s\n", uniform_name);
+    return self;
+  }
+
+  struct mat4* matrix = mat4_get_ptr(mrb, value);
+  glUniformMatrix4fv(uniform_id, 1, GL_TRUE, matrix);
+
+  return self;
+}
+
 void
 qgame_shader_program_asset_init(mrb_state* mrb, struct RClass* mrb_qgame_class) {
   struct RClass *shader_program_asset_class = mrb_define_class_under(mrb, mrb_qgame_class, 
@@ -107,5 +130,7 @@ qgame_shader_program_asset_init(mrb_state* mrb, struct RClass* mrb_qgame_class) 
   mrb_define_method(mrb, shader_program_asset_class, "link", qgame_shader_program_asset_link, ARGS_REQ(2));
   mrb_define_method(mrb, shader_program_asset_class, "bind", qgame_shader_program_asset_bind, ARGS_NONE());
   mrb_define_method(mrb, shader_program_asset_class, "unbind", qgame_shader_program_asset_unbind, ARGS_NONE());
-  mrb_define_method(mrb, shader_program_asset_class, "set_uniform", qgame_shader_program_asset_set_uniform, ARGS_REQ(2));
+
+  mrb_define_method(mrb, shader_program_asset_class, "set_uniform_fixnum", qgame_shader_program_asset_set_uniform_fixnum, ARGS_REQ(2));
+  mrb_define_method(mrb, shader_program_asset_class, "set_uniform_mat4", qgame_shader_program_asset_set_uniform_mat4, ARGS_REQ(2));
 }

@@ -8,5 +8,14 @@ module QGame
 
       link(vertex_shader, fragment_shader)
     end
+
+    def set_uniform(name, value)
+      if value.is_a? Fixnum
+        set_uniform_fixnum(name, value)
+      elsif value.is_a? Mat4
+        set_uniform_mat4(name, value)
+      end
+
+    end
   end
 end

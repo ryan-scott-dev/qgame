@@ -26,6 +26,7 @@ module QGame
       
       @texture.bind unless @texture.nil?
       Sprite.shader.set_uniform('tex', 0)
+      Sprite.shader.set_uniform('projection', Mat4.orthogonal_2d(0, 8, 0, 6, -1, 1))
 
       Sprite.model.render
       
