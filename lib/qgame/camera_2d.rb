@@ -1,5 +1,7 @@
 module QGame
   class Camera2D
+    attr_accessor :position
+    
     def initialize(args = {})
       @position = args[:position] || Vec2.new
     end
