@@ -1,5 +1,3 @@
-- Suppress / customise mruby compile output
-- Create mruby gem for QGame
-- Compile QGame with application source
-- Compile application native code to application executable
-- Run application
+- Create ruby gem for QGame
+- Remove .rake and .c files from the game structure (i.e. add those tasks into the qgame framework)
+- 
