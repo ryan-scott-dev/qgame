@@ -6,6 +6,8 @@ in vec2 vertTexCoord;
 out vec2 fragTexCoord;
 
 uniform mat4 projection;
+uniform mat4 view;
+
 uniform vec2 position;
 uniform float rotation;
 uniform vec2 scale;
@@ -37,5 +39,5 @@ void main() {
 
     mat4 world = position_mat * rotation_mat * scale_mat * offset_mat;
 
-    gl_Position = projection * world * vec4(vert, 1);
+    gl_Position = projection * view * world * vec4(vert, 1);
 }

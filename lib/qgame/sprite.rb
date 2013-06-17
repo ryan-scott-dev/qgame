@@ -12,12 +12,12 @@ module QGame
     end
 
     def self.model
-      @@model ||= Game::AssetManager.model('triangle')
+      @@model ||= QGame::AssetManager.model('triangle')
     end
 
     def self.shader
-      @@shader ||= ShaderProgramAsset.new(Game::AssetManager.vertex('simple'), 
-                                          Game::AssetManager.fragment('white'))
+      @@shader ||= ShaderProgramAsset.new(QGame::AssetManager.vertex('simple'), 
+                                          QGame::AssetManager.fragment('white'))
     end
 
     def update
@@ -31,6 +31,7 @@ module QGame
       @texture.bind unless @texture.nil?
       Sprite.shader.set_uniform('tex', 0)
       Sprite.shader.set_uniform('projection', Mat4.orthogonal_2d(0, 800, 0, 600, -1, 1))
+      Sprite.shader.set_uniform('view', QGame::RenderManager.camera.view)
 
       Sprite.shader.set_uniform('position', @position)
       Sprite.shader.set_uniform('rotation', @rotation)

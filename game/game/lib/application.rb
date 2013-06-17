@@ -2,6 +2,8 @@ Game::Application.run do
   # Full application lifecycle
   @running = true
 
+  Game::RenderManager.camera = Game::Camera2D.new(:position => Vec2.new(100, 0))
+
   on_event :quit do |event|
     @running = false
   end
@@ -14,7 +16,6 @@ Game::Application.run do
         :scale => Vec2.new(size))
     end
   end
-  
 
   while(@running)
     handle_events
