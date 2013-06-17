@@ -1,5 +1,7 @@
 module QGame
   class Application
+    @@config = {}
+
     def initialize
       @event_handlers = {}
     end
@@ -9,11 +11,31 @@ module QGame
 
       instance_eval(&block)
     end
+    
+    def self.conf
+      @@config
+    end
+
+    def title
+      Application.conf[:title]
+    end
+
+    def window_flags
+      Application.conf[:window_flags]
+    end
+
+    def start_width
+      Application.conf[:start_size][0]
+    end
+
+    def start_height
+      Application.conf[:start_size][1]
+    end
 
     def start
       SDL.init
       SDL.set_gl_version(3, 2)
-      @window = SDL::Window.create("Test Window", 0, 0, 640, 480, [:shown, :resizable, :opengl])
+      @window = SDL::Window.create(title, 0, 0, start_width, start_height, window_flags)
       @context = @window.create_gl_context
       GLEW.init
 
