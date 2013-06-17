@@ -13,9 +13,11 @@ module QGame
     def start
       SDL.init
       SDL.set_gl_version(3, 2)
-      @window = SDL::Window.create("Test Window", 0, 0, 640, 480, [:shown, :opengl])
+      @window = SDL::Window.create("Test Window", 0, 0, 640, 480, [:shown, :resizable, :opengl])
       @context = @window.create_gl_context
       GLEW.init
+
+      Game::RenderManager.resize_window(@window.width, @window.height)
 
       AssetManager.register_asset_loader("shaders", ShaderAssetLoader.new)
       AssetManager.register_asset_loader("models", ModelAssetLoader.new)

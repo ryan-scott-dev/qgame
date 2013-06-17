@@ -30,7 +30,7 @@ module QGame
       
       @texture.bind unless @texture.nil?
       Sprite.shader.set_uniform('tex', 0)
-      Sprite.shader.set_uniform('projection', Mat4.orthogonal_2d(0, 800, 0, 600, -1, 1))
+      Sprite.shader.set_uniform('projection', QGame::RenderManager.projection)
       Sprite.shader.set_uniform('view', QGame::RenderManager.camera.view)
 
       Sprite.shader.set_uniform('position', @position)

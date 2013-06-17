@@ -22,6 +22,10 @@ Game::Application.run do
     end
   end
 
+  on_event :window_resized do |event|
+    Game::RenderManager.resize_window(event.resize_width, event.resize_height)
+  end
+
   sprites = []
   size = 60
   (1..10).each do |offset_x|
