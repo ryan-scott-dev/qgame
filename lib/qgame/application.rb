@@ -16,6 +16,10 @@ module QGame
       @@config
     end
 
+    def self.configure(&block)
+      instance_eval(&block)
+    end
+
     def title
       Application.conf[:title]
     end

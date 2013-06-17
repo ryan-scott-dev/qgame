@@ -7,7 +7,8 @@ Game.each_target do
   clib = "#{current_build_dir}/main.c"
   mlib = clib.ext(exts.object)
   init = "#{current_dir}/init_application.c"
-  config = "#{PROJECT_ROOT}/config/application.rb"
+  bootstrap = "#{PROJECT_ROOT}/config/bootstrap.rb"
+  config = "#{PROJECT_ROOT}/config/config.rb"
   application = "#{PROJECT_ROOT}/game/lib/application.rb"
   
   application_lib = libfile("#{current_build_dir}/main")
@@ -31,12 +32,12 @@ Game.each_target do
   end
 
   file mlib => [clib]
-  file clib => [mrbcfile, init, config, application] do |t|
+  file clib => [mrbcfile, init, bootstrap, config, application] do |t|
     _pp "GEN", "*.rb", "#{clib.relative_path}"
     FileUtils.mkdir_p File.dirname(clib)
     open(clib, 'w') do |f|
       f.puts IO.read(init)
-      mrbc.run f, [config, application], 'mrbapp_irep'
+      mrbc.run f, [bootstrap, config, application], 'mrbapp_irep'
     end
   end
 end
