@@ -19,6 +19,7 @@ load "#{MRUBY_ROOT}/tasks/mruby_build.rake"
 load "#{MRUBY_ROOT}/tasks/mrbgem_spec.rake"
 load "#{QGAME_ROOT}/tasks/qgame_build.rake"
 load "#{QGAME_ROOT}/tasks/game_build.rake"
+load "#{QGAME_ROOT}/tasks/sdl.rake"
 
 # load configuration file
 load "#{PROJECT_ROOT}/config/build_config.rb"
@@ -65,6 +66,15 @@ puts "----------------------------------"
 puts ""
 desc "build all targets, install (locally) in-repo"
 task :compile do |args|
+  puts "----------------------------------"
+  puts "Compiling sdl..."
+  puts "----------------------------------"
+  Rake::Task['sdl:compile'].invoke(args)
+  # This should produce a linkable mruby library
+  puts "----------------------------------"
+  puts "Done!"
+  puts ""
+  puts ""
   puts "----------------------------------"
   puts "Compiling mruby..."
   puts "----------------------------------"
