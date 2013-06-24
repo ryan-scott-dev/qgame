@@ -8,14 +8,13 @@ Game::Build.new('ios') do |conf|
   # Linker settings
   conf.linker do |linker|
     linker.libraries = %w(SDL2_image SDL2_mixer SDL2 GLEW GL)
-
-    linker.library_paths << "/Users/administrator/SDL/lib"
+    linker.library_paths << "#{QGAME_ROOT}/dependencies/SDL2/ios/lib"
     linker.library_paths << "/System/Library/Frameworks/OpenGL.framework/Libraries"
     linker.library_paths << "/usr/lib"
   end
 end
 
-QGame::Build.new do |conf|
+QGame::Build.new('ios') do |conf|
   toolchain :ios
 
   gem_include_paths = Dir.glob("build/mrbgems/**/include")
@@ -23,10 +22,8 @@ QGame::Build.new do |conf|
   conf.cc do |cc|
     cc.include_paths = ["#{QGAME_ROOT}/include", "#{MRUBY_ROOT}/include"]
     cc.include_paths.concat gem_include_paths
-    cc.include_paths.concat ['/Users/administrator/SDL/include']
+    cc.include_paths << "#{QGAME_ROOT}/dependencies/SDL2/ios/include"
     cc.include_paths << "/usr/include/GL"
-    # cc.include_paths << "/System/Library/Frameworks/OpenGL.framework/Headers"
-    # cc.include_paths << "/Users/administrator/SDL/include"
   end
 
   # Linker settings
@@ -34,6 +31,7 @@ QGame::Build.new do |conf|
     linker.libraries = %w(libmruby)
     linker.library_paths = ["#{QGAME_ROOT}/build/host/lib"]
     linker.library_paths << "/usr/lib"
+    linker.flags << "-framework OpenGLES"
   end
 end
 
@@ -45,8 +43,17 @@ end
 
 MRuby::CrossBuild.new('ios') do |conf|
   toolchain :ios
+  
+  conf.cc do |cc|
+    cc.include_paths << "#{QGAME_ROOT}/dependencies/SDL2/ios/include"
+  end
 
-    # Use standard Kernel#sprintf method
+  conf.linker do |linker|
+    linker.libraries = %w(SDL2_image SDL2_mixer SDL2 GLEW GL)
+    linker.library_paths << "#{QGAME_ROOT}/dependencies/SDL2/ios/lib"
+  end
+
+  # Use standard Kernel#sprintf method
   conf.gem :core => "mruby-sprintf"
 
   # Use standard print/puts/p
