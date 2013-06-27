@@ -22,16 +22,18 @@ namespace :sdl do
 
   SDL_HOST_OUTPUT = "#{DEPENDENCIES_DIR}/SDL2/host/lib/libSDL2.a"
 
-  output_dirs = []
+  libs = []
 
   Game.each_target do |t|
     OUTPUT_DIR = "#{DEPENDENCIES_DIR}/SDL2/#{t.name}"
-    output_dirs << OUTPUT_DIR
-    
+
     SDL_OUTPUT_FILE = t.libfile("#{OUTPUT_DIR}/lib/libSDL2")
     SDL_IMAGE_OUTPUT_FILE = t.libfile("#{OUTPUT_DIR}/lib/libSDL2_image")
     SDL_MIXER_OUTPUT_FILE = t.libfile("#{OUTPUT_DIR}/lib/libSDL2_mixer")
-
+    libs << SDL_OUTPUT_FILE
+    libs << SDL_IMAGE_OUTPUT_FILE
+    libs << SDL_MIXER_OUTPUT_FILE
+    
     file SDL_CLONE_DIR do |t|
       download_file(SDL_URL, SDL_CLONE_DIR)  
     end
@@ -56,8 +58,7 @@ namespace :sdl do
       FileUtils.sh "tar -C #{DEPENDENCIES_DIR} -zxf #{SDL_MIXER_CLONE_DIR}"
     end
     
-    file SDL_OUTPUT_FILE => SDL_EXTRACTED_DIR do
-      puts "Creating #{SDL_OUTPUT_FILE}"
+    file SDL_OUTPUT_FILE => SDL_EXTRACTED_DIR do |t|
       FileUtils.cd SDL_EXTRACTED_DIR
       FileUtils.sh "./configure --prefix=#{OUTPUT_DIR}"
       FileUtils.sh 'make'
@@ -65,7 +66,7 @@ namespace :sdl do
       FileUtils.cd current_dir
     end
 
-    file SDL_IMAGE_OUTPUT_FILE => [SDL_OUTPUT_FILE, SDL_IMAGE_EXTRACTED_DIR] do
+    file SDL_IMAGE_OUTPUT_FILE => [SDL_OUTPUT_FILE, SDL_IMAGE_EXTRACTED_DIR] do |t|
       FileUtils.cd SDL_IMAGE_EXTRACTED_DIR
       FileUtils.sh "./configure --disable-sdltest --prefix=#{OUTPUT_DIR} --with-sdl-prefix=#{OUTPUT_DIR}"
       FileUtils.sh 'make'
@@ -73,18 +74,15 @@ namespace :sdl do
       FileUtils.cd current_dir
     end
 
-    file SDL_MIXER_OUTPUT_FILE => [SDL_OUTPUT_FILE, SDL_MIXER_EXTRACTED_DIR] do
+    file SDL_MIXER_OUTPUT_FILE => [SDL_OUTPUT_FILE, SDL_MIXER_EXTRACTED_DIR] do |t|
       FileUtils.cd SDL_MIXER_EXTRACTED_DIR
       FileUtils.sh "./configure --disable-sdltest --prefix=#{OUTPUT_DIR} --with-sdl-prefix=#{OUTPUT_DIR}"
       FileUtils.sh 'make'
       FileUtils.sh 'make install'
       FileUtils.cd current_dir
     end
-
-    directory OUTPUT_DIR => [SDL_OUTPUT_FILE, SDL_IMAGE_OUTPUT_FILE, SDL_MIXER_OUTPUT_FILE] do |t|
-    end
   end
 
-  task :compile => output_dirs do
+  task :compile => libs do
   end
 end
