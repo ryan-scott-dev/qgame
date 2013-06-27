@@ -77,5 +77,23 @@ module QGame
         compiler.define_rules build_dir, File.expand_path(File.join(File.dirname(__FILE__), '..'))
       end
     end
+
+    def build_sdl(args = {})
+      FileUtils.cd args[:directory]
+      FileUtils.sh "./configure --prefix=#{args[:output_dir]}"
+      FileUtils.sh 'make clean'
+      FileUtils.sh 'make'
+      FileUtils.sh 'make install'
+      FileUtils.cd args[:current_dir]
+    end
+
+    def build_sdl_library(args = {})
+      FileUtils.cd args[:directory]
+      FileUtils.sh "./configure --disable-sdltest --prefix=#{args[:output_dir]} --with-sdl-prefix=#{args[:output_dir]}"
+      FileUtils.sh 'make clean'
+      FileUtils.sh 'make'
+      FileUtils.sh 'make install'
+      FileUtils.cd args[:current_dir]
+    end
   end
 end

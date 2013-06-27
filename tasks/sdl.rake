@@ -24,13 +24,12 @@ namespace :sdl do
 
   libs = []
 
-  Game.each_target do |t|
-    output_dir = "#{DEPENDENCIES_DIR}/SDL2/#{t.name}"
-    puts "Compiling for target #{t.name}"
+  QGame.each_target do |target|
+    output_dir = "#{DEPENDENCIES_DIR}/SDL2/#{target.name}"
 
-    sdl_output_file = t.libfile("#{output_dir}/lib/libSDL2")
-    sdl_image_output_file = t.libfile("#{output_dir}/lib/libSDL2_image")
-    sdl_mixer_output_file = t.libfile("#{output_dir}/lib/libSDL2_mixer")
+    sdl_output_file = target.libfile("#{output_dir}/lib/libSDL2")
+    sdl_image_output_file = target.libfile("#{output_dir}/lib/libSDL2_image")
+    sdl_mixer_output_file = target.libfile("#{output_dir}/lib/libSDL2_mixer")
     libs << sdl_output_file
     libs << sdl_image_output_file
     libs << sdl_mixer_output_file
@@ -60,27 +59,15 @@ namespace :sdl do
     end
     
     file sdl_output_file => SDL_EXTRACTED_DIR do |t|
-      FileUtils.cd SDL_EXTRACTED_DIR
-      FileUtils.sh "./configure --prefix=#{output_dir}"
-      FileUtils.sh 'make'
-      FileUtils.sh 'make install'
-      FileUtils.cd current_dir
+      target.build_sdl(directory: SDL_EXTRACTED_DIR, current_dir: current_dir, output_dir: output_dir)
     end
 
     file sdl_image_output_file => [sdl_output_file, SDL_IMAGE_EXTRACTED_DIR] do |t|
-      FileUtils.cd SDL_IMAGE_EXTRACTED_DIR
-      FileUtils.sh "./configure --disable-sdltest --prefix=#{output_dir} --with-sdl-prefix=#{output_dir}"
-      FileUtils.sh 'make'
-      FileUtils.sh 'make install'
-      FileUtils.cd current_dir
+      target.build_sdl_library(directory: SDL_IMAGE_EXTRACTED_DIR, current_dir: current_dir, output_dir: output_dir)
     end
 
     file sdl_mixer_output_file => [sdl_output_file, SDL_MIXER_EXTRACTED_DIR] do |t|
-      FileUtils.cd SDL_MIXER_EXTRACTED_DIR
-      FileUtils.sh "./configure --disable-sdltest --prefix=#{output_dir} --with-sdl-prefix=#{output_dir}"
-      FileUtils.sh 'make'
-      FileUtils.sh 'make install'
-      FileUtils.cd current_dir
+      target.build_sdl_library(directory: SDL_MIXER_EXTRACTED_DIR, current_dir: current_dir, output_dir: output_dir)
     end
   end
 
