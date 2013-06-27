@@ -8,7 +8,7 @@ Game::Build.new do |conf|
   # Linker settings
   conf.linker do |linker|
     linker.libraries = %w(SDL2_image SDL2_mixer SDL2 GLEW GL)
-    linker.library_paths << "#{QGAME_ROOT}/dependencies/SDL2/ios/lib"
+    linker.library_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/lib"
     linker.library_paths << "/System/Library/Frameworks/OpenGL.framework/Libraries"
     linker.library_paths << "/usr/lib"
   end
@@ -24,7 +24,7 @@ Game::Build.new('ios') do |conf|
   # Linker settings
   conf.linker do |linker|
     linker.libraries = %w(SDL2_image SDL2_mixer SDL2 GLEW GL)
-    linker.library_paths << "#{QGAME_ROOT}/dependencies/SDL2/ios/lib"
+    linker.library_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/lib"
     linker.library_paths << "/System/Library/Frameworks/OpenGL.framework/Libraries"
     linker.library_paths << "/usr/lib"
   end
@@ -38,7 +38,7 @@ QGame::Build.new do |conf|
   conf.cc do |cc|
     cc.include_paths = ["#{QGAME_ROOT}/include", "#{MRUBY_ROOT}/include"]
     cc.include_paths.concat gem_include_paths
-    cc.include_paths << "#{QGAME_ROOT}/dependencies/SDL2/ios/include"
+    cc.include_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/include"
     cc.include_paths << "/usr/include/GL"
   end
 
@@ -59,7 +59,7 @@ QGame::Build.new('ios') do |conf|
   conf.cc do |cc|
     cc.include_paths = ["#{QGAME_ROOT}/include", "#{MRUBY_ROOT}/include"]
     cc.include_paths.concat gem_include_paths
-    cc.include_paths << "#{QGAME_ROOT}/dependencies/SDL2/ios/include"
+    cc.include_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/include"
     cc.include_paths << "/usr/include/GL"
   end
 
@@ -82,12 +82,12 @@ MRuby::CrossBuild.new('ios') do |conf|
   toolchain :ios
   
   conf.cc do |cc|
-    cc.include_paths << "#{QGAME_ROOT}/dependencies/SDL2/ios/include"
+    cc.include_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/include"
   end
 
   conf.linker do |linker|
     linker.libraries = %w(SDL2_image SDL2_mixer SDL2 GLEW GL)
-    linker.library_paths << "#{QGAME_ROOT}/dependencies/SDL2/ios/lib"
+    linker.library_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/lib"
   end
 
   # Use standard Kernel#sprintf method

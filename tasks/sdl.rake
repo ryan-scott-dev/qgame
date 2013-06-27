@@ -25,14 +25,15 @@ namespace :sdl do
   libs = []
 
   Game.each_target do |t|
-    OUTPUT_DIR = "#{DEPENDENCIES_DIR}/SDL2/#{t.name}"
+    output_dir = "#{DEPENDENCIES_DIR}/SDL2/#{t.name}"
+    puts "Compiling for target #{t.name}"
 
-    SDL_OUTPUT_FILE = t.libfile("#{OUTPUT_DIR}/lib/libSDL2")
-    SDL_IMAGE_OUTPUT_FILE = t.libfile("#{OUTPUT_DIR}/lib/libSDL2_image")
-    SDL_MIXER_OUTPUT_FILE = t.libfile("#{OUTPUT_DIR}/lib/libSDL2_mixer")
-    libs << SDL_OUTPUT_FILE
-    libs << SDL_IMAGE_OUTPUT_FILE
-    libs << SDL_MIXER_OUTPUT_FILE
+    sdl_output_file = t.libfile("#{output_dir}/lib/libSDL2")
+    sdl_image_output_file = t.libfile("#{output_dir}/lib/libSDL2_image")
+    sdl_mixer_output_file = t.libfile("#{output_dir}/lib/libSDL2_mixer")
+    libs << sdl_output_file
+    libs << sdl_image_output_file
+    libs << sdl_mixer_output_file
     
     file SDL_CLONE_DIR do |t|
       download_file(SDL_URL, SDL_CLONE_DIR)  
@@ -58,25 +59,25 @@ namespace :sdl do
       FileUtils.sh "tar -C #{DEPENDENCIES_DIR} -zxf #{SDL_MIXER_CLONE_DIR}"
     end
     
-    file SDL_OUTPUT_FILE => SDL_EXTRACTED_DIR do |t|
+    file sdl_output_file => SDL_EXTRACTED_DIR do |t|
       FileUtils.cd SDL_EXTRACTED_DIR
-      FileUtils.sh "./configure --prefix=#{OUTPUT_DIR}"
+      FileUtils.sh "./configure --prefix=#{output_dir}"
       FileUtils.sh 'make'
       FileUtils.sh 'make install'
       FileUtils.cd current_dir
     end
 
-    file SDL_IMAGE_OUTPUT_FILE => [SDL_OUTPUT_FILE, SDL_IMAGE_EXTRACTED_DIR] do |t|
+    file sdl_image_output_file => [sdl_output_file, SDL_IMAGE_EXTRACTED_DIR] do |t|
       FileUtils.cd SDL_IMAGE_EXTRACTED_DIR
-      FileUtils.sh "./configure --disable-sdltest --prefix=#{OUTPUT_DIR} --with-sdl-prefix=#{OUTPUT_DIR}"
+      FileUtils.sh "./configure --disable-sdltest --prefix=#{output_dir} --with-sdl-prefix=#{output_dir}"
       FileUtils.sh 'make'
       FileUtils.sh 'make install'
       FileUtils.cd current_dir
     end
 
-    file SDL_MIXER_OUTPUT_FILE => [SDL_OUTPUT_FILE, SDL_MIXER_EXTRACTED_DIR] do |t|
+    file sdl_mixer_output_file => [sdl_output_file, SDL_MIXER_EXTRACTED_DIR] do |t|
       FileUtils.cd SDL_MIXER_EXTRACTED_DIR
-      FileUtils.sh "./configure --disable-sdltest --prefix=#{OUTPUT_DIR} --with-sdl-prefix=#{OUTPUT_DIR}"
+      FileUtils.sh "./configure --disable-sdltest --prefix=#{output_dir} --with-sdl-prefix=#{output_dir}"
       FileUtils.sh 'make'
       FileUtils.sh 'make install'
       FileUtils.cd current_dir
@@ -84,5 +85,6 @@ namespace :sdl do
   end
 
   task :compile => libs do
+    puts "Compiled #{libs.inspect}"
   end
 end
