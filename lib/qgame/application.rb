@@ -41,7 +41,6 @@ module QGame
       SDL.set_gl_version(3, 2)
       @window = SDL::Window.create(title, 0, 0, start_width, start_height, window_flags)
       @context = @window.create_gl_context
-      GLEW.init
 
       Game::RenderManager.resize_window(@window.width, @window.height)
 

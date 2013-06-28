@@ -7,10 +7,10 @@ Game::Build.new do |conf|
 
   # Linker settings
   conf.linker do |linker|
-    linker.libraries = %w(SDL2_image SDL2_mixer SDL2 GLEW GL)
+    linker.libraries = %w(qgame mruby SDL2_image SDL2_mixer SDL2 GL)
+    linker.library_paths = ["#{QGAME_ROOT}/build/#{conf.name}/lib", "#{MRUBY_ROOT}/build/#{conf.name}/lib"]
     linker.library_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/lib"
     linker.library_paths << "/System/Library/Frameworks/OpenGL.framework/Libraries"
-    linker.library_paths << "/usr/lib"
   end
 end
 
@@ -23,10 +23,10 @@ Game::Build.new('ios') do |conf|
 
   # Linker settings
   conf.linker do |linker|
-    linker.libraries = %w(SDL2_image SDL2_mixer SDL2 GLEW GL)
+    linker.libraries = %w(qgame mruby SDL2_image SDL2_mixer SDL2 GL)
+    linker.library_paths = ["#{QGAME_ROOT}/build/#{conf.name}/lib", "#{MRUBY_ROOT}/build/#{conf.name}/lib"]
     linker.library_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/lib"
     linker.library_paths << "/System/Library/Frameworks/OpenGL.framework/Libraries"
-    linker.library_paths << "/usr/lib"
   end
 end
 
@@ -39,14 +39,12 @@ QGame::Build.new do |conf|
     cc.include_paths = ["#{QGAME_ROOT}/include", "#{MRUBY_ROOT}/include"]
     cc.include_paths.concat gem_include_paths
     cc.include_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/include"
-    cc.include_paths << "/usr/include/GL"
   end
 
   # Linker settings
   conf.linker do |linker|
     linker.libraries = %w(libmruby)
-    linker.library_paths = ["#{QGAME_ROOT}/build/host/lib"]
-    linker.library_paths << "/usr/lib"
+    linker.library_paths = ["#{MRUBY_ROOT}/build/#{conf.name}/lib"]
     linker.flags << "-framework OpenGLES"
   end
 end
@@ -60,14 +58,12 @@ QGame::Build.new('ios') do |conf|
     cc.include_paths = ["#{QGAME_ROOT}/include", "#{MRUBY_ROOT}/include"]
     cc.include_paths.concat gem_include_paths
     cc.include_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/include"
-    cc.include_paths << "/usr/include/GL"
   end
 
   # Linker settings
   conf.linker do |linker|
     linker.libraries = %w(libmruby)
-    linker.library_paths = ["#{QGAME_ROOT}/build/host/lib"]
-    linker.library_paths << "/usr/lib"
+    linker.library_paths = ["#{MRUBY_ROOT}/build/#{conf.name}/lib"]
     linker.flags << "-framework OpenGLES"
   end
 end
