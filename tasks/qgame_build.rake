@@ -79,6 +79,9 @@ module QGame
     end
 
     def build_sdl(args = {})
+      FileUtils.mkdir_p "#{args[:output_dir]}/include/SDL2"
+      FileUtils.mkdir_p "#{args[:output_dir]}/lib"
+      
       if name == 'ios'
         build_sdl_ios(args)
       else
@@ -96,10 +99,15 @@ module QGame
     end
 
     def build_sdl_ios(args = {})
+      FileUtils.cp_r Dir.glob("#{args[:directory]}/include/**/*.h"), "#{args[:output_dir]}/include/SDL2"
+
       FileUtils.cp "#{args[:directory]}/include/SDL_config_iphoneos.h", "#{args[:directory]}/include/SDL_config.h"
       FileUtils.cd "#{args[:directory]}/Xcode-IOS/SDL"
       FileUtils.sh "xcodebuild clean"
       FileUtils.sh "xcodebuild build -target libSDL"
+
+      FileUtils.cp "./build/Release-iphoneos/#{args[:library]}", "#{args[:output_file]}"
+      
       FileUtils.cd args[:current_dir]
     end
 
@@ -124,6 +132,7 @@ module QGame
       FileUtils.cd "#{args[:directory]}/Xcode-IOS"
       FileUtils.sh "xcodebuild clean"
       FileUtils.sh "xcodebuild build"
+      FileUtils.cp "./build/Release-iphoneos/#{args[:library]}", "#{args[:output_file]}"
       FileUtils.cd args[:current_dir]
     end
   end
