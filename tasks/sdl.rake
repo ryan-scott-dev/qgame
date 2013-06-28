@@ -10,15 +10,15 @@ namespace :sdl do
   DEPENDENCIES_DIR = "#{QGAME_ROOT}/dependencies"
   SDL_URL = 'http://www.libsdl.org/tmp/release/SDL2-2.0.0.tar.gz'
   SDL_CLONE_DIR = "#{DEPENDENCIES_DIR}/SDL2-2.0.0.tar.gz"
-  SDL_EXTRACTED_DIR = "#{DEPENDENCIES_DIR}/SDL2-2.0.0"
+  SDL_EXTRACTED_DIR = "#{DEPENDENCIES_DIR}/SDL"
 
   SDL_IMAGE_URL = 'http://www.libsdl.org/tmp/SDL_image/release/SDL2_image-2.0.0.tar.gz'
   SDL_IMAGE_CLONE_DIR = "#{DEPENDENCIES_DIR}/SDL2_image-2.0.0.tar.gz"
-  SDL_IMAGE_EXTRACTED_DIR = "#{DEPENDENCIES_DIR}/SDL2_image-2.0.0"
+  SDL_IMAGE_EXTRACTED_DIR = "#{DEPENDENCIES_DIR}/SDL_image"
 
   SDL_MIXER_URL = 'http://www.libsdl.org/tmp/SDL_mixer/release/SDL2_mixer-2.0.0.tar.gz'
   SDL_MIXER_CLONE_DIR = "#{DEPENDENCIES_DIR}/SDL2_mixer-2.0.0.tar.gz"
-  SDL_MIXER_EXTRACTED_DIR = "#{DEPENDENCIES_DIR}/SDL2_mixer-2.0.0"
+  SDL_MIXER_EXTRACTED_DIR = "#{DEPENDENCIES_DIR}/SDL_mixer"
 
   SDL_HOST_OUTPUT = "#{DEPENDENCIES_DIR}/SDL2/host/lib/libSDL2.a"
 
@@ -48,14 +48,17 @@ namespace :sdl do
 
     directory SDL_EXTRACTED_DIR => SDL_CLONE_DIR do |t|
       FileUtils.sh "tar -C #{DEPENDENCIES_DIR} -zxf #{SDL_CLONE_DIR}"
+      FileUtils.mv "#{DEPENDENCIES_DIR}/SDL2-2.0.0", SDL_EXTRACTED_DIR
     end
 
     directory SDL_IMAGE_EXTRACTED_DIR => SDL_IMAGE_CLONE_DIR do |t|
       FileUtils.sh "tar -C #{DEPENDENCIES_DIR} -zxf #{SDL_IMAGE_CLONE_DIR}"
+      FileUtils.mv "#{DEPENDENCIES_DIR}/SDL2_image-2.0.0", SDL_IMAGE_EXTRACTED_DIR
     end
 
     directory SDL_MIXER_EXTRACTED_DIR => SDL_MIXER_CLONE_DIR do |t|
       FileUtils.sh "tar -C #{DEPENDENCIES_DIR} -zxf #{SDL_MIXER_CLONE_DIR}"
+      FileUtils.mv "#{DEPENDENCIES_DIR}/SDL2_mixer-2.0.0", SDL_MIXER_EXTRACTED_DIR
     end
     
     file sdl_output_file => SDL_EXTRACTED_DIR do |t|

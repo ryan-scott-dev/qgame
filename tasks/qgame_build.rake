@@ -98,12 +98,17 @@ module QGame
     def build_sdl_ios(args = {})
       FileUtils.cp "#{args[:directory]}/include/SDL_config_iphoneos.h", "#{args[:directory]}/include/SDL_config.h"
       FileUtils.cd "#{args[:directory]}/Xcode-IOS/SDL"
-      FileUtils.sh "xcodebuild -target libSDL"
+      FileUtils.sh "xcodebuild clean"
+      FileUtils.sh "xcodebuild build -target libSDL"
       FileUtils.cd args[:current_dir]
     end
 
     def build_sdl_library(args = {})
-      build_sdl_library_unix(args)
+      if name == 'ios'
+        build_sdl_library_ios(args)
+      else
+        build_sdl_library_unix(args)
+      end
     end
 
     def build_sdl_library_unix(args = {})
@@ -116,6 +121,10 @@ module QGame
     end
 
     def build_sdl_library_ios(args ={})
+      FileUtils.cd "#{args[:directory]}/Xcode-IOS"
+      FileUtils.sh "xcodebuild clean"
+      FileUtils.sh "xcodebuild build"
+      FileUtils.cd args[:current_dir]
     end
   end
 end
