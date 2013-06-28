@@ -1,5 +1,4 @@
 QGame.each_target do
-  puts "Library: #{(libmruby + libqgame).flatten}"
   file libfile("#{build_dir}/lib/libqgame") => (libqgame + libmruby).flatten do |t|
     archiver.run t.name, t.prerequisites
     open("#{build_dir}/lib/libqgame.flags.mak", 'w') do |f|

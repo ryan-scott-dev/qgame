@@ -78,6 +78,5 @@ namespace :sdl do
   end
 
   task :compile => libs do
-    puts "Compiled #{libs.inspect}"
   end
 end
