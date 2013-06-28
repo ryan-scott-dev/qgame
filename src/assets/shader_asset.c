@@ -3,7 +3,7 @@
 #include <mruby/string.h>
 #include <mruby/variable.h>
 
-#include <glew.h>
+#include "gl_header.h"
 
 #include <stdio.h>
 #include <stdlib.h>

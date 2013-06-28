@@ -6,7 +6,7 @@
 #include "mrb_vec2.h"
 #include "mrb_mat4.h"
 
-#include <glew.h>
+#include "gl_header.h"
 
 mrb_value
 qgame_shader_program_asset_link(mrb_state* mrb, mrb_value self)

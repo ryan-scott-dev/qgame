@@ -3,7 +3,7 @@
 #include <mruby/string.h>
 #include <mruby/variable.h>
 
-#include <glew.h>
+#include "gl_header.h"
 #include <SDL2/SDL_image.h>
 
 mrb_value
@@ -33,16 +33,12 @@ qgame_texture_asset_load_from_file(mrb_state* mrb, mrb_value self)
     GLint  nOfColors = surface->format->BytesPerPixel;
     if (nOfColors == 4)     // contains an alpha channel
     {
-            if (surface->format->Rmask == 0x000000ff)
-                    texture_format = GL_RGBA;
-            else
-                    texture_format = GL_BGRA;
+        if (surface->format->Rmask == 0x000000ff)
+            texture_format = GL_RGBA;
     } else if (nOfColors == 3)     // no alpha channel
     {
-            if (surface->format->Rmask == 0x000000ff)
-                    texture_format = GL_RGB;
-            else
-                    texture_format = GL_BGR;
+        if (surface->format->Rmask == 0x000000ff)
+            texture_format = GL_RGB;
     } else {
             printf("warning: the image is not truecolor..  this will probably break\n");
             // this error should not go unhandled
