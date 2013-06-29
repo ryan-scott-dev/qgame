@@ -66,6 +66,7 @@ load "#{QGAME_ROOT}/tasks/game_compile.rake"
 puts "----------------------------------"
 puts "----------------------------------"
 puts ""
+
 desc "build all targets, install (locally) in-repo"
 task :compile do |args|
   puts "----------------------------------"

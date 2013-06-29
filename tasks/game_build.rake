@@ -70,5 +70,30 @@ module Game
         compiler.define_rules build_dir, File.expand_path(File.join(File.dirname(__FILE__), '..'))
       end
     end
+
+    def run(args)
+      run_dependency = exefile("#{build_dir}/tools/main")
+
+      # run generated executable
+      Rake::Task[run_dependency].invoke(args)
+      
+      # Execute with mruby
+      FileUtils.sh run_dependency
+    end
+  end
+
+  class BuildiOS < Build
+    def run(args)
+      dependencies = []
+      dependencies << libfile("#{build_dir}/lib/libgame")
+      dependencies << "#{build_dir}/tools/main.c"
+      
+      run_dependency = "#{build_dir}/tools/Test.app"
+      dependencies.each do |dependency|
+        Rake::Task[dependency].invoke(args)
+      end
+      
+      FileUtils.sh "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone Simulator.app/Contents/MacOS/iPhone\ Simulator -SimulateApplication #{run_dependency}"
+    end
   end
 end

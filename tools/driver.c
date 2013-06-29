@@ -5,17 +5,16 @@
 ** against the current mruby implementation.
 */
 
-
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 #include <mruby.h>
 #include <mruby/proc.h>
 #include <mruby/data.h>
 #include <mruby/compile.h>
-#include <mruby/string.h>
 #include <mruby/variable.h>
+
+#include <SDL2/SDL_main.h>
 
 void 
 mrb_init_gamelib(mrb_state *);

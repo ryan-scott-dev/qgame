@@ -1,0 +1,342 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C3F22E3D177EA50A00DDF76E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E3C177EA50A00DDF76E /* UIKit.framework */; };
+		C3F22E3F177EA50A00DDF76E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E3E177EA50A00DDF76E /* Foundation.framework */; };
+		C3F22E41177EA50A00DDF76E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E40177EA50A00DDF76E /* CoreGraphics.framework */; };
+		C3F22E4F177EA50A00DDF76E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F22E4E177EA50A00DDF76E /* Default.png */; };
+		C3F22E51177EA50A00DDF76E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F22E50177EA50A00DDF76E /* Default@2x.png */; };
+		C3F22E53177EA50A00DDF76E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F22E52177EA50A00DDF76E /* Default-568h@2x.png */; };
+		C3F22E5A177EA56200DDF76E /* driver.c in Sources */ = {isa = PBXBuildFile; fileRef = C3F22E59177EA56200DDF76E /* driver.c */; };
+		C3F22E5C177EA62600DDF76E /* libmruby.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E5B177EA62600DDF76E /* libmruby.a */; };
+		C3F22E5E177EA68800DDF76E /* libgame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E5D177EA68800DDF76E /* libgame.a */; };
+		C3F22E60177EA69E00DDF76E /* libqgame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E5F177EA69E00DDF76E /* libqgame.a */; };
+		C3F22E6A177EA92200DDF76E /* libSDL2_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E67177EA92200DDF76E /* libSDL2_image.a */; };
+		C3F22E6B177EA92200DDF76E /* libSDL2_mixer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E68177EA92200DDF76E /* libSDL2_mixer.a */; };
+		C3F22E6C177EA92200DDF76E /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E69177EA92200DDF76E /* libSDL2.a */; };
+		C3F22E72177EA9A900DDF76E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E71177EA9A900DDF76E /* AudioToolbox.framework */; };
+		C3F22E75177EA9EC00DDF76E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E74177EA9EC00DDF76E /* CoreAudio.framework */; };
+		C3F22E77177EA9F500DDF76E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E76177EA9F500DDF76E /* QuartzCore.framework */; };
+		C3F22E79177EA9FC00DDF76E /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E78177EA9FC00DDF76E /* OpenGLES.framework */; };
+		C3F22E7B177EAA7D00DDF76E /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E7A177EAA7D00DDF76E /* ImageIO.framework */; };
+		C3F22E7D177EAAC100DDF76E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E7C177EAAC100DDF76E /* MobileCoreServices.framework */; };
+		C3F22E7F177EAC0F00DDF76E /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C3F22E7E177EAC0F00DDF76E /* main.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C3F22E39177EA50A00DDF76E /* GameTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3F22E3C177EA50A00DDF76E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		C3F22E3E177EA50A00DDF76E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C3F22E40177EA50A00DDF76E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		C3F22E44177EA50A00DDF76E /* GameTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GameTest-Info.plist"; sourceTree = "<group>"; };
+		C3F22E4E177EA50A00DDF76E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		C3F22E50177EA50A00DDF76E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		C3F22E52177EA50A00DDF76E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		C3F22E59177EA56200DDF76E /* driver.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = driver.c; path = ../../../../../tools/driver.c; sourceTree = "<group>"; };
+		C3F22E5B177EA62600DDF76E /* libmruby.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmruby.a; path = ../../../build/mruby/build/ios/lib/libmruby.a; sourceTree = "<group>"; };
+		C3F22E5D177EA68800DDF76E /* libgame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgame.a; path = ../../../build/ios/lib/libgame.a; sourceTree = "<group>"; };
+		C3F22E5F177EA69E00DDF76E /* libqgame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libqgame.a; path = ../../../../build/ios/lib/libqgame.a; sourceTree = "<group>"; };
+		C3F22E67177EA92200DDF76E /* libSDL2_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2_image.a; path = ../../../../dependencies/SDL2/ios/lib/libSDL2_image.a; sourceTree = "<group>"; };
+		C3F22E68177EA92200DDF76E /* libSDL2_mixer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2_mixer.a; path = ../../../../dependencies/SDL2/ios/lib/libSDL2_mixer.a; sourceTree = "<group>"; };
+		C3F22E69177EA92200DDF76E /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = ../../../../dependencies/SDL2/ios/lib/libSDL2.a; sourceTree = "<group>"; };
+		C3F22E71177EA9A900DDF76E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		C3F22E74177EA9EC00DDF76E /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		C3F22E76177EA9F500DDF76E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C3F22E78177EA9FC00DDF76E /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		C3F22E7A177EAA7D00DDF76E /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		C3F22E7C177EAAC100DDF76E /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		C3F22E7E177EAC0F00DDF76E /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = main.c; path = ../../../../build/host/tools/main.c; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C3F22E36177EA50A00DDF76E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3F22E7D177EAAC100DDF76E /* MobileCoreServices.framework in Frameworks */,
+				C3F22E7B177EAA7D00DDF76E /* ImageIO.framework in Frameworks */,
+				C3F22E79177EA9FC00DDF76E /* OpenGLES.framework in Frameworks */,
+				C3F22E77177EA9F500DDF76E /* QuartzCore.framework in Frameworks */,
+				C3F22E75177EA9EC00DDF76E /* CoreAudio.framework in Frameworks */,
+				C3F22E72177EA9A900DDF76E /* AudioToolbox.framework in Frameworks */,
+				C3F22E3D177EA50A00DDF76E /* UIKit.framework in Frameworks */,
+				C3F22E3F177EA50A00DDF76E /* Foundation.framework in Frameworks */,
+				C3F22E41177EA50A00DDF76E /* CoreGraphics.framework in Frameworks */,
+				C3F22E5C177EA62600DDF76E /* libmruby.a in Frameworks */,
+				C3F22E5E177EA68800DDF76E /* libgame.a in Frameworks */,
+				C3F22E60177EA69E00DDF76E /* libqgame.a in Frameworks */,
+				C3F22E6A177EA92200DDF76E /* libSDL2_image.a in Frameworks */,
+				C3F22E6B177EA92200DDF76E /* libSDL2_mixer.a in Frameworks */,
+				C3F22E6C177EA92200DDF76E /* libSDL2.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C3F22E30177EA50A00DDF76E = {
+			isa = PBXGroup;
+			children = (
+				C3F22E7C177EAAC100DDF76E /* MobileCoreServices.framework */,
+				C3F22E7A177EAA7D00DDF76E /* ImageIO.framework */,
+				C3F22E78177EA9FC00DDF76E /* OpenGLES.framework */,
+				C3F22E76177EA9F500DDF76E /* QuartzCore.framework */,
+				C3F22E74177EA9EC00DDF76E /* CoreAudio.framework */,
+				C3F22E71177EA9A900DDF76E /* AudioToolbox.framework */,
+				C3F22E42177EA50A00DDF76E /* GameTest */,
+				C3F22E3B177EA50A00DDF76E /* Frameworks */,
+				C3F22E3A177EA50A00DDF76E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C3F22E3A177EA50A00DDF76E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C3F22E39177EA50A00DDF76E /* GameTest.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C3F22E3B177EA50A00DDF76E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C3F22E67177EA92200DDF76E /* libSDL2_image.a */,
+				C3F22E68177EA92200DDF76E /* libSDL2_mixer.a */,
+				C3F22E69177EA92200DDF76E /* libSDL2.a */,
+				C3F22E5F177EA69E00DDF76E /* libqgame.a */,
+				C3F22E5D177EA68800DDF76E /* libgame.a */,
+				C3F22E5B177EA62600DDF76E /* libmruby.a */,
+				C3F22E3C177EA50A00DDF76E /* UIKit.framework */,
+				C3F22E3E177EA50A00DDF76E /* Foundation.framework */,
+				C3F22E40177EA50A00DDF76E /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C3F22E42177EA50A00DDF76E /* GameTest */ = {
+			isa = PBXGroup;
+			children = (
+				C3F22E7E177EAC0F00DDF76E /* main.c */,
+				C3F22E59177EA56200DDF76E /* driver.c */,
+				C3F22E43177EA50A00DDF76E /* Supporting Files */,
+			);
+			path = GameTest;
+			sourceTree = "<group>";
+		};
+		C3F22E43177EA50A00DDF76E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C3F22E44177EA50A00DDF76E /* GameTest-Info.plist */,
+				C3F22E4E177EA50A00DDF76E /* Default.png */,
+				C3F22E50177EA50A00DDF76E /* Default@2x.png */,
+				C3F22E52177EA50A00DDF76E /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C3F22E38177EA50A00DDF76E /* GameTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C3F22E56177EA50A00DDF76E /* Build configuration list for PBXNativeTarget "GameTest" */;
+			buildPhases = (
+				C3F22E35177EA50A00DDF76E /* Sources */,
+				C3F22E36177EA50A00DDF76E /* Frameworks */,
+				C3F22E37177EA50A00DDF76E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GameTest;
+			productName = GameTest;
+			productReference = C3F22E39177EA50A00DDF76E /* GameTest.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C3F22E31177EA50A00DDF76E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = Administrator;
+			};
+			buildConfigurationList = C3F22E34177EA50A00DDF76E /* Build configuration list for PBXProject "GameTest" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C3F22E30177EA50A00DDF76E;
+			productRefGroup = C3F22E3A177EA50A00DDF76E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C3F22E38177EA50A00DDF76E /* GameTest */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C3F22E37177EA50A00DDF76E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3F22E4F177EA50A00DDF76E /* Default.png in Resources */,
+				C3F22E51177EA50A00DDF76E /* Default@2x.png in Resources */,
+				C3F22E53177EA50A00DDF76E /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C3F22E35177EA50A00DDF76E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3F22E5A177EA56200DDF76E /* driver.c in Sources */,
+				C3F22E7F177EAC0F00DDF76E /* main.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		C3F22E54177EA50A00DDF76E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C3F22E55177EA50A00DDF76E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C3F22E57177EA50A00DDF76E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = __IPHONEOS__;
+				HEADER_SEARCH_PATHS = (
+					"/Users/administrator/Projects/qgame/game/build/mruby/include/**",
+					"/Users/administrator/Projects/qgame/dependencies/SDL2/ios/include/**",
+				);
+				INFOPLIST_FILE = "GameTest/GameTest-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../build/mruby/build/ios/lib\"",
+					"\"$(SRCROOT)/../../../build/ios/lib\"",
+					"\"$(SRCROOT)/../../../../build/ios/lib\"",
+					"\"$(SRCROOT)/../../../../dependencies/SDL2/ios/lib\"",
+				);
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C3F22E58177EA50A00DDF76E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = __IPHONEOS__;
+				HEADER_SEARCH_PATHS = (
+					"/Users/administrator/Projects/qgame/game/build/mruby/include/**",
+					"/Users/administrator/Projects/qgame/dependencies/SDL2/ios/include/**",
+				);
+				INFOPLIST_FILE = "GameTest/GameTest-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../build/mruby/build/ios/lib\"",
+					"\"$(SRCROOT)/../../../build/ios/lib\"",
+					"\"$(SRCROOT)/../../../../build/ios/lib\"",
+					"\"$(SRCROOT)/../../../../dependencies/SDL2/ios/lib\"",
+				);
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C3F22E34177EA50A00DDF76E /* Build configuration list for PBXProject "GameTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3F22E54177EA50A00DDF76E /* Debug */,
+				C3F22E55177EA50A00DDF76E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C3F22E56177EA50A00DDF76E /* Build configuration list for PBXNativeTarget "GameTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3F22E57177EA50A00DDF76E /* Debug */,
+				C3F22E58177EA50A00DDF76E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C3F22E31177EA50A00DDF76E /* Project object */;
+}

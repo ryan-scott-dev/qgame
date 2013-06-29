@@ -14,7 +14,7 @@ Game::Build.new do |conf|
   end
 end
 
-Game::Build.new('ios') do |conf|
+Game::BuildiOS.new('ios') do |conf|
   toolchain :ios
   
   conf.cc do |cc|

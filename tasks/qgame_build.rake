@@ -104,9 +104,9 @@ module QGame
       FileUtils.cp "#{args[:directory]}/include/SDL_config_iphoneos.h", "#{args[:directory]}/include/SDL_config.h"
       FileUtils.cd "#{args[:directory]}/Xcode-IOS/SDL"
       FileUtils.sh "xcodebuild clean"
-      FileUtils.sh "xcodebuild build -target libSDL"
+      FileUtils.sh "xcodebuild build -target libSDL -arch i386 -sdk iphonesimulator6.1"
 
-      FileUtils.cp "./build/Release-iphoneos/#{args[:library]}", "#{args[:output_file]}"
+      FileUtils.cp "./build/Release-iphonesimulator/#{args[:library]}", "#{args[:output_file]}"
       
       FileUtils.cd args[:current_dir]
     end
@@ -133,8 +133,8 @@ module QGame
       
       FileUtils.cd "#{args[:directory]}/Xcode-IOS"
       FileUtils.sh "xcodebuild clean"
-      FileUtils.sh "xcodebuild build"
-      FileUtils.cp "./build/Release-iphoneos/#{args[:library]}", "#{args[:output_file]}"
+      FileUtils.sh "xcodebuild build -arch i386 -sdk iphonesimulator6.1"
+      FileUtils.cp "./build/Release-iphonesimulator/#{args[:library]}", "#{args[:output_file]}"
       FileUtils.cd args[:current_dir]
     end
   end

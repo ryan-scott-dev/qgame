@@ -2,6 +2,7 @@ namespace :game do
   depfiles = Game.targets.map { |n, t|
     deps = []
     deps << t.exefile("#{t.build_dir}/tools/main") if t.bins.find{ |s| s.to_s == 'main' }
+    deps << t.libfile("#{t.build_dir}/lib/libgame")
     deps
   }.flatten
 

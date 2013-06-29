@@ -15,14 +15,7 @@ end
 module QGame
   module RunProject
     def self.run(desired_target, args)
-      target = Game.targets[desired_target.to_s]
-      run_dependency = target.exefile("#{target.build_dir}/tools/main")
-
-      # run generated executable
-      Rake::Task[run_dependency].invoke(args)
-      
-      # Execute with mruby
-      FileUtils.sh run_dependency
+      Game.targets[desired_target.to_s].run(args)
     end
   end
 end
