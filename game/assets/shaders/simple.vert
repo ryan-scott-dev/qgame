@@ -1,9 +1,10 @@
-#version 150
+#version 100
+precision mediump float;
 
-in vec3 vert;
-in vec2 vertTexCoord;
+attribute vec3 vert;
+attribute vec2 vertTexCoord;
 
-out vec2 fragTexCoord;
+varying vec2 fragTexCoord;
 
 uniform mat4 projection;
 uniform mat4 view;
