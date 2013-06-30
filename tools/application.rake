@@ -44,4 +44,21 @@ Game.each_target do |t|
     end
 
   end
+
+  if bins.find { |s| s.to_s == 'GameTest.app' }
+    configuration = 'Debug'
+    xcode_project_dir = "#{PROJECT_ROOT}/platforms/ios/GameTest"
+    app = "#{xcode_project_dir}/build/#{configuration}-iphonesimulator/GameTest.app"
+
+    dependencies = []
+    dependencies << libfile("#{build_dir}/lib/libgame")
+    dependencies << "#{build_dir}/tools/main.c"
+    dependencies << 'ios_sim:build'
+
+    project = "#{xcode_project_dir}/GameTest.xcodeproj"
+    
+    file app => dependencies do
+      FileUtils.sh "xcodebuild -project #{project} -configuration #{configuration} -target \"GameTest\" -sdk iphonesimulator6.1"
+    end
+  end
 end

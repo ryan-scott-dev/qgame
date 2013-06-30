@@ -83,26 +83,17 @@ module Game
   end
 
   class BuildiOS < Build
+    def initialize(name, &block)
+      super
+
+      @bins << 'GameTest.app'
+    end
+
     def run(args)
       Rake::Task['compile'].invoke(args)
 
-      dependencies = []
-      dependencies << libfile("#{build_dir}/lib/libgame")
-      dependencies << "#{build_dir}/tools/main.c"
-
-      run_dependency = "#{PROJECT_ROOT}/platforms/ios/GameTest/GameTest.xcodeproj"
-      dependencies.each do |dependency|
-        Rake::Task[dependency].invoke(args)
-      end
-
-      Rake::Task['ios_sim:build'].invoke
+      app = "#{PROJECT_ROOT}/platforms/ios/GameTest/build/Debug-iphonesimulator/GameTest.app"
       
-
-      FileUtils.sh "xcodebuild -project #{run_dependency} -configuration Debug -target \"GameTest\" -sdk iphonesimulator6.1"
-      app = "#{PROJECT_ROOT}/platforms/ios/GameTest/build/Release-iphonesimulator/GameTest.app"
-      unless File.exists? app
-        puts "Unable to locate the app at: #{app}"
-      end
       FileUtils.sh "#{IOS_SIM_EXEC} launch #{app}"
     end
   end

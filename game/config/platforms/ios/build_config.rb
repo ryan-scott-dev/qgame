@@ -18,6 +18,7 @@ end
 Game::BuildiOS.new('ios') do |conf|
   toolchain :ios
   
+  conf.bins = %w(GameTest.app)
   conf.cc do |cc|
     cc.include_paths = ["#{QGAME_ROOT}/include", "#{MRUBY_ROOT}/include"]
     cc.include_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/include"
