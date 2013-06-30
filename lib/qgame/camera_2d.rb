@@ -11,10 +11,10 @@ module QGame
 
     def view
       Mat4.new(
-        [1, 0, 0, -@position.x],
-        [0, 1, 0, -@position.y],
+        [1, 0, 0, 0],
+        [0, 1, 0, 0],
         [0, 0, 1, 0],
-        [0, 0, 0, 1])
+        [-@position.x, -@position.y, 0, 1])
     end
   end
 end

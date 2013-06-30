@@ -166,7 +166,7 @@ qgame_shader_program_asset_set_uniform_mat4(mrb_state* mrb, mrb_value self)
   }
 
   struct mat4* matrix = mat4_get_ptr(mrb, value);
-  glUniformMatrix4fv(uniform_id, 1, GL_TRUE, matrix);
+  glUniformMatrix4fv(uniform_id, 1, GL_FALSE, matrix);
 
   return self;
 }

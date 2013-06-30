@@ -56,7 +56,7 @@ Game::Application.run do
 
     error = GL.error
     unless error.nil?
-      puts "GL Error: #{error}"
+      puts "GL Error: #{error} - Found during game loop"
     end
   end
 

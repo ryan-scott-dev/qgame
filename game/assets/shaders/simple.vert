@@ -1,5 +1,4 @@
 #version 100
-precision mediump float;
 
 attribute vec3 vert;
 attribute vec2 vertTexCoord;

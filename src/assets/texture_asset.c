@@ -33,15 +33,12 @@ qgame_texture_asset_load_from_file(mrb_state* mrb, mrb_value self)
     GLint  nOfColors = surface->format->BytesPerPixel;
     if (nOfColors == 4)     // contains an alpha channel
     {
-        if (surface->format->Rmask == 0x000000ff)
-            texture_format = GL_RGBA;
+      texture_format = GL_RGBA;
     } else if (nOfColors == 3)     // no alpha channel
     {
-        if (surface->format->Rmask == 0x000000ff)
-            texture_format = GL_RGB;
+      texture_format = GL_RGB;
     } else {
-            printf("warning: the image is not truecolor..  this will probably break\n");
-            // this error should not go unhandled
+      printf("warning: the image is not truecolor..  this will probably break\n");
     }
 
     // Have OpenGL generate a texture object handle for us
@@ -60,7 +57,7 @@ qgame_texture_asset_load_from_file(mrb_state* mrb, mrb_value self)
     
     GLenum err = glGetError();
     if (err != GL_NO_ERROR) {
-      printf("Error: %i\n", err);
+      printf("Error loading image into GL: %i\n", err);
     }
     
     mrb_value texture_id = mrb_fixnum_value(texture);
