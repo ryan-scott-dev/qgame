@@ -35,7 +35,7 @@ Game::Application.run do
     end
   end
 
-  state = QGame::Menu.find('main').build
+  state = Game::Menu.find('main').build
 
   while(@running)
     handle_events
