@@ -37,9 +37,13 @@ module QGame
       Sprite.shader.set_uniform('rotation', @rotation)
       Sprite.shader.set_uniform('scale', @scale)
       Sprite.shader.set_uniform('offset', @offset)
-
+      
+      GL.blend_alpha_transparency
+      
       Sprite.model.render
       
+      GL.blend_opaque
+
       @texture.unbind unless @texture.nil?
       Sprite.shader.unbind
       Sprite.model.unbind
