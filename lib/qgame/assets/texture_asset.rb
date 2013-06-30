@@ -10,6 +10,10 @@ module QGame
       :texture
     end
 
+    def size
+      @size ||= Vec2.new(@width, @height)
+    end
+
     def self.from_file(file)
       name = asset_name_from_file(file)
       

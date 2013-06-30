@@ -28,7 +28,6 @@ qgame_texture_asset_load_from_file(mrb_state* mrb, mrb_value self)
       printf("warning: %s's height is not a power of 2\n", file);
     }
 
-    
     // get the number of channels in the SDL surface
     GLint  nOfColors = surface->format->BytesPerPixel;
     if (nOfColors == 4)     // contains an alpha channel
@@ -68,7 +67,12 @@ qgame_texture_asset_load_from_file(mrb_state* mrb, mrb_value self)
     
     mrb_value texture_id = mrb_fixnum_value(texture);
     mrb_iv_set(mrb, self, mrb_intern(mrb, "texture_id"), texture_id);
+    
+    mrb_value mrb_width = mrb_fixnum_value(surface->w);
+    mrb_iv_set(mrb, self, mrb_intern(mrb, "@width"), mrb_width);
   
+    mrb_value mrb_height = mrb_fixnum_value(surface->h);
+    mrb_iv_set(mrb, self, mrb_intern(mrb, "@height"), mrb_height);
   }
   else {
     printf("SDL could not load image.bmp: %s\n", SDL_GetError());

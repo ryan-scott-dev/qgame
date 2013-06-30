@@ -35,6 +35,8 @@ Game::Application.run do
     end
   end
 
+  state = QGame::Menu.find('main').build
+
   while(@running)
     handle_events
 
@@ -42,6 +44,8 @@ Game::Application.run do
     sprites.each do |sprite|
       sprite.update
     end
+
+    state.update
 
     # render
     GL.clear_color(0.713, 0.788, 0.623, 1)
