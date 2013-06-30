@@ -33,7 +33,7 @@ module QGame
       texture_pressed = QGame::AssetManager.texture("#{texture_name}_pressed")
 
       new_button = QGame::Button.new({:texture => texture, :texture_pressed => texture_pressed, 
-        :scale => texture.size}.merge(args))
+        :scale => texture.size}.merge(args), &block)
       
       on_event(:mouse_up) do |event|
         new_button.handle_mouse_up(event)

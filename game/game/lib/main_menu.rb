@@ -3,6 +3,7 @@ QGame::Menu.new('main') do
   image('menu_title', :position => Vec2.new(400, 200))
 
   button('start_button', :position => Vec2.new(400)) do
+    puts "Button pressed"
   end
 
   # button('') do

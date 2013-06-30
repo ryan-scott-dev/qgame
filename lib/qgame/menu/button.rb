@@ -1,9 +1,11 @@
 module QGame
   class Button < Sprite
     
-    def initialize(args = {})
+    def initialize(args = {}, &block)
       super
+
       @texture_pressed = args[:texture_pressed]
+      @on_pressed = block
     end
 
     def update
@@ -14,9 +16,7 @@ module QGame
       mouse_pos = Vec2.new(event.mouse_button_x, event.mouse_button_y)
 
       if inside? mouse_pos
-        puts "Mouse pressed the button"
-      else
-        puts "Mouse didn't press the button (#{mouse_pos.x}, #{mouse_pos.y})"
+        self.instance_eval(&@on_pressed) unless @on_pressed.nil?
       end
     end
 
