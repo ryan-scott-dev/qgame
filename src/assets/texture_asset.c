@@ -33,10 +33,16 @@ qgame_texture_asset_load_from_file(mrb_state* mrb, mrb_value self)
     GLint  nOfColors = surface->format->BytesPerPixel;
     if (nOfColors == 4)     // contains an alpha channel
     {
-      texture_format = GL_RGBA;
+      if (surface->format->Rmask == 0x000000ff)
+        texture_format = GL_RGBA;
+      else
+        texture_format = GL_BGRA;
     } else if (nOfColors == 3)     // no alpha channel
     {
-      texture_format = GL_RGB;
+      if (surface->format->Rmask == 0x000000ff)
+        texture_format = GL_RGB;
+      else
+        texture_format = GL_BGRA;
     } else {
       printf("warning: the image is not truecolor..  this will probably break\n");
     }
