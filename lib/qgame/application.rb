@@ -4,6 +4,7 @@ module QGame
 
     def initialize
       @event_handlers = {}
+      @event_catchers = []
     end
 
     def run(&block)
@@ -14,6 +15,10 @@ module QGame
     
     def self.conf
       @@config
+    end
+
+    def self.current
+      @@current
     end
 
     def self.configure(&block)
@@ -49,6 +54,8 @@ module QGame
       AssetManager.register_asset_loader("textures", TextureAssetLoader.new)
       AssetManager.register_asset_loader("sounds", SoundAssetLoader.new)
       AssetManager.load
+
+      @@current = self
     end
 
     def on_event(event_type, &block)
@@ -56,7 +63,15 @@ module QGame
       @event_handlers[event_type] << block
     end
 
+    def handle_events(event_handler)
+      @event_catchers << event_handler
+    end
+
     def handle_event(event_type, event)
+      @event_catchers.each do |catcher|
+        catcher.handle_event(event_type, event)
+      end
+
       return nil unless @event_handlers.has_key? event_type
       
       @event_handlers[event_type].each do |handler|
@@ -64,7 +79,7 @@ module QGame
       end
     end
 
-    def handle_events
+    def process_events
       while event = SDL.poll_event
         handle_event(event.type, event)
       end

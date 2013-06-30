@@ -37,8 +37,10 @@ Game::Application.run do
 
   state = Game::Menu.find('main').build
 
+  handle_events state
+  
   while(@running)
-    handle_events
+    process_events
 
     # update
     sprites.each do |sprite|
