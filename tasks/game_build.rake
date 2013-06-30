@@ -75,7 +75,7 @@ module Game
       run_dependency = exefile("#{build_dir}/tools/main")
 
       # run generated executable
-      Rake::Task[run_dependency].invoke(args)
+      Rake::Task['compile'].invoke(args)
       
       # Execute with mruby
       FileUtils.sh run_dependency
@@ -84,16 +84,26 @@ module Game
 
   class BuildiOS < Build
     def run(args)
+      Rake::Task['compile'].invoke(args)
+
       dependencies = []
       dependencies << libfile("#{build_dir}/lib/libgame")
       dependencies << "#{build_dir}/tools/main.c"
-      
-      run_dependency = "#{build_dir}/tools/Test.app"
+
+      run_dependency = "#{PROJECT_ROOT}/platforms/ios/GameTest/GameTest.xcodeproj"
       dependencies.each do |dependency|
         Rake::Task[dependency].invoke(args)
       end
+
+      Rake::Task['ios_sim:build'].invoke
       
-      FileUtils.sh "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone Simulator.app/Contents/MacOS/iPhone\ Simulator -SimulateApplication #{run_dependency}"
+
+      FileUtils.sh "xcodebuild -project #{run_dependency} -configuration Debug -target \"GameTest\" -sdk iphonesimulator6.1"
+      app = "#{PROJECT_ROOT}/platforms/ios/GameTest/build/Release-iphonesimulator/GameTest.app"
+      unless File.exists? app
+        puts "Unable to locate the app at: #{app}"
+      end
+      FileUtils.sh "#{IOS_SIM_EXEC} launch #{app}"
     end
   end
 end
