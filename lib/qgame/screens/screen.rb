@@ -21,6 +21,13 @@ module QGame
       self
     end
 
+    def camera(type)
+      case type
+      when :fixed  
+        QGame::RenderManager.camera = QGame::Camera2D.new
+      end
+    end
+
     def image(texture_name, args = {})
       texture = QGame::AssetManager.texture(texture_name)
       new_image = QGame::Sprite.new({:texture => texture, :scale => texture.size}.merge(args))

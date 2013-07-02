@@ -2,52 +2,23 @@ Game::Application.run do
   # Full application lifecycle
   @running = true
 
-  Game::RenderManager.camera = Game::Camera2D.new(:position => Vec2.new(100, 0))
-
   on_event :quit do |event|
     @running = false
-  end
-
-  on_event :key_down do |event|
-    if event.key == :left  
-      Game::RenderManager.camera.position.x -= 10
-    elsif event.key == :right
-      Game::RenderManager.camera.position.x += 10
-    end
-
-    if event.key == :up  
-      Game::RenderManager.camera.position.y -= 10
-    elsif event.key == :down
-      Game::RenderManager.camera.position.y += 10
-    end
   end
 
   on_event :window_resized do |event|
     Game::RenderManager.resize_window(event.resize_width, event.resize_height)
   end
 
-  sprites = []
-  size = 60
-  (1..10).each do |offset_x|
-    (1..10).each do |offset_y|
-      sprites << Game::WoodSprite.new(:position => Vec2.new(offset_x * size, offset_y * size), 
-        :scale => Vec2.new(size))
-    end
-  end
+  Game::ScreenManager.transition_to(:main_menu)
 
-  current_screen = Game::Screen.find(:main_menu).build
-
-  handle_events current_screen
+  handle_events Game::ScreenManager
   
   while(@running)
     process_events
 
     # update
-    sprites.each do |sprite|
-      sprite.update
-    end
-
-    current_screen.update
+    Game::ScreenManager.update
 
     # render
     GL.clear_color(0.713, 0.788, 0.623, 1)
