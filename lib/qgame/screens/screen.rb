@@ -1,19 +1,19 @@
 module QGame
-  class Menu
-    @@menus = {}
+  class Screen
+    @@screens = {}
 
-    def self.find(menu_name)
-      @@menus[menu_name]
+    def self.find(screen_name)
+      @@screens[screen_name]
     end
 
-    def initialize(menu_name, &block)
-      @name = menu_name
+    def initialize(screen_name, &block)
+      @name = screen_name
       @components = []
       @event_handlers = {}
 
       @configure = block
       
-      @@menus[menu_name] = self
+      @@screens[screen_name] = self
     end
 
     def build

@@ -1,5 +1,4 @@
-QGame::Menu.new('main') do
-  # background('menu_title')
+QGame::Screen.new(:main_menu) do
   image('menu_title', :position => Vec2.new(400, 200))
 
   button('start_button', :position => Vec2.new(400)) do

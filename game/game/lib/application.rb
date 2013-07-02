@@ -35,9 +35,9 @@ Game::Application.run do
     end
   end
 
-  state = Game::Menu.find('main').build
+  current_screen = Game::Screen.find(:main_menu).build
 
-  handle_events state
+  handle_events current_screen
   
   while(@running)
     process_events
@@ -47,7 +47,7 @@ Game::Application.run do
       sprite.update
     end
 
-    state.update
+    current_screen.update
 
     # render
     GL.clear_color(0.713, 0.788, 0.623, 1)
