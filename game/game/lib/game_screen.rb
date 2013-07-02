@@ -16,8 +16,11 @@ QGame::Screen.new(:game) do
   end
 
   size = 60
-  (1..10).each do |offset_x|
-    (1..10).each do |offset_y|
+  max_x = (screen_width / size).to_i
+  max_y = (screen_height / size).to_i
+
+  (0..max_x).each do |offset_x|
+    (0..max_y).each do |offset_y|
       @components << Game::WoodSprite.new(:position => Vec2.new(offset_x * size, offset_y * size), 
         :scale => Vec2.new(size))
     end

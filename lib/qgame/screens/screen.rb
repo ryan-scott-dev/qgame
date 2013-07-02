@@ -21,6 +21,14 @@ module QGame
       self
     end
 
+    def screen_width
+      QGame::RenderManager.screen_width
+    end
+
+    def screen_height
+      QGame::RenderManager.screen_height
+    end
+
     def camera(type)
       case type
       when :fixed  
@@ -28,8 +36,31 @@ module QGame
       end
     end
 
+    def centered_args_from_texture(args)
+      if args.has_key? :centered
+        args[:position] = Vec2.new unless args.has_key? :position
+
+        case args[:centered]
+        when :horizontal
+          args[:position].x = (screen_width / 2.0)
+        when :vertical  
+          args[:position].y = (screen_height / 2.0)
+        when :both
+          args[:position].x = (screen_width / 2.0)
+          args[:position].y = (screen_height / 2.0)
+        end
+
+        args = args.reject!{ |k| k == :centered }
+      end
+
+      args
+    end
+
     def image(texture_name, args = {})
       texture = QGame::AssetManager.texture(texture_name)
+
+      args = centered_args_from_texture(args)
+
       new_image = QGame::Sprite.new({:texture => texture, :scale => texture.size}.merge(args))
       @components << new_image
       new_image
@@ -38,6 +69,8 @@ module QGame
     def button(texture_name, args = {}, &block)
       texture = QGame::AssetManager.texture(texture_name)
       texture_pressed = QGame::AssetManager.texture("#{texture_name}_pressed")
+
+      args = centered_args_from_texture(args)
 
       new_button = QGame::Button.new({:texture => texture, :texture_pressed => texture_pressed, 
         :scale => texture.size}.merge(args), &block)
