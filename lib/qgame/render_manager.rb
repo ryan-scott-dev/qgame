@@ -26,7 +26,7 @@ module QGame
 
     def self.resize_window(new_width, new_height)
       GL.viewport(0, 0, new_width, new_height)
-      @@projection = Mat4.orthogonal_2d(0, new_width, 0, new_height, -1, 1)
+      @@projection = Mat4.orthogonal_2d(0, new_width, 0, new_height)
     end
 
     def self.projection

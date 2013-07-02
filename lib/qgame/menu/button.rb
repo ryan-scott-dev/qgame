@@ -21,8 +21,14 @@ module QGame
     end
 
     def inside?(point)
-      point.x > @position.x && point.x < @position.x + @scale.x &&
-      point.y > @position.y && point.y < @position.y + @scale.y
+      inverse_view = QGame::RenderManager.camera.view.invert
+      screen_space_point = inverse_view.transform(point)
+
+      return false if screen_space_point.nil?
+
+      world_position = @position - (@scale * @offset)
+      screen_space_point.x > world_position.x && screen_space_point.x < world_position.x + @scale.x &&
+      screen_space_point.y > world_position.y && screen_space_point.y < world_position.y + @scale.y
     end
   end
 end
