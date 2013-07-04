@@ -1,6 +1,6 @@
 module QGame
   class TextureAsset
-    attr_accessor :name
+    attr_accessor :name, :width, :height
 
     def initialize(name)
       @name = name

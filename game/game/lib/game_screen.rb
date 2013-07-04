@@ -25,4 +25,10 @@ QGame::Screen.new(:game) do
         :scale => Vec2.new(size))
     end
   end
+
+  @components << Game::AnimatedSprite.new(
+    :texture => Game::AssetManager.texture('animated_sprite'), 
+    :position => Vec2.new(100),
+    :frame_size => Vec2.new(60, 60)
+  )
 end

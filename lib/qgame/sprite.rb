@@ -5,9 +5,9 @@ module QGame
 
     def initialize(args = {})
       @texture = args[:texture]
-      @position = args[:position] || Vec2.new(2)
+      @position = args[:position] || Vec2.new
       @rotation = args[:rotation] || 0.0
-      @scale = args[:scale] || Vec2.new(1)
+      @scale = args[:scale] || @texture.size
       @offset = args[:offset] || Vec2.new(0.5)
     end
 
@@ -16,8 +16,8 @@ module QGame
     end
 
     def self.shader
-      @@shader ||= ShaderProgramAsset.new(QGame::AssetManager.vertex('simple'), 
-                                          QGame::AssetManager.fragment('white'))
+      @@shader ||= ShaderProgramAsset.new(QGame::AssetManager.vertex('sprite'), 
+                                          QGame::AssetManager.fragment('sprite'))
     end
 
     def update
@@ -25,28 +25,31 @@ module QGame
     end
 
     def render
-      Sprite.model.bind
-      Sprite.shader.bind
+      model = Sprite.model
+      shader = Sprite.shader
+
+      model.bind
+      shader.bind
       
       @texture.bind unless @texture.nil?
-      Sprite.shader.set_uniform('tex', 0)
-      Sprite.shader.set_uniform('projection', QGame::RenderManager.projection)
-      Sprite.shader.set_uniform('view', QGame::RenderManager.camera.view)
+      shader.set_uniform('tex', 0)
+      shader.set_uniform('projection', QGame::RenderManager.projection)
+      shader.set_uniform('view', QGame::RenderManager.camera.view)
 
-      Sprite.shader.set_uniform('position', @position)
-      Sprite.shader.set_uniform('rotation', @rotation)
-      Sprite.shader.set_uniform('scale', @scale)
-      Sprite.shader.set_uniform('offset', @offset)
+      shader.set_uniform('position', @position)
+      shader.set_uniform('rotation', @rotation)
+      shader.set_uniform('scale', @scale)
+      shader.set_uniform('offset', @offset)
       
       GL.blend_alpha_transparency
       
-      Sprite.model.render
+      model.render
       
       GL.blend_opaque
 
       @texture.unbind unless @texture.nil?
-      Sprite.shader.unbind
-      Sprite.model.unbind
+      shader.unbind
+      model.unbind
     end
   end
 end
