@@ -13,6 +13,10 @@ module QGame
 
       @frames = []
       @current_frame = 0
+      @animating = args[:started]
+      @animating = true unless args.has_key? :started
+      
+      @frame_rate = args[:frame_rate]
 
       calculate_frame_positions
     end
@@ -39,9 +43,19 @@ module QGame
       @frame_size / @texture.size
     end
 
+    def start
+      @animating = true
+    end
+
+    def stop
+      @animating = false
+    end
+
     def update
-      @current_frame += 0.7
-      @current_frame = 0 if @current_frame >= @frames.length
+      if @animating
+        @current_frame += @frame_rate
+        @current_frame = 0 if @current_frame >= @frames.length
+      end
 
       super
     end
