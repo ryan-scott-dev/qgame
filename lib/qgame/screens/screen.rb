@@ -10,6 +10,7 @@ module QGame
       @name = screen_name
       @components = []
       @event_handlers = {}
+      @event_catchers = []
 
       @configure = block
       
@@ -90,11 +91,19 @@ module QGame
     end
 
     def handle_event(event_type, event)
+      @event_catchers.each do |catcher|
+        catcher.handle_event(event_type, event)
+      end
+
       return nil unless @event_handlers.has_key? event_type
       
       @event_handlers[event_type].each do |handler|
         handler.call(event)
       end
+    end
+
+    def handle_events(event_handler)
+      @event_catchers << event_handler
     end
 
     def on_event(event_type, &block)

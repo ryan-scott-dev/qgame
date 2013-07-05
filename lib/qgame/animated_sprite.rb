@@ -13,12 +13,18 @@ module QGame
 
       @frames = []
       @current_frame = 0
+
       @animating = args[:started]
       @animating = true unless args.has_key? :started
       
-      @frame_rate = args[:frame_rate]
+      @frame_rate = args[:frame_rate] || 1
+      @animation_offsets = args[:animations] || {}
+      @animations = {}
 
       calculate_frame_positions
+      calculate_animations
+
+      @current_animation = args.has_key?(:default_animation) ? @animations[args[:default_animation]] : @frames
     end
     
     def calculate_frame_positions
@@ -34,6 +40,12 @@ module QGame
       end
     end
 
+    def calculate_animations
+      @animation_offsets.each do |animation, offsets|
+        @animations[animation] = offsets.map {|offset| @frames[offset]}
+      end
+    end
+
     def self.shader
       @@shader ||= ShaderProgramAsset.new(QGame::AssetManager.vertex('animated_sprite'), 
                                           QGame::AssetManager.fragment('sprite'))
@@ -45,16 +57,21 @@ module QGame
 
     def start
       @animating = true
+      @current_frame = 0
     end
 
     def stop
       @animating = false
     end
 
+    def loop_animation(animation)
+      @current_animation = @animations[animation]
+    end
+
     def update
       if @animating
         @current_frame += @frame_rate
-        @current_frame = 0 if @current_frame >= @frames.length
+        @current_frame = 0 if @current_frame >= @current_animation.length
       end
 
       super
@@ -76,7 +93,7 @@ module QGame
       shader.set_uniform('rotation', @rotation)
       shader.set_uniform('scale', @scale)
       shader.set_uniform('offset', @offset)
-      shader.set_uniform('frame_offset', @frames[@current_frame.to_i])
+      shader.set_uniform('frame_offset', @current_animation[@current_frame.to_i])
       shader.set_uniform('frame_scale', frame_offset)
       
       GL.blend_alpha_transparency
