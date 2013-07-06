@@ -1,5 +1,9 @@
 module QGame
+  module EventHandler
+  end
+
   module EventManager
+    include EventHandler
   end
 
   class Application
