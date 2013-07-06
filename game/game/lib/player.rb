@@ -16,6 +16,7 @@ module Game
         :default_animation => :idle
       }
 
+      @velocity = 0
       super(args.merge(defaults))
 
       setup_events
@@ -36,10 +37,12 @@ module Game
     end
 
     def move_right
+      @velocity += 10
       loop_animation(:walk_right)
     end
 
     def move_left
+      @velocity -= 10
       loop_animation(:walk_left)
     end
 
@@ -52,6 +55,18 @@ module Game
     end
 
     def update
+      @velocity = 10 if @velocity > 10
+      @velocity = -10 if @velocity < -10
+
+      @position.x += @velocity
+      
+      if @velocity == 0
+        idle
+      end
+
+      @velocity -= 1 if @velocity > 0
+      @velocity += 1 if @velocity < 0
+
       super
     end
   end
