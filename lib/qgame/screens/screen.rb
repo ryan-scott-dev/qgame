@@ -2,6 +2,8 @@ module QGame
   class Screen
     @@screens = {}
 
+    include QGame::EventManager
+
     def self.find(screen_name)
       @@screens[screen_name]
     end
@@ -9,8 +11,6 @@ module QGame
     def initialize(screen_name, &block)
       @name = screen_name
       @components = []
-      @event_handlers = {}
-      @event_catchers = []
 
       @configure = block
       
@@ -88,27 +88,6 @@ module QGame
       @components.each do |component|
         component.update
       end
-    end
-
-    def handle_event(event_type, event)
-      @event_catchers.each do |catcher|
-        catcher.handle_event(event_type, event)
-      end
-
-      return nil unless @event_handlers.has_key? event_type
-      
-      @event_handlers[event_type].each do |handler|
-        handler.call(event)
-      end
-    end
-
-    def handle_events(event_handler)
-      @event_catchers << event_handler
-    end
-
-    def on_event(event_type, &block)
-      @event_handlers[event_type] = [] unless @event_handlers.has_key? event_type
-      @event_handlers[event_type] << block
     end
   end
 end
