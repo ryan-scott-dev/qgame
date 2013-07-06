@@ -1,5 +1,7 @@
 module Game
   class Player < QGame::AnimatedSprite
+    include QGame::EventHandler
+
     def initialize(args = {})
       defaults = {
         :texture => Game::AssetManager.texture('robot'), 
@@ -13,7 +15,6 @@ module Game
         },
         :default_animation => :idle
       }
-      @event_handlers = {}
 
       super(args.merge(defaults))
 
@@ -52,19 +53,6 @@ module Game
 
     def update
       super
-    end
-
-    def handle_event(event_type, event)
-      return nil unless @event_handlers.has_key? event_type
-      
-      @event_handlers[event_type].each do |handler|
-        handler.call(event)
-      end
-    end
-
-    def on_event(event_type, &block)
-      @event_handlers[event_type] = [] unless @event_handlers.has_key? event_type
-      @event_handlers[event_type] << block
     end
   end
 end
