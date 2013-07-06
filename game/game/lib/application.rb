@@ -15,10 +15,12 @@ Game::Application.run do
   handle_events Game::ScreenManager
   
   while(@running)
+    stop_elapsed_counter
     process_events
 
     # update
     Game::ScreenManager.update
+    start_elapsed_counter
 
     # render
     GL.clear_color(0.713, 0.788, 0.623, 1)

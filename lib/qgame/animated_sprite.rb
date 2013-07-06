@@ -17,7 +17,7 @@ module QGame
       @animating = args[:started]
       @animating = true unless args.has_key? :started
       
-      @frame_rate = args[:frame_rate] || 1
+      @frame_rate = args[:frame_rate] || 30
       @animation_offsets = args[:animations] || {}
       @animations = {}
 
@@ -70,7 +70,7 @@ module QGame
 
     def update
       if @animating
-        @current_frame += @frame_rate
+        @current_frame += @frame_rate * Application.elapsed
         @current_frame = 0 if @current_frame >= @current_animation.length
       end
 

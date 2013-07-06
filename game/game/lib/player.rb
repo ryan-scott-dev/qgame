@@ -6,7 +6,7 @@ module Game
       defaults = {
         :texture => Game::AssetManager.texture('robot'), 
         :frame_size => Vec2.new(51, 93),
-        :frame_rate => 0.3,
+        :frame_rate => 10,
         :animations => {
           :walk_left => (8..15),
           :walk_right => (16..23),
@@ -37,12 +37,12 @@ module Game
     end
 
     def move_right
-      @velocity += 10
+      @velocity += 3
       loop_animation(:walk_right)
     end
 
     def move_left
-      @velocity -= 10
+      @velocity -= 3
       loop_animation(:walk_left)
     end
 
@@ -55,17 +55,17 @@ module Game
     end
 
     def update
-      @velocity = 10 if @velocity > 10
-      @velocity = -10 if @velocity < -10
+      @velocity = 3 if @velocity > 3
+      @velocity = -3 if @velocity < -3
 
-      @position.x += @velocity
+      @position.x += @velocity * Application.elapsed
       
       if @velocity == 0
         idle
       end
 
-      @velocity -= 1 if @velocity > 0
-      @velocity += 1 if @velocity < 0
+      @velocity -= Application.elapsed if @velocity > 0
+      @velocity += Application.elapsed if @velocity < 0
 
       super
     end
