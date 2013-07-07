@@ -21,9 +21,9 @@ module QGame
     end
 
     def map(input_mapping)
-      puts input_mapping
       input_mapping.each do |key, input_alias|
-        @key_mapping[input_alias] = key
+        @key_mapping[input_alias] = [] if @key_mapping[input_alias].nil?
+        @key_mapping[input_alias] << key
       end
     end
     
@@ -36,7 +36,8 @@ module QGame
     end
 
     def is_down?(input_alias)
-      @input_manager.is_down? @key_mapping[input_alias]
+      return false unless @key_mapping.has_key? input_alias
+      @key_mapping[input_alias].any? {|key| @input_manager.is_down? key}
     end
   end
 
