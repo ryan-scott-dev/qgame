@@ -24,12 +24,6 @@ module Game
 
     def setup_events
       on_event :key_down do |event|
-        if event.key == :left  
-          move_left
-        elsif event.key == :right
-          move_right
-        end
-
         if event.key == :up  
           jump
         end
@@ -37,12 +31,12 @@ module Game
     end
 
     def move_right
-      @velocity += 3
+      move_dir = :right
       loop_animation(:walk_right)
     end
 
     def move_left
-      @velocity -= 3
+      move_dir = :left
       loop_animation(:walk_left)
     end
 
@@ -55,17 +49,25 @@ module Game
     end
 
     def update
-      @velocity = 3 if @velocity > 3
-      @velocity = -3 if @velocity < -3
 
-      @position.x += @velocity * Application.elapsed
-      
-      if @velocity == 0
+      if Game::Input.is_down?(:move_left)
+        move_left
+      elsif Game::Input.is_down?(:move_right)
+        move_right
+      else
         idle
       end
 
-      @velocity -= Application.elapsed if @velocity > 0
-      @velocity += Application.elapsed if @velocity < 0
+      # @position.x += 10 * Application.elapsed        
+      # @velocity = 30 if @velocity > 30
+      # @velocity = -30 if @velocity < -30
+
+      # if @velocity == 0
+      #   idle
+      # end
+
+      # @velocity -= Application.elapsed if @velocity > 0
+      # @velocity += Application.elapsed if @velocity < 0
 
       super
     end

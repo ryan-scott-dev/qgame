@@ -8,7 +8,8 @@ module QGame
 
   class Application
     @@config = {}
-
+    @@platform = nil
+    
     include QGame::EventManager
 
     def run(&block)
@@ -23,6 +24,10 @@ module QGame
 
     def self.current
       @@current
+    end
+
+    def self.platform
+      @@platform ||= Platform.current
     end
 
     def self.configure(&block)
@@ -61,11 +66,16 @@ module QGame
       @last_elapsed = (Time.now - @start_elapsed_time)
     end
 
+    def setup_input
+      QGame::Input.setup(Application.conf[:input])
+    end
+
     def start
       SDL.init
       SDL.set_gl_version(3, 2)
       @window = SDL::Window.create(title, 0, 0, start_width, start_height, window_flags)
       @context = @window.create_gl_context
+      setup_input
 
       Game::RenderManager.resize_window(@window.width, @window.height)
 

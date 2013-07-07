@@ -7,16 +7,18 @@ Game.each_target do |t|
   mlib = clib.ext(exts.object)
   init = "#{current_dir}/init_application.c"
   bootstrap = "#{PROJECT_ROOT}/config/bootstrap.rb"
-  config = "#{PROJECT_ROOT}/config/config.rb"
+  config = Dir.glob("#{PROJECT_ROOT}/config/**.rb")
+  config.reject! {|conf_file| conf_file.include?('bootstrap.rb') || conf_file.include?('build_config.rb') }
+
   application = "#{PROJECT_ROOT}/game/lib/application.rb"
   
   file mlib => [clib]
-  file clib => [mrbcfile, init, bootstrap, config, application] do |t|
+  file clib => [mrbcfile, init, bootstrap, config, application].flatten do |t|
     _pp "GEN", "*.rb", "#{clib.relative_path}"
     FileUtils.mkdir_p File.dirname(clib)
     open(clib, 'w') do |f|
       f.puts IO.read(init)
-      mrbc.run f, [bootstrap, config, application], 'mrbapp_irep'
+      mrbc.run f, [bootstrap, config, application].flatten, 'mrbapp_irep'
     end
   end
   
