@@ -31,12 +31,12 @@ module Game
     end
 
     def move_right
-      move_dir = :right
+      @velocity += 10
       loop_animation(:walk_right)
     end
 
     def move_left
-      move_dir = :left
+      @velocity -= 10
       loop_animation(:walk_left)
     end
 
@@ -52,22 +52,30 @@ module Game
 
       if Game::Input.is_down?(:move_left)
         move_left
-      elsif Game::Input.is_down?(:move_right)
+      end
+      if Game::Input.is_down?(:move_right)
         move_right
-      else
+      end
+
+      @velocity = 10 if @velocity > 10
+      @velocity = -10 if @velocity < -10
+
+      @position.x += @velocity * Application.elapsed        
+
+      if @velocity == 0
         idle
       end
 
-      # @position.x += 10 * Application.elapsed        
-      # @velocity = 30 if @velocity > 30
-      # @velocity = -30 if @velocity < -30
+      vel_falloff = Application.elapsed * 20
+      if @velocity > 0
+        vel_falloff = @velocity.abs if @velocity.abs > vel_falloff
+        @velocity -= vel_falloff 
+      end
 
-      # if @velocity == 0
-      #   idle
-      # end
-
-      # @velocity -= Application.elapsed if @velocity > 0
-      # @velocity += Application.elapsed if @velocity < 0
+      if @velocity < 0
+        vel_falloff = @velocity.abs if @velocity.abs > vel_falloff
+        @velocity += vel_falloff
+      end
 
       super
     end
