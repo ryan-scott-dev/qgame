@@ -30,14 +30,20 @@ module QGame
       QGame::RenderManager.screen_height
     end
 
+    def screen_size
+      @screen_size ||= Vec2.new(screen_width, screen_height)
+    end
+
     def remove(entity)
       @components.delete(entity)
     end
 
-    def camera(type)
+    def camera(type, args = {})
       case type
       when :fixed  
-        QGame::RenderManager.camera = QGame::Camera2D.new
+        QGame::RenderManager.camera = QGame::Camera2D.new(args)
+      when :follow
+        QGame::RenderManager.camera = QGame::FollowCamera.new(args)
       end
     end
 
@@ -92,6 +98,8 @@ module QGame
       @components.each do |component|
         component.update
       end
+
+      QGame::RenderManager.camera.update
     end
   end
 end
