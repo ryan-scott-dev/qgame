@@ -2,6 +2,10 @@ module Game
   class Player < QGame::AnimatedSprite
     include QGame::EventHandler
 
+    MOVE_SPEED = 30
+    MAX_SPEED = 70
+    SPEED_FALLOFF = 480
+
     def initialize(args = {})
       defaults = {
         :texture => Game::AssetManager.texture('robot'), 
@@ -31,12 +35,12 @@ module Game
     end
 
     def move_right
-      @velocity += 10
+      @velocity += MOVE_SPEED
       loop_animation(:walk_right)
     end
 
     def move_left
-      @velocity -= 10
+      @velocity -= MOVE_SPEED
       loop_animation(:walk_left)
     end
 
@@ -57,8 +61,8 @@ module Game
         move_right
       end
 
-      @velocity = 10 if @velocity > 10
-      @velocity = -10 if @velocity < -10
+      @velocity = MAX_SPEED if @velocity > MAX_SPEED
+      @velocity = -MAX_SPEED if @velocity < -MAX_SPEED
 
       @position.x += @velocity * Application.elapsed        
 
@@ -66,14 +70,14 @@ module Game
         idle
       end
 
-      vel_falloff = Application.elapsed * 20
+      vel_falloff = Application.elapsed * SPEED_FALLOFF
       if @velocity > 0
-        vel_falloff = @velocity.abs if @velocity.abs > vel_falloff
+        vel_falloff = @velocity.abs unless @velocity.abs > vel_falloff
         @velocity -= vel_falloff 
       end
 
       if @velocity < 0
-        vel_falloff = @velocity.abs if @velocity.abs > vel_falloff
+        vel_falloff = @velocity.abs unless @velocity.abs > vel_falloff
         @velocity += vel_falloff
       end
 
