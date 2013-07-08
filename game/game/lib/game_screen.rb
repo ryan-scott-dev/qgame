@@ -1,7 +1,7 @@
 QGame::Screen.new(:game) do
   camera(:fixed)
 
-  player = Game::Player.new(:position => Vec2.new(200))
+  player = Game::Player.new(:position => Vec2.new(300, 200))
   handle_events player
   @components << player
 
@@ -16,6 +16,10 @@ QGame::Screen.new(:game) do
   #   end
   # end
 
-  @components << Game::Coin.new(:position => Vec2.new(100))
-  
+  @components << Game::Coin.new(:position => Vec2.new(100, 200))
+  @components << Game::Coin.new(:position => Vec2.new(120, 200))
+  @components << Game::Coin.new(:position => Vec2.new(140, 200))
+  @components << Game::Coin.new(:position => Vec2.new(160, 200))
+  @components << Game::Coin.new(:position => Vec2.new(180, 200))
+
 end

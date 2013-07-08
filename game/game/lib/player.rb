@@ -1,6 +1,8 @@
 module Game
   class Player < QGame::AnimatedSprite
     include QGame::EventHandler
+    include QGame::Collidable
+    include QGame::CollidableFast
 
     MOVE_SPEED = 30
     MAX_SPEED = 70
@@ -21,9 +23,17 @@ module Game
       }
 
       @velocity = 0
+      @score = 0
+      
       super(args.merge(defaults))
 
       setup_events
+
+      collides_as :player
+      
+      collides_with :enemies do |other|
+        this.attacked_by(other)
+      end
     end
 
     def setup_events
@@ -50,6 +60,10 @@ module Game
 
     def idle
       loop_animation(:idle)
+    end
+
+    def collect(collectable)
+      @score += 10
     end
 
     def update
@@ -80,6 +94,8 @@ module Game
         vel_falloff = @velocity.abs unless @velocity.abs > vel_falloff
         @velocity += vel_falloff
       end
+
+      check_collisions
 
       super
     end

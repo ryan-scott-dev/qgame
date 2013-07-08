@@ -2,6 +2,8 @@ module QGame
   class Sprite
     @@model = nil
     @@shader = nil
+    
+    attr_accessor :position, :rotation, :scale, :offset
 
     def initialize(args = {})
       @texture = args[:texture]
@@ -18,6 +20,10 @@ module QGame
     def self.shader
       @@shader ||= ShaderProgramAsset.new(QGame::AssetManager.vertex('sprite'), 
                                           QGame::AssetManager.fragment('sprite'))
+    end
+
+    def destruct
+      QGame::ScreenManager.current.remove(self)
     end
 
     def update

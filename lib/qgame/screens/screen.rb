@@ -30,6 +30,10 @@ module QGame
       QGame::RenderManager.screen_height
     end
 
+    def remove(entity)
+      @components.delete(entity)
+    end
+
     def camera(type)
       case type
       when :fixed  
