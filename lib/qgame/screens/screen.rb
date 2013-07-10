@@ -67,6 +67,15 @@ module QGame
       args
     end
 
+    def overlay(screen_name)
+      @parent_screen = QGame::Screen.find(screen_name).build
+    end
+
+    def dynamic_text(args = {}, &block)
+      new_text = QGame::DynamicText.new(args, &block)
+      @components << new_text
+    end
+
     def image(texture_name, args = {})
       texture = QGame::AssetManager.texture(texture_name)
 
@@ -100,6 +109,8 @@ module QGame
       end
 
       QGame::RenderManager.camera.update
+
+      @parent_screen.update if @parent_screen
     end
   end
 end
