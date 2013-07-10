@@ -76,9 +76,9 @@ module Game
 
       # run generated executable
       Rake::Task['compile'].invoke(args)
-      
+
       # Execute with mruby
-      FileUtils.sh run_dependency
+      FileUtils.sh("#{run_dependency} #{args[:args].join(' ')}")
     end
   end
 

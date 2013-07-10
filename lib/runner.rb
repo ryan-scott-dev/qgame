@@ -3,6 +3,7 @@ require 'rake'
 load "#{QGAME_ROOT}/tasks/new_project.rake"
 load "#{QGAME_ROOT}/tasks/run.rake"
 load "#{QGAME_ROOT}/tasks/compile.rake"
+load "#{QGAME_ROOT}/tasks/profile.rake"
 
 module QGame
   module Runner

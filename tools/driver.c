@@ -13,6 +13,7 @@
 #include <mruby/data.h>
 #include <mruby/compile.h>
 #include <mruby/variable.h>
+#include <mruby/array.h>
 
 #include <SDL2/SDL_main.h>
 
@@ -43,6 +44,13 @@ main(int argc, char **argv)
     return EXIT_FAILURE;
   }
   
+
+  mrb_value ARGV = mrb_ary_new_capa(mrb, argc);
+  for (int i = 0; i < argc; i++) {
+    mrb_ary_push(mrb, ARGV, mrb_str_new(mrb, argv[i], strlen(argv[i])));
+  }
+  mrb_define_global_const(mrb, "ARGV", ARGV);
+
   mrb_init_mrbgems(mrb);
   
   qgame_init(mrb);

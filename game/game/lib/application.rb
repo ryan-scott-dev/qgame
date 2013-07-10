@@ -2,6 +2,11 @@ Game::Application.run do
   # Full application lifecycle
   @running = true
 
+  if ARGV.include? 'profile'
+    puts "Running in profile mode"
+    QGame::ProfileScreen.enable 
+  end
+
   on_event :quit do |event|
     @running = false
   end
