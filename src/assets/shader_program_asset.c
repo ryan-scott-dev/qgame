@@ -47,7 +47,7 @@ qgame_shader_program_asset_link(mrb_state* mrb, mrb_value self)
   }
 
   mrb_value program_id = mrb_fixnum_value(program);
-  mrb_iv_set(mrb, self, mrb_intern(mrb, "program_id"), program_id);
+  mrb_iv_set(mrb, self, mrb_intern(mrb, "@program_id"), program_id);
 
   return self;
 }
@@ -55,7 +55,7 @@ qgame_shader_program_asset_link(mrb_state* mrb, mrb_value self)
 mrb_value
 qgame_shader_program_asset_bind(mrb_state* mrb, mrb_value self)
 {
-  mrb_value program_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "program_id"));
+  mrb_value program_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "@program_id"));
   GLuint program = mrb_fixnum(program_id);
   
   glUseProgram(program);
@@ -83,7 +83,7 @@ qgame_shader_program_asset_unbind(mrb_state* mrb, mrb_value self)
 mrb_value
 qgame_shader_program_asset_set_uniform_fixnum(mrb_state* mrb, mrb_value self)
 {
-  mrb_value program_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "program_id"));
+  mrb_value program_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "@program_id"));
   GLuint program = mrb_fixnum(program_id);
 
   mrb_value mrb_uniform_name;
@@ -105,7 +105,7 @@ qgame_shader_program_asset_set_uniform_fixnum(mrb_state* mrb, mrb_value self)
 mrb_value
 qgame_shader_program_asset_set_uniform_float(mrb_state* mrb, mrb_value self)
 {
-  mrb_value program_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "program_id"));
+  mrb_value program_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "@program_id"));
   GLuint program = mrb_fixnum(program_id);
 
   mrb_value mrb_uniform_name;
@@ -127,7 +127,7 @@ qgame_shader_program_asset_set_uniform_float(mrb_state* mrb, mrb_value self)
 mrb_value
 qgame_shader_program_asset_set_uniform_vec2(mrb_state* mrb, mrb_value self)
 {
-  mrb_value program_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "program_id"));
+  mrb_value program_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "@program_id"));
   GLuint program = mrb_fixnum(program_id);
 
   mrb_value mrb_uniform_name;
@@ -151,7 +151,7 @@ qgame_shader_program_asset_set_uniform_vec2(mrb_state* mrb, mrb_value self)
 mrb_value
 qgame_shader_program_asset_set_uniform_mat4(mrb_state* mrb, mrb_value self)
 {
-  mrb_value program_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "program_id"));
+  mrb_value program_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "@program_id"));
   GLuint program = mrb_fixnum(program_id);
 
   mrb_value mrb_uniform_name;

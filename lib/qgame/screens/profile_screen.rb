@@ -9,7 +9,7 @@ module QGame
         min_count = 10000
         max_count = 0
 
-        dynamic_text(:frequency => 1) do
+        dynamic_text(:frequency => 1, :position => Vec2.new(100, 100)) do
           ObjectSpace.count_objects(object_count)
           count = object_count[:TOTAL]
           min_count = count if count < min_count

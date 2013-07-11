@@ -1,6 +1,6 @@
 module QGame
   class ShaderProgramAsset
-    attr_accessor :vert, :frag
+    attr_accessor :vert, :frag, :program_id
 
     def initialize(vertex_shader, fragment_shader)
       @vert = vertex_shader
