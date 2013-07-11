@@ -27,6 +27,8 @@ MRUBY_CONFIG = "#{PROJECT_ROOT}/config/platforms/ios/build_config.rb"
 load MRUBY_CONFIG
 
 load "#{QGAME_ROOT}/tasks/sdl.rake"
+load "#{QGAME_ROOT}/tasks/freetype.rake"
+
 load "#{QGAME_ROOT}/tasks/ios-sim.rake"
 
 # load basic rules
@@ -74,6 +76,15 @@ task :compile do |args|
   puts "Compiling sdl..."
   puts "----------------------------------"
   Rake::Task['sdl:compile'].invoke(args)
+  # This should produce a linkable mruby library
+  puts "----------------------------------"
+  puts "Done!"
+  puts ""
+  puts ""
+  puts "----------------------------------"
+  puts "Compiling freetype..."
+  puts "----------------------------------"
+  Rake::Task['freetype:compile'].invoke(args)
   # This should produce a linkable mruby library
   puts "----------------------------------"
   puts "Done!"

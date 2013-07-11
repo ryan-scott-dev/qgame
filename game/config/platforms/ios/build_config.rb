@@ -4,13 +4,15 @@ Game::Build.new do |conf|
   conf.cc do |cc|
     cc.include_paths = ["#{QGAME_ROOT}/include", "#{MRUBY_ROOT}/include"]
     cc.include_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/include"
+    cc.include_paths << "#{QGAME_ROOT}/dependencies/freetype/#{conf.name}/include"
   end
 
   # Linker settings
   conf.linker do |linker|
-    linker.libraries = %w(qgame mruby SDL2_image SDL2_mixer SDL2 GL)
+    linker.libraries = %w(qgame mruby SDL2_image SDL2_mixer SDL2 GL freetype)
     linker.library_paths = ["#{QGAME_ROOT}/build/#{conf.name}/lib", "#{MRUBY_ROOT}/build/#{conf.name}/lib"]
     linker.library_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/lib"
+    linker.library_paths << "#{QGAME_ROOT}/dependencies/freetype/#{conf.name}/lib"
     linker.library_paths << "/System/Library/Frameworks/OpenGL.framework/Libraries"
   end
 end
@@ -22,13 +24,15 @@ Game::BuildiOS.new('ios') do |conf|
   conf.cc do |cc|
     cc.include_paths = ["#{QGAME_ROOT}/include", "#{MRUBY_ROOT}/include"]
     cc.include_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/include"
+    cc.include_paths << "#{QGAME_ROOT}/dependencies/freetype/#{conf.name}/include"
   end
 
   # Linker settings
   conf.linker do |linker|
-    linker.libraries = %w(qgame mruby SDL2_image SDL2_mixer SDL2 GL)
+    linker.libraries = %w(qgame mruby SDL2_image SDL2_mixer SDL2 GL freetype)
     linker.library_paths = ["#{QGAME_ROOT}/build/#{conf.name}/lib", "#{MRUBY_ROOT}/build/#{conf.name}/lib"]
     linker.library_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/lib"
+    linker.library_paths << "#{QGAME_ROOT}/dependencies/freetype/#{conf.name}/lib"
     linker.library_paths << "/System/Library/Frameworks/OpenGL.framework/Libraries"
   end
 end
