@@ -9,6 +9,7 @@ module QGame
     end
 
     def initialize(screen_name, &block)
+      @built = false
       @name = screen_name
       @components = []
 
@@ -18,7 +19,8 @@ module QGame
     end
 
     def build
-      self.instance_eval(&@configure)
+      self.instance_eval(&@configure) unless @built
+      @built = true
       self
     end
 
@@ -110,7 +112,7 @@ module QGame
 
       QGame::RenderManager.camera.update
 
-      @parent_screen.update if @parent_screen
+      @parent_screen.update unless @parent_screen.nil?
     end
   end
 end

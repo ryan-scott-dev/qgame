@@ -78,7 +78,7 @@ module Game
       @velocity = MAX_SPEED if @velocity > MAX_SPEED
       @velocity = -MAX_SPEED if @velocity < -MAX_SPEED
 
-      @position.x += @velocity * Application.elapsed        
+      @position.x += @velocity * Application.elapsed
 
       if @velocity == 0
         idle

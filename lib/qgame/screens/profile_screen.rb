@@ -9,9 +9,9 @@ module QGame
         min_count = 10000
         max_count = 0
 
-        dynamic_text(:frequency => 1000) do
+        dynamic_text(:frequency => 1) do
           ObjectSpace.count_objects(object_count)
-          count = object_count[:TOTAL] - object_count[:FREE]
+          count = object_count[:TOTAL]
           min_count = count if count < min_count
           max_count = count if count > max_count
 

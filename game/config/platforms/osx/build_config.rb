@@ -15,7 +15,6 @@ Game::Build.new do |conf|
     linker.library_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/lib"
     linker.library_paths << "/System/Library/Frameworks/OpenGL.framework/Libraries"
     linker.library_paths << "#{QGAME_ROOT}/dependencies/freetype/#{conf.name}/lib"
-    linker.library_paths << "/usr/lib"
   end
 
   # load specific platform settings
@@ -32,7 +31,6 @@ QGame::Build.new do |conf|
     cc.include_paths.concat gem_include_paths
     cc.include_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/include"
     cc.include_paths << "#{QGAME_ROOT}/dependencies/freetype/#{conf.name}/include"
-    cc.include_paths << "/usr/include/GL"
   end
 
   # Linker settings
