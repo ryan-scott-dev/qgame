@@ -25,6 +25,7 @@ Game::BuildiOS.new('ios') do |conf|
     cc.include_paths = ["#{QGAME_ROOT}/include", "#{MRUBY_ROOT}/include"]
     cc.include_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/include"
     cc.include_paths << "#{QGAME_ROOT}/dependencies/freetype/#{conf.name}/include"
+    cc.include_paths << "#{QGAME_ROOT}/dependencies/freetype/#{conf.name}/include/freetype2"
   end
 
   # Linker settings
@@ -46,12 +47,15 @@ QGame::Build.new do |conf|
     cc.include_paths = ["#{QGAME_ROOT}/include", "#{MRUBY_ROOT}/include"]
     cc.include_paths.concat gem_include_paths
     cc.include_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/include"
+    cc.include_paths << "#{QGAME_ROOT}/dependencies/freetype/#{conf.name}/include"
+    cc.include_paths << "#{QGAME_ROOT}/dependencies/freetype/#{conf.name}/include/freetype2"
   end
 
   # Linker settings
   conf.linker do |linker|
-    linker.libraries = %w(libmruby)
+    linker.libraries = %w(libmruby freetype)
     linker.library_paths = ["#{MRUBY_ROOT}/build/#{conf.name}/lib"]
+    linker.library_paths << "#{QGAME_ROOT}/dependencies/freetype/#{conf.name}/lib"
     linker.flags << "-framework OpenGLES"
   end
 end

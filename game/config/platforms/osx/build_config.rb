@@ -4,14 +4,17 @@ Game::Build.new do |conf|
   # C compiler settings
   conf.cc do |cc|
     cc.include_paths = ["#{QGAME_ROOT}/include", "#{MRUBY_ROOT}/include"]
+    cc.include_paths << "#{QGAME_ROOT}/dependencies/freetype/#{conf.name}/include"
+    cc.include_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/include"
   end
 
   # Linker settings
   conf.linker do |linker|
-    linker.libraries = %w(SDL2_image SDL2_mixer SDL2 GLEW GL)
+    linker.libraries = %w(SDL2_image SDL2_mixer SDL2 GLEW GL freetype)
 
-    linker.library_paths << "/Users/administrator/SDL/lib"
+    linker.library_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/lib"
     linker.library_paths << "/System/Library/Frameworks/OpenGL.framework/Libraries"
+    linker.library_paths << "#{QGAME_ROOT}/dependencies/freetype/#{conf.name}/lib"
     linker.library_paths << "/usr/lib"
   end
 
@@ -27,7 +30,8 @@ QGame::Build.new do |conf|
   conf.cc do |cc|
     cc.include_paths = ["#{QGAME_ROOT}/include", "#{MRUBY_ROOT}/include"]
     cc.include_paths.concat gem_include_paths
-    cc.include_paths.concat ['/Users/administrator/SDL/include']
+    cc.include_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/include"
+    cc.include_paths << "#{QGAME_ROOT}/dependencies/freetype/#{conf.name}/include"
     cc.include_paths << "/usr/include/GL"
   end
 
@@ -35,7 +39,8 @@ QGame::Build.new do |conf|
   conf.linker do |linker|
     linker.libraries = %w(libmruby)
     linker.library_paths = ["#{QGAME_ROOT}/build/host/lib"]
-    linker.library_paths << "/usr/lib"
+    linker.library_paths << "#{QGAME_ROOT}/dependencies/freetype/#{conf.name}/lib"
+    linker.library_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/lib"
   end
 end
 
