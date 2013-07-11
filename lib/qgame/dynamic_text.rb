@@ -38,13 +38,11 @@ module QGame
       @text_buffer.bind(shader.program_id)
       
       shader.set_uniform('texture', 0)
-      shader.set_uniform('view', QGame::RenderManager.camera.view)
-      # shader.set_uniform('view', Mat4.new)
+      shader.set_uniform('view', Mat4.new)
       shader.set_uniform('projection', QGame::RenderManager.projection)
 
       shader.set_uniform('position', @position)
       shader.set_uniform('rotation', @rotation)
-      shader.set_uniform('scale', @scale)
       shader.set_uniform('offset', @offset)
       
       GL.blend_alpha_transparency

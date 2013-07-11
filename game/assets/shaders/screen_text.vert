@@ -34,7 +34,6 @@
  * ========================================================================= */
 uniform vec2 position;
 uniform float rotation;
-uniform vec2 scale;
 uniform vec2 offset;
 
 uniform mat4 view;
