@@ -11,4 +11,5 @@ QGame::Screen.new(:game) do
   @components << Game::Coin.new(:position => Vec2.new(160, 200))
   @components << Game::Coin.new(:position => Vec2.new(180, 200))
 
+  overlay(:virtual_gamepad) if Game::Input.input_type_active? :virtual_gamepad
 end

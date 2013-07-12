@@ -5,6 +5,7 @@
 #include "mrb_gmath.h"
 
 #include "application.h"
+#include "mouse.h"
 #include "asset_manager.h"
 #include "assets/shader_asset.h"
 #include "assets/model_asset.h"
@@ -21,6 +22,7 @@ qgame_init(mrb_state* mrb) {
   mrb_mruby_gmath_gem_init(mrb);
 
   qgame_application_init(mrb);
+  qgame_mouse_init(mrb);
   qgame_asset_manager_init(mrb, qgame);
   qgame_shader_asset_init(mrb, qgame);
   qgame_model_asset_init(mrb, qgame);

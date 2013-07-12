@@ -71,6 +71,7 @@ module QGame
 
     def overlay(screen_name)
       @parent_screen = QGame::Screen.find(screen_name).build
+      handle_events @parent_screen
     end
 
     def dynamic_text(args = {}, &block)
@@ -103,6 +104,27 @@ module QGame
 
       @components << new_button
       new_button
+    end
+
+    def joystick(texture_name, args = {})
+      texture = QGame::AssetManager.texture(texture_name)
+      texture_base = "#{texture_name}_base"
+
+      args = centered_args_from_texture(args)
+      
+      base_image = image(texture_base, args)
+      new_joystick = QGame::VirtualThumbstick.new({:texture => texture, :radius => base_image.scale.x}.merge(args))
+      
+      on_event(:mouse_up) do |event|
+        new_joystick.handle_mouse_up(event)
+      end
+
+      on_event(:mouse_down) do |event|
+        new_joystick.handle_mouse_down(event)
+      end
+
+      @components << new_joystick
+      new_joystick
     end
 
     def update

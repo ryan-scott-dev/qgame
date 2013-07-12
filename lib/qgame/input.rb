@@ -44,7 +44,8 @@ module QGame
   class Input
     def self.setup(input_options)
       input_options = [input_options] unless input_options.is_a? Array
-      @input_types = input_options.map {|input_option| fetch_mapping(input_klass(input_option))}
+      @input_options = input_options
+      @input_types = @input_options.map {|input_option| fetch_mapping(input_klass(input_option))}
     end
 
     def self.input_klass(input_option)
@@ -67,6 +68,10 @@ module QGame
 
     def self.input_types
       @input_types
+    end
+
+    def self.input_type_active?(input_type)
+      @input_options.include? input_type
     end
 
     def self.is_down?(input_alias)
