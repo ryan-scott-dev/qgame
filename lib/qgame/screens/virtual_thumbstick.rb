@@ -13,7 +13,8 @@ module QGame
       super
 
       if @held
-        mouse_pos = Mouse.position
+        mouse_pos = to_screen_space(Mouse.position)
+        @position = mouse_pos
       end
     end
 
@@ -22,7 +23,6 @@ module QGame
 
       if inside? mouse_pos
         @held = true
-        puts "Held"
       end
     end
 
@@ -31,9 +31,15 @@ module QGame
       @position = @origin_position
     end
 
-    def inside?(point)
+    def to_screen_space(point)
       inverse_view = QGame::RenderManager.camera.view.invert
       screen_space_point = inverse_view.transform(point)
+
+      screen_space_point
+    end
+
+    def inside?(point)
+      screen_space_point = to_screen_space(point)
 
       return false if screen_space_point.nil?
 
