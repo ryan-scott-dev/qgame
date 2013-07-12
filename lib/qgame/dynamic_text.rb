@@ -12,8 +12,10 @@ module QGame
       @position = args[:position] || Vec2.new
       @rotation = args[:rotation] || 0.0
       @offset = args[:offset] || Vec2.new(0.5)
+      @font = args[:font] || './assets/fonts/Vera.ttf'
+      @font_size = args[:font_size] || 16
 
-      @text_buffer = FreetypeGL::FontBuffer.create('./assets/fonts/Vera.ttf', 16)
+      @text_buffer = FreetypeGL::FontBuffer.create(@font, @font_size)
 
       @timer = 0.0
       @calculate_text = block
@@ -27,10 +29,14 @@ module QGame
       @timer += Application.elapsed
       if @timer >= @frequency
         @timer = 0.0
-        @text = self.instance_eval(&@calculate_text).to_s
-        @text_buffer.text = @text
+        update_text
       end
       QGame::RenderManager.submit(self)
+    end
+
+    def update_text
+      @text = self.instance_eval(&@calculate_text).to_s
+      @text_buffer.text = @text
     end
 
     def render

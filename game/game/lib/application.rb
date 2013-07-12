@@ -19,13 +19,25 @@ Game::Application.run do
 
   handle_events Game::ScreenManager
   
+  timestep = 1.0 / 60.0
+  @elapsed = 0.0
+  current_time = Time.now
+  
   while(@running)
-    stop_elapsed_counter
     process_events
 
-    # update
-    Game::ScreenManager.update
-    start_elapsed_counter
+    new_time = Time.now
+    frame_time = new_time - current_time
+    current_time = new_time
+
+    while ( frame_time > 0.0 )
+      @elapsed = Math.min(frame_time, timestep)
+
+      # update
+      Game::ScreenManager.update
+
+      frame_time -= @elapsed
+    end
 
     # render
     GL.clear_color(0.713, 0.788, 0.623, 1)

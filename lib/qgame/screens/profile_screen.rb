@@ -9,13 +9,24 @@ module QGame
         min_count = 10000
         max_count = 0
 
-        dynamic_text(:frequency => 1, :position => Vec2.new(100, 100)) do
+        min_elapsed = 100000
+        max_elapsed = 0
+
+        dynamic_text(:frequency => 0.1, :position => Vec2.new(100, 100), :font_size => 10) do
           ObjectSpace.count_objects(object_count)
           count = object_count[:TOTAL]
           min_count = count if count < min_count
           max_count = count if count > max_count
 
-          "Current: #{count} | Min: #{min_count} | Max: #{max_count}"
+          "#{count} / #{min_count} - #{max_count}"
+        end
+
+        dynamic_text(:frequency => 0.1, :position => Vec2.new(100, 110), :font_size => 10) do
+          elapsed = (QGame::Application.elapsed * 1000).to_i
+          min_elapsed = elapsed if elapsed < min_elapsed
+          max_elapsed = elapsed if elapsed > max_elapsed
+          
+          "#{elapsed} / #{min_elapsed} - #{max_elapsed}"
         end
       end
 

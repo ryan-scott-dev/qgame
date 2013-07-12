@@ -9,6 +9,8 @@ module QGame
   class Application
     @@config = {}
     @@platform = nil
+
+    attr_accessor :elapsed
     
     include QGame::EventManager
 
@@ -52,18 +54,6 @@ module QGame
 
     def self.elapsed
       Application.current.elapsed
-    end
-
-    def elapsed
-      @last_elapsed
-    end
-
-    def start_elapsed_counter
-      @start_elapsed_time = Time.now
-    end
-
-    def stop_elapsed_counter
-      @last_elapsed = (Time.now - @start_elapsed_time)
     end
 
     def setup_input
