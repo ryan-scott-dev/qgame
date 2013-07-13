@@ -1,0 +1,10 @@
+{
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "/Users/administrator/Projects/qgame",
+			"folder_exclude_patterns": ["dependencies", ".idea"]
+		}
+	]
+}

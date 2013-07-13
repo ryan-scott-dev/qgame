@@ -111,9 +111,10 @@ module QGame
       texture_base = "#{texture_name}_base"
 
       args = centered_args_from_texture(args)
-      
+      args[:screen_space] = true
+
       base_image = image(texture_base, args)
-      new_joystick = QGame::VirtualThumbstick.new({:texture => texture, :radius => base_image.scale.x}.merge(args))
+      new_joystick = QGame::VirtualThumbstick.new({:texture => texture, :radius => base_image.scale.x / 2.0}.merge(args))
       
       on_event(:mouse_up) do |event|
         new_joystick.handle_mouse_up(event)
