@@ -4,9 +4,9 @@ module Game
     include QGame::Collidable
     include QGame::CollidableFast
 
-    MOVE_SPEED = 30
-    MAX_SPEED = 70
-    SPEED_FALLOFF = 480
+    MOVE_SPEED = 10
+    MAX_SPEEDS = [70, 100, 140, 180, 260, 300]
+    SPEED_WAIT = [5, 6, 7, 5, 5, 5]
 
     def initialize(args = {})
       defaults = {
@@ -24,7 +24,10 @@ module Game
 
       @velocity = 0
       @score = 0
-      
+      @max_speed = MAX_SPEEDS.first
+      @speed_countdown = SPEED_WAIT.first
+      @current_speed = 0
+
       super(args.merge(defaults))
 
       setup_events
@@ -67,34 +70,23 @@ module Game
     end
 
     def update
-
-      if Game::Input.is_down?(:move_left)
-        move_left
-      end
-      if Game::Input.is_down?(:move_right)
-        move_right
-      end
-
-      @velocity = MAX_SPEED if @velocity > MAX_SPEED
-      @velocity = -MAX_SPEED if @velocity < -MAX_SPEED
+      move_right
+      
+      @velocity = @max_speed if @velocity > @max_speed
 
       @position.x += @velocity * Application.elapsed
 
-      if @velocity == 0
-        idle
-      end
+      @speed_countdown -= Application.elapsed
+      if @speed_countdown <= 0
+        @current_speed += 1
 
-      vel_falloff = Application.elapsed * SPEED_FALLOFF
-      if @velocity > 0
-        vel_falloff = @velocity.abs unless @velocity.abs > vel_falloff
-        @velocity -= vel_falloff 
-      end
+        if @current_speed < MAX_SPEEDS.length
+          puts "Speed Increased"
 
-      if @velocity < 0
-        vel_falloff = @velocity.abs unless @velocity.abs > vel_falloff
-        @velocity += vel_falloff
+          @max_speed = MAX_SPEEDS[@current_speed]
+          @speed_countdown = SPEED_WAIT[@current_speed]
+        end
       end
-
       check_collisions
 
       super

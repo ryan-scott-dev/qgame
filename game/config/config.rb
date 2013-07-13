@@ -6,7 +6,7 @@ Game::Application.configure do
   if platform.mobile?
     conf[:input] = :virtual_gamepad
   elsif platform.desktop?
-    conf[:input] = [:keyboard, :virtual_gamepad]
+    conf[:input] = []
   end
 
 end
