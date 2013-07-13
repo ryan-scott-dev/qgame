@@ -9,6 +9,10 @@ module QGame
     def update
     end
 
+    def bounds
+      @bound = @position + QGame::RenderManager.screen_size
+    end
+
     def view
       Mat4.new(
         [1, 0, 0, 0],

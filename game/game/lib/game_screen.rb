@@ -3,13 +3,9 @@ QGame::Screen.new(:game) do
   handle_events player
   @components << player
 
+  level_generator = Game::LevelGenerator.new
+  @components << level_generator
+  
   camera(:follow, :target => player)
-
-  @components << Game::Coin.new(:position => Vec2.new(100, 200))
-  @components << Game::Coin.new(:position => Vec2.new(120, 200))
-  @components << Game::Coin.new(:position => Vec2.new(140, 200))
-  @components << Game::Coin.new(:position => Vec2.new(160, 200))
-  @components << Game::Coin.new(:position => Vec2.new(180, 200))
-
   overlay(:virtual_gamepad) if Game::Input.input_type_active? :virtual_gamepad
 end

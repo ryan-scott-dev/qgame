@@ -29,13 +29,18 @@ module QGame
     def self.resize_window(new_width, new_height)
       @@width = new_width
       @@height = new_height
-
+      @screen_size = Vec2.new(new_width, new_height)
+      
       GL.viewport(0, 0, new_width, new_height)
       @@projection = Mat4.orthogonal_2d(0, new_width, 0, new_height)
     end
 
     def self.projection
       @@projection
+    end
+
+    def self.screen_size
+      @screen_size
     end
 
     def self.screen_width

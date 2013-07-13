@@ -4,6 +4,8 @@ module QGame
 
     include QGame::EventManager
 
+    attr_accessor :name
+    
     def self.find(screen_name)
       @@screens[screen_name]
     end
@@ -38,6 +40,10 @@ module QGame
 
     def remove(entity)
       @components.delete(entity)
+    end
+
+    def add(entity)
+      @components << entity
     end
 
     def camera(type, args = {})
