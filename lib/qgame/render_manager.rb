@@ -6,6 +6,7 @@ module QGame
     @@height = 0
 
     @@render_batch = ModelRenderBatch.new
+    @@submitted_entities = {}
 
     def self.camera=(camera)
       @@camera = camera
@@ -19,12 +20,17 @@ module QGame
       GL.blend_alpha_transparency
       
       @@render_batch.render
-
+      @@submitted_entities.clear
+      
       GL.blend_opaque
     end
 
     def self.submit(entity)
-      @@render_batch.submit(entity)
+      # This is currently rendering multiple times per frame...
+      if @@submitted_entities[entity].nil?
+        @@render_batch.submit(entity)
+        @@submitted_entities[entity] = true
+      end
     end
 
     def self.resize_window(new_width, new_height)
