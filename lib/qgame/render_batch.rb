@@ -5,11 +5,12 @@ class TextureRenderBatch
   end
 
   def submit(entity)
-    if !entity.respond_to?(:texture) || entity.texture.nil?
+    texture = entity.texture if entity.respond_to?(:texture)
+    if texture.nil?
       @queue << entity
     else
-      @batch[entity.texture] = [] unless @batch.has_key? entity.texture
-      @batch[entity.texture] << entity
+      @batch[texture] = [] unless @batch.has_key? texture
+      @batch[texture] << entity
     end
   end
 
@@ -17,6 +18,7 @@ class TextureRenderBatch
     @queue.each do |entity|
       entity.render
     end
+    @queue.clear
 
     @batch.each do |texture, entities|
       texture.bind
@@ -29,8 +31,6 @@ class TextureRenderBatch
 
       entities.clear
     end
-
-    @queue.clear
   end
 end
 
@@ -41,11 +41,12 @@ class ShaderRenderBatch
   end
 
   def submit(entity)
-    if !entity.respond_to?(:shader) || entity.shader.nil?
+    shader = entity.shader if entity.respond_to?(:shader)
+    if shader.nil?
       @queue << entity
     else
-      @batch[entity.shader] = TextureRenderBatch.new unless @batch.has_key? entity.shader
-      @batch[entity.shader].submit(entity)
+      @batch[shader] = TextureRenderBatch.new unless @batch.has_key? shader
+      @batch[shader].submit(entity)
     end
   end
 
@@ -53,6 +54,7 @@ class ShaderRenderBatch
     @queue.each do |entity|
       entity.render
     end
+    @queue.clear
 
     @batch.each do |shader, entities|
       shader.bind
@@ -63,8 +65,6 @@ class ShaderRenderBatch
 
       shader.unbind
     end
-
-    @queue.clear
   end
 end
 
@@ -75,11 +75,12 @@ class ModelRenderBatch
   end
 
   def submit(entity)
-    if !entity.respond_to?(:model) || entity.model.nil?
+    model = entity.model if entity.respond_to?(:model)
+    if model.nil?
       @queue << entity
     else
-      @batch[entity.model] = ShaderRenderBatch.new unless @batch.has_key? entity.model
-      @batch[entity.model].submit(entity)
+      @batch[model] = ShaderRenderBatch.new unless @batch.has_key? model
+      @batch[model].submit(entity)
     end
   end
 
@@ -87,6 +88,7 @@ class ModelRenderBatch
     @queue.each do |entity|
       entity.render
     end
+    @queue.clear
 
     @batch.each do |model, entities|
       model.bind
@@ -95,7 +97,5 @@ class ModelRenderBatch
 
       model.unbind
     end
-
-    @queue.clear
   end
 end
