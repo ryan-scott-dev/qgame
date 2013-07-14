@@ -16,7 +16,7 @@ module QGame
       @sprite_relative_offset = args[:sprite_relative_offset] || @sprite_offset / @texture.size
       @sprite_size = args[:sprite_size] || @texture.size
       @scale = args[:scale] || @sprite_size
-      @sprite_scale = args[:frame_scale] || @sprite_size / @texture.size
+      @sprite_scale = args[:sprite_scale] || @sprite_size / @texture.size
     end
 
     def self.model

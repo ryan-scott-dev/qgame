@@ -9,6 +9,14 @@ module Game
       @tile_height_offset = 400
       @tile_start_offset = 0
 
+      @texture = QGame::AssetManager.texture('grass_tiles')
+      @tile_base_properties = {
+        :texture => @texture,
+        :sprite_relative_offset =>  Vec2.new(@tile_width) / @texture.size,
+        :sprite_scale => Vec2.new(@tile_width) / @texture.size,
+        :scale => Vec2.new(@tile_width)
+      }
+
       @tiles = []
       build(@tiles_per_screen)
     end
@@ -17,12 +25,9 @@ module Game
       (0..tile_count).each do |tile_index|
         @tile_position_offset = @tile_offset * @tile_width
         
-        tile_properties = {
+        tile_properties = @tile_base_properties.merge({
           :position => Vec2.new(@tile_position_offset, @tile_height_offset), 
-          :texture => QGame::AssetManager.texture('grass_tiles'),
-          :sprite_offset => Vec2.new(64),
-          :sprite_size => Vec2.new(@tile_width)
-        }
+        })
 
         tile = QGame::Sprite.new(tile_properties)
         @tiles << tile
