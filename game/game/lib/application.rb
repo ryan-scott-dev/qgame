@@ -48,8 +48,6 @@ Game::Application.run do
 
     @window.swap_gl_window
 
-    SDL.delay(16)
-
     error = GL.error
     unless error.nil?
       puts "GL Error: #{error} - Found during game loop"
