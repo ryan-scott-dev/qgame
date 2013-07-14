@@ -81,8 +81,6 @@ module Game
         @current_speed += 1
 
         if @current_speed < MAX_SPEEDS.length
-          puts "Speed Increased"
-
           @max_speed = MAX_SPEEDS[@current_speed]
           @speed_countdown = SPEED_WAIT[@current_speed]
         end

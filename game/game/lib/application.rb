@@ -1,5 +1,8 @@
 Game::Application.run do
   # Full application lifecycle
+  GL.set_clear_color(0.713, 0.788, 0.623)
+  GL.set_clear_flags([:color, :depth])
+  
   @running = true
 
   if ARGV.include? 'profile'
@@ -40,8 +43,7 @@ Game::Application.run do
     end
 
     # render
-    GL.clear_color(0.713, 0.788, 0.623, 1)
-    GL.clear [:color]
+    GL.clear
 
     # render logic
     Game::RenderManager.render
