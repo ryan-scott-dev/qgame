@@ -4,7 +4,7 @@ Game::Application.configure do
   conf[:start_size] = [800, 600]
 
   if platform.mobile?
-    conf[:input] = :virtual_gamepad
+    conf[:input] = []
   elsif platform.desktop?
     conf[:input] = []
   end
