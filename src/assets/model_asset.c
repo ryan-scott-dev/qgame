@@ -2,13 +2,59 @@
 
 #include <mruby/string.h>
 #include <mruby/variable.h>
-
-#include "gl_header.h"
+#include <mruby/class.h>
+#include <mruby/data.h>
 
 #include <stdlib.h>
 #include <string.h>
 
 #include "utils.h"
+
+static struct RClass* qgame_model_asset_class = NULL;
+
+struct mrb_data_type model_asset_type = { "ModelAsset", model_asset_free };
+
+struct model_asset* 
+allocate_new_model_asset(mrb_state* mrb) {
+  return (struct model_asset *)mrb_malloc(mrb, sizeof(struct model_asset)); 
+}
+
+void 
+model_asset_free(mrb_state *mrb, void *ptr)
+{
+  mrb_free(mrb, ptr);
+}
+
+mrb_value 
+model_asset_wrap(mrb_state *mrb, struct RClass *tc, struct model_asset* tm)
+{
+  return mrb_obj_value(Data_Wrap_Struct(mrb, tc, &model_asset_type, tm));
+}
+
+struct model_asset*
+model_asset_get_ptr(mrb_state* mrb, mrb_value value)
+{
+  return (struct model_asset*)mrb_data_get_ptr(mrb, value, &model_asset_type);
+}
+
+
+mrb_value 
+qgame_model_asset_initialize(mrb_state *mrb, mrb_value self)
+{
+  struct model_asset *tm;
+
+  tm = (struct model_asset*)DATA_PTR(self);
+  if (tm) {
+    model_asset_free(mrb, tm);
+  }
+  DATA_TYPE(self) = &model_asset_type;
+  DATA_PTR(self) = NULL;
+
+  tm = allocate_new_model_asset(mrb);
+  
+  DATA_PTR(self) = tm;
+  return self;
+}
 
 mrb_value
 qgame_model_asset_load_from_file(mrb_state* mrb, mrb_value self)
@@ -103,11 +149,13 @@ qgame_model_asset_render(mrb_state* mrb, mrb_value self)
 
 void
 qgame_model_asset_init(mrb_state* mrb, struct RClass* mrb_qgame_class) {
-  struct RClass *model_asset_class = mrb_define_class_under(mrb, mrb_qgame_class, 
+  qgame_model_asset_class = mrb_define_class_under(mrb, mrb_qgame_class, 
     "ModelAsset", mrb->object_class);
 
-  mrb_define_method(mrb, model_asset_class, "load_from_file", qgame_model_asset_load_from_file, ARGS_REQ(1));
-  mrb_define_method(mrb, model_asset_class, "render", qgame_model_asset_render, ARGS_NONE());
-  mrb_define_method(mrb, model_asset_class, "bind", qgame_model_asset_bind, ARGS_NONE());
-  mrb_define_method(mrb, model_asset_class, "unbind", qgame_model_asset_unbind, ARGS_NONE());
+  mrb_define_method(mrb, qgame_model_asset_class, "load_from_file", qgame_model_asset_load_from_file, ARGS_REQ(1));
+  mrb_define_method(mrb, qgame_model_asset_class, "render", qgame_model_asset_render, ARGS_NONE());
+  mrb_define_method(mrb, qgame_model_asset_class, "bind", qgame_model_asset_bind, ARGS_NONE());
+  mrb_define_method(mrb, qgame_model_asset_class, "unbind", qgame_model_asset_unbind, ARGS_NONE());
+
+  mrb_define_method(mrb, qgame_model_asset_class, "initialize", qgame_model_asset_initialize, ARGS_NONE());
 }
