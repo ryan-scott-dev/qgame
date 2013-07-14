@@ -36,28 +36,28 @@ module Game
         tile_properties = @tile_base_properties.merge({
           :position => Vec2.new(@tile_position_offset, @tile_height_offset), 
         })
-        tile = QGame::Sprite.new(tile_properties)
+        tile = Game::Block.new(tile_properties)
         screen << tile
 
         tile_properties = @tile_base_properties.merge({
           :position => Vec2.new(@tile_position_offset, @tile_height_offset + 64), 
           :sprite_relative_offset => @underground_tile_offset,
         })
-        tile = QGame::Sprite.new(tile_properties)
+        tile = Game::Block.new(tile_properties)
         screen << tile
 
         tile_properties = @tile_base_properties.merge({
           :position => Vec2.new(@tile_position_offset, @tile_height_offset + 128), 
           :sprite_relative_offset => @underground_tile_offset,
         })
-        tile = QGame::Sprite.new(tile_properties)
+        tile = Game::Block.new(tile_properties)
         screen << tile
 
         tile_properties = @tile_base_properties.merge({
           :position => Vec2.new(@tile_position_offset, @tile_height_offset + 192), 
           :sprite_relative_offset => @underground_tile_offset,
         })
-        tile = QGame::Sprite.new(tile_properties)
+        tile = Game::Block.new(tile_properties)
         screen << tile
 
         @tile_offset += 1

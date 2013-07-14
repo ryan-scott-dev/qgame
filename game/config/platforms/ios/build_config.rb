@@ -142,6 +142,9 @@ MRuby::CrossBuild.new('ios') do |conf|
   # Use ObjectSpace class
   conf.gem :core => "mruby-objectspace"
 
+  # Use extensional Object class
+  conf.gem :core => "mruby-object-ext"
+
   # Use Fiber class
   conf.gem :core => "mruby-fiber"
 end

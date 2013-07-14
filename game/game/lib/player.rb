@@ -4,10 +4,12 @@ module Game
     include QGame::Collidable
     include QGame::CollidableFast
 
-    MOVE_SPEED = 10
+    MOVE_SPEED = 1
     MAX_SPEEDS = [70, 100, 140, 180, 260, 300]
     SPEED_WAIT = [5, 6, 7, 5, 5, 5]
 
+    attr_accessor :falling
+    
     def initialize(args = {})
       defaults = {
         :texture => Game::AssetManager.texture('robot'), 
@@ -27,7 +29,7 @@ module Game
       @max_speed = MAX_SPEEDS.first
       @speed_countdown = SPEED_WAIT.first
       @current_speed = 0
-
+      @falling = true
       super(args.merge(defaults))
 
       setup_events
@@ -35,7 +37,11 @@ module Game
       collides_as :player
       
       collides_with :enemies do |other|
-        this.attacked_by(other)
+        self.attacked_by(other)
+      end
+
+      collides_with :block do |other|
+        self.falling = false
       end
     end
 
@@ -75,6 +81,7 @@ module Game
       @velocity = @max_speed if @velocity > @max_speed
 
       @position.x += @velocity * Application.elapsed
+      @position.y += 98 * Application.elapsed if @falling
 
       @speed_countdown -= Application.elapsed
       if @speed_countdown <= 0
