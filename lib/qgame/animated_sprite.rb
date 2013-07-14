@@ -3,8 +3,6 @@ module QGame
   end
 
   class AnimatedSprite < Sprite
-    @@shader = nil
-
     def initialize(args = {})
       super(args)
 
@@ -46,11 +44,6 @@ module QGame
       end
     end
 
-    def self.shader
-      @@shader ||= ShaderProgramAsset.new(QGame::AssetManager.vertex('sprite'), 
-                                          QGame::AssetManager.fragment('sprite'))
-    end
-
     def frame_offset
       @frame_size / @texture.size
     end
@@ -78,13 +71,6 @@ module QGame
     end
 
     def render
-      shader = AnimatedSprite.shader
-
-      shader.bind
-      
-      @texture.bind unless @texture.nil?
-      shader.set_uniform('tex', 0)
-      shader.set_uniform('projection', QGame::RenderManager.projection)
       shader.set_uniform('view', QGame::RenderManager.camera.view)
 
       shader.set_uniform('position', @position)
@@ -94,14 +80,7 @@ module QGame
       shader.set_uniform('sprite_offset', @current_animation[@current_frame.to_i])
       shader.set_uniform('sprite_scale', frame_offset)
       
-      GL.blend_alpha_transparency
-      
       model.render
-      
-      GL.blend_opaque
-
-      @texture.unbind unless @texture.nil?
-      shader.unbind
     end
   end
 end

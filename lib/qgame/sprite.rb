@@ -3,7 +3,7 @@ module QGame
     @@model = nil
     @@shader = nil
     
-    attr_accessor :position, :rotation, :scale, :offset
+    attr_accessor :position, :rotation, :scale, :offset, :texture
 
     def initialize(args = {})
       @texture = args[:texture]
@@ -32,6 +32,10 @@ module QGame
                                           QGame::AssetManager.fragment('sprite'))
     end
 
+    def shader
+      Sprite.shader
+    end
+
     def destruct
       QGame::ScreenManager.current.remove(self)
     end
@@ -41,14 +45,6 @@ module QGame
     end
 
     def render
-      shader = Sprite.shader
-
-      shader.bind
-      
-      @texture.bind unless @texture.nil?
-      shader.set_uniform('tex', 0)
-      shader.set_uniform('projection', QGame::RenderManager.projection)
-
       view = @screen_space ? Mat4.new : QGame::RenderManager.camera.view
       shader.set_uniform('view', view)
 
@@ -59,14 +55,7 @@ module QGame
       shader.set_uniform('sprite_offset', @sprite_relative_offset)
       shader.set_uniform('sprite_scale', @sprite_scale)
       
-      GL.blend_alpha_transparency
-      
       model.render
-      
-      GL.blend_opaque
-
-      @texture.unbind unless @texture.nil?
-      shader.unbind
     end
   end
 end

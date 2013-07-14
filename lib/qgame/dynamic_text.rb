@@ -51,11 +51,7 @@ module QGame
       shader.set_uniform('rotation', @rotation)
       shader.set_uniform('offset', @offset)
       
-      GL.blend_alpha_transparency
-      
       @text_buffer.render
-      
-      GL.blend_opaque
 
       @text_buffer.unbind
     end

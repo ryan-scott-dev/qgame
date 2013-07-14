@@ -1,41 +1,4 @@
 module QGame
-  class ModelRenderBatch
-    def initialize
-      @queue = []
-      @batch = {}
-    end
-
-    def submit(entity)
-      if !entity.respond_to?(:model) || entity.model.nil?
-        @queue << entity
-      else
-        @batch[entity.model] = [] unless @batch.has_key? entity.model
-        @batch[entity.model] << entity
-      end
-    end
-
-    def render
-      @queue.each do |model|
-        model.render
-      end
-
-      @batch.each do |model, entities|
-        model.bind
-
-        entities.each do |entity|
-          entity.render
-        end
-
-        model.unbind
-
-        entities.clear
-      end
-
-      @queue.clear
-    end
-
-  end
-
   class RenderManager
     @@camera = nil
     @@projection = nil
@@ -53,7 +16,11 @@ module QGame
     end
 
     def self.render
+      GL.blend_alpha_transparency
+      
       @@render_batch.render
+
+      GL.blend_opaque
     end
 
     def self.submit(entity)
