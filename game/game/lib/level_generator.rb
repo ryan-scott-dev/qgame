@@ -19,8 +19,9 @@ module Game
         
         tile_properties = {
           :position => Vec2.new(@tile_position_offset, @tile_height_offset), 
-          :texture => QGame::AssetManager.texture('wood'),
-          :scale => Vec2.new(@tile_width, @tile_width)
+          :texture => QGame::AssetManager.texture('grass_tiles'),
+          :sprite_offset => Vec2.new(64),
+          :sprite_size => Vec2.new(@tile_width)
         }
 
         tile = QGame::Sprite.new(tile_properties)

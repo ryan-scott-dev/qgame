@@ -9,9 +9,14 @@ module QGame
       @texture = args[:texture]
       @position = args[:position] || Vec2.new
       @rotation = args[:rotation] || 0.0
-      @scale = args[:scale] || @texture.size
       @offset = args[:offset] || Vec2.new(0.5)
       @screen_space = args[:screen_space] || false
+
+      @sprite_offset = args[:sprite_offset] || Vec2.new
+      @sprite_relative_offset = args[:sprite_relative_offset] || @sprite_offset / @texture.size
+      @sprite_size = args[:sprite_size] || @texture.size
+      @scale = args[:scale] || @sprite_size
+      @sprite_scale = args[:frame_scale] || @sprite_size / @texture.size
     end
 
     def self.model
@@ -49,6 +54,8 @@ module QGame
       shader.set_uniform('rotation', @rotation)
       shader.set_uniform('scale', @scale)
       shader.set_uniform('offset', @offset)
+      shader.set_uniform('sprite_offset', @sprite_relative_offset)
+      shader.set_uniform('sprite_scale', @sprite_scale)
       
       GL.blend_alpha_transparency
       

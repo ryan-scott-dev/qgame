@@ -12,9 +12,11 @@ uniform vec2 position;
 uniform float rotation;
 uniform vec2 scale;
 uniform vec2 offset;
+uniform vec2 sprite_offset;
+uniform vec2 sprite_scale; 
 
 void main() {
-    fragTexCoord = vertTexCoord;
+    fragTexCoord = sprite_offset + vertTexCoord * sprite_scale;
 
     float sr = sin(rotation);
     float cr = cos(rotation);
