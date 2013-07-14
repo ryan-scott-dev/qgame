@@ -132,16 +132,12 @@ module QGame
     end
 
     def build_freetype_ios(args = {})
-      # FileUtils.cp_r Dir.glob("#{args[:directory]}/include/**/*.h"), "#{args[:output_dir]}/include/freetype"
-
-      # FileUtils.cp "#{args[:directory]}/include/SDL_config_iphoneos.h", "#{args[:directory]}/include/SDL_config.h"
-      # FileUtils.cd "#{args[:directory]}/Xcode-IOS/SDL"
-      # FileUtils.sh "xcodebuild clean"
-      # FileUtils.sh "xcodebuild build -target libSDL -arch i386 -sdk iphonesimulator6.1"
-
-      # FileUtils.cp "./build/Release-iphonesimulator/#{args[:library]}", "#{args[:output_file]}"
-      
-      # FileUtils.cd args[:current_dir]
+      FileUtils.cd args[:directory]
+      FileUtils.sh "./configure --prefix=#{args[:output_dir]} --without-png CFLAGS=\"-arch i386\""
+      FileUtils.sh 'make clean'
+      FileUtils.sh 'make'
+      FileUtils.sh 'make install'
+      FileUtils.cd args[:current_dir]
     end
 
     def build_sdl_library(args = {})

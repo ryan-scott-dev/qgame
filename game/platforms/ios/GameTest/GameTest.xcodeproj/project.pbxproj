@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C374F435179281A300E00AE1 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C374F434179281A300E00AE1 /* libfreetype.a */; };
 		C3F22E3D177EA50A00DDF76E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E3C177EA50A00DDF76E /* UIKit.framework */; };
 		C3F22E3F177EA50A00DDF76E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E3E177EA50A00DDF76E /* Foundation.framework */; };
 		C3F22E41177EA50A00DDF76E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E40177EA50A00DDF76E /* CoreGraphics.framework */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C374F434179281A300E00AE1 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = ../../../../dependencies/freetype/ios/lib/libfreetype.a; sourceTree = "<group>"; };
 		C3F22E39177EA50A00DDF76E /* GameTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3F22E3C177EA50A00DDF76E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C3F22E3E177EA50A00DDF76E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -76,6 +78,7 @@
 				C3F22E6A177EA92200DDF76E /* libSDL2_image.a in Frameworks */,
 				C3F22E6B177EA92200DDF76E /* libSDL2_mixer.a in Frameworks */,
 				C3F22E6C177EA92200DDF76E /* libSDL2.a in Frameworks */,
+				C374F435179281A300E00AE1 /* libfreetype.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				C3F22E67177EA92200DDF76E /* libSDL2_image.a */,
+				C374F434179281A300E00AE1 /* libfreetype.a */,
 				C3F22E68177EA92200DDF76E /* libSDL2_mixer.a */,
 				C3F22E69177EA92200DDF76E /* libSDL2.a */,
 				C3F22E5F177EA69E00DDF76E /* libqgame.a */,
@@ -297,6 +301,7 @@
 					"\"$(SRCROOT)/../../../build/ios/lib\"",
 					"\"$(SRCROOT)/../../../../build/ios/lib\"",
 					"\"$(SRCROOT)/../../../../dependencies/SDL2/ios/lib\"",
+					"\"$(SRCROOT)/../../../../dependencies/freetype/ios/lib\"",
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -321,6 +326,7 @@
 					"\"$(SRCROOT)/../../../build/ios/lib\"",
 					"\"$(SRCROOT)/../../../../build/ios/lib\"",
 					"\"$(SRCROOT)/../../../../dependencies/SDL2/ios/lib\"",
+					"\"$(SRCROOT)/../../../../dependencies/freetype/ios/lib\"",
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -347,6 +353,7 @@
 				C3F22E58177EA50A00DDF76E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -23,7 +23,7 @@ load "#{QGAME_ROOT}/tasks/game_build.rake"
 # load configuration file
 load "#{PROJECT_ROOT}/config/build_config.rb"
 MRUBY_CONFIG = (ENV['BUILD_CONFIG'] && ENV['BUILD_CONFIG'] != '') ? ENV['BUILD_CONFIG'] : "#{PROJECT_ROOT}/config/platforms/#{PLATFORM.to_s}/build_config.rb"
-# MRUBY_CONFIG = "#{PROJECT_ROOT}/config/platforms/ios/build_config.rb"
+MRUBY_CONFIG = "#{PROJECT_ROOT}/config/platforms/ios/build_config.rb"
 load MRUBY_CONFIG
 
 load "#{QGAME_ROOT}/tasks/sdl.rake"
