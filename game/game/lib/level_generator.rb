@@ -3,11 +3,9 @@ module Game
 
     def initialize
       @tile_width = 64
-      @tiles_per_screen = (QGame::RenderManager.screen_width / @tile_width).ceil
-      @tile_offset = 0
+      @tile_offset = -tiles_per_screen
       @tile_position_offset = 0
       @tile_height_offset = 400
-      @tile_start_offset = 0
 
       @texture = QGame::AssetManager.texture('grass_tiles')
       @tile_base_properties = {
@@ -19,11 +17,19 @@ module Game
 
       @underground_tile_offset = Vec2.new(64, 128) / @texture.size
 
-      @tiles = []
-      build(@tiles_per_screen)
+      @screen_offset = 0
+      @screens = []
+
+      @screens << build(tiles_per_screen)
+      @screens << build(tiles_per_screen)
+    end
+
+    def tiles_per_screen
+      (QGame::RenderManager.screen_width / @tile_width).ceil
     end
 
     def build(tile_count)
+      screen = []
       (0..tile_count).each do |tile_index|
         @tile_position_offset = @tile_offset * @tile_width
         
@@ -31,57 +37,53 @@ module Game
           :position => Vec2.new(@tile_position_offset, @tile_height_offset), 
         })
         tile = QGame::Sprite.new(tile_properties)
-        @tiles << tile
+        screen << tile
 
         tile_properties = @tile_base_properties.merge({
           :position => Vec2.new(@tile_position_offset, @tile_height_offset + 64), 
           :sprite_relative_offset => @underground_tile_offset,
         })
         tile = QGame::Sprite.new(tile_properties)
-        @tiles << tile
+        screen << tile
 
         tile_properties = @tile_base_properties.merge({
           :position => Vec2.new(@tile_position_offset, @tile_height_offset + 128), 
           :sprite_relative_offset => @underground_tile_offset,
         })
         tile = QGame::Sprite.new(tile_properties)
-        @tiles << tile
+        screen << tile
 
         tile_properties = @tile_base_properties.merge({
           :position => Vec2.new(@tile_position_offset, @tile_height_offset + 192), 
           :sprite_relative_offset => @underground_tile_offset,
         })
         tile = QGame::Sprite.new(tile_properties)
-        @tiles << tile
+        screen << tile
 
         @tile_offset += 1
       end
 
-      puts "Built #{tile_count} tiles"
+      screen
     end
 
     def tiles_required?
       (QGame::RenderManager.camera.bounds.x + @tile_width) > (@tile_position_offset)
     end
 
-    def tiles_out_of_bounds
-      ((@tile_start_offset - QGame::RenderManager.camera.position.x) / @tile_width).ceil
-    end
-
     def cleanup_old_tiles
-      tile_count = tiles_out_of_bounds
-      @tiles = @tiles.slice(tile_count * 4, (@tiles.length - tile_count) * 4)
-      @tile_start_offset = @tile_position_offset
+      @screens = @screens.slice(1, @screens.length - 1)
     end
 
     def update
       if tiles_required?
-        build(@tiles_per_screen)
+        @screens << build(tiles_per_screen)
         cleanup_old_tiles
       end
 
-      @tiles.each do |tile|
-        tile.update
+      @screens.each do |screen|
+        screen.each do |tile|
+          tile.update
+        end
       end
     end
   end
