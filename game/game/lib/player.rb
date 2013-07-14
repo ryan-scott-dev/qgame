@@ -109,6 +109,8 @@ module Game
           @speed_countdown = SPEED_WAIT[@current_speed]
         end
       end
+
+      @falling = true unless @jumping
       check_collisions
 
       super
