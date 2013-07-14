@@ -9,7 +9,7 @@ module Game
     SPEED_WAIT = [5, 6, 7, 5, 5, 5]
 
     attr_accessor :falling
-    
+
     def initialize(args = {})
       defaults = {
         :texture => Game::AssetManager.texture('robot'), 
@@ -30,6 +30,10 @@ module Game
       @speed_countdown = SPEED_WAIT.first
       @current_speed = 0
       @falling = true
+      @jumping = false
+      @jumping_countdown = 0
+      @jumping_cooldown = 1
+
       super(args.merge(defaults))
 
       setup_events
@@ -46,25 +50,27 @@ module Game
     end
 
     def setup_events
-      on_event :key_down do |event|
-        if event.key == :up  
-          jump
-        end
+      on_event :mouse_down do |event|
+        jump
       end
     end
 
     def move_right
       @velocity += MOVE_SPEED
-      loop_animation(:walk_right)
+      loop_animation(:walk_right) unless @jumping
     end
 
     def move_left
       @velocity -= MOVE_SPEED
-      loop_animation(:walk_left)
+      loop_animation(:walk_left) unless @jumping
     end
 
     def jump
-      loop_animation(:jump)
+      unless @jumping || @falling
+        @jumping = true
+
+        loop_animation(:jump)
+      end
     end
 
     def idle
@@ -82,6 +88,17 @@ module Game
 
       @position.x += @velocity * Application.elapsed
       @position.y += 98 * Application.elapsed if @falling
+
+      if @jumping 
+        @position.y -= 98 * Application.elapsed
+        @jumping_countdown += Application.elapsed
+
+        if @jumping_countdown > @jumping_cooldown
+          @jumping = false
+          @falling = true
+          @jumping_countdown = 0
+        end
+      end
 
       @speed_countdown -= Application.elapsed
       if @speed_countdown <= 0
