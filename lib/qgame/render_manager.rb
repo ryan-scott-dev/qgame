@@ -1,11 +1,48 @@
 module QGame
+  class ModelRenderBatch
+    def initialize
+      @queue = []
+      @batch = {}
+    end
+
+    def submit(entity)
+      if !entity.respond_to?(:model) || entity.model.nil?
+        @queue << entity
+      else
+        @batch[entity.model] = [] unless @batch.has_key? entity.model
+        @batch[entity.model] << entity
+      end
+    end
+
+    def render
+      @queue.each do |model|
+        model.render
+      end
+
+      @batch.each do |model, entities|
+        model.bind
+
+        entities.each do |entity|
+          entity.render
+        end
+
+        model.unbind
+
+        entities.clear
+      end
+
+      @queue.clear
+    end
+
+  end
+
   class RenderManager
-    @@render_queue = []
     @@camera = nil
     @@projection = nil
     @@width = 0
     @@height = 0
-    @@render_batch = {}
+
+    @@render_batch = ModelRenderBatch.new
 
     def self.camera=(camera)
       @@camera = camera
@@ -16,32 +53,11 @@ module QGame
     end
 
     def self.render
-      @@render_queue.each do |model|
-        model.render
-      end
-
-      @@render_batch.each do |model, entities|
-        model.bind
-
-        entities.each do |entity|
-          entity.render
-        end
-
-        model.unbind
-      end
-
-      @@render_batch.clear
-
-      @@render_queue.clear
+      @@render_batch.render
     end
 
     def self.submit(entity)
-      if !entity.respond_to?(:model) || entity.model.nil?
-        @@render_queue << entity
-      else
-        @@render_batch[entity.model] = [] unless @@render_batch.has_key? entity.model
-        @@render_batch[entity.model] << entity
-      end
+      @@render_batch.submit(entity)
     end
 
     def self.resize_window(new_width, new_height)
