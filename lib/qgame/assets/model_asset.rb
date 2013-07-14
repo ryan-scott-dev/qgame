@@ -2,10 +2,6 @@ module QGame
   class ModelAsset
     attr_accessor :name
 
-    def initialize(name)
-      @name = name
-    end
-
     def type
       :model
     end
@@ -13,7 +9,8 @@ module QGame
     def self.from_file(file)
       name = asset_name_from_file(file)
       
-      model = ModelAsset.new(name)
+      model = ModelAsset.new
+      model.name = name
       model.load_from_file(file)
       puts "Loaded #{file}"
 

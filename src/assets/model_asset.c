@@ -37,7 +37,6 @@ model_asset_get_ptr(mrb_state* mrb, mrb_value value)
   return (struct model_asset*)mrb_data_get_ptr(mrb, value, &model_asset_type);
 }
 
-
 mrb_value 
 qgame_model_asset_initialize(mrb_state *mrb, mrb_value self)
 {
@@ -48,11 +47,7 @@ qgame_model_asset_initialize(mrb_state *mrb, mrb_value self)
     model_asset_free(mrb, tm);
   }
   DATA_TYPE(self) = &model_asset_type;
-  DATA_PTR(self) = NULL;
-
-  tm = allocate_new_model_asset(mrb);
-  
-  DATA_PTR(self) = tm;
+  DATA_PTR(self) = allocate_new_model_asset(mrb);
   return self;
 }
 
@@ -61,6 +56,9 @@ qgame_model_asset_load_from_file(mrb_state* mrb, mrb_value self)
 {
   mrb_value path;
   mrb_get_args(mrb, "S", &path);
+
+  struct model_asset* asset = model_asset_get_ptr(mrb, self);
+
   GLuint vao = 0;
   GLuint vbo = 0;
 
@@ -97,15 +95,11 @@ qgame_model_asset_load_from_file(mrb_state* mrb, mrb_value self)
 
   glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
   int triangle_size = 5;
-  mrb_value triangle_count = mrb_fixnum_value(model_size / triangle_size);
-  mrb_iv_set(mrb, self, mrb_intern(mrb, "triangle_count"), triangle_count);
 
-  mrb_value vao_id = mrb_fixnum_value(vao);
-  mrb_iv_set(mrb, self, mrb_intern(mrb, "vao_id"), vao_id);
+  asset->triangle_count = (int)(model_size / triangle_size);
+  asset->vao = vao;
+  asset->vbo = vbo;
 
-  mrb_value vbo_id = mrb_fixnum_value(vbo);
-  mrb_iv_set(mrb, self, mrb_intern(mrb, "vbo_id"), vbo_id);
-  
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glBindVertexArray(0);
 
@@ -115,14 +109,10 @@ qgame_model_asset_load_from_file(mrb_state* mrb, mrb_value self)
 mrb_value
 qgame_model_asset_bind(mrb_state* mrb, mrb_value self)
 {
-  mrb_value vao_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "vao_id"));
-  GLuint vao = mrb_fixnum(vao_id);
-
-  mrb_value vbo_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "vbo_id"));
-  GLuint vbo = mrb_fixnum(vbo_id);
+  struct model_asset* asset = model_asset_get_ptr(mrb, self);
   
-  glBindBuffer(GL_ARRAY_BUFFER, vbo);
-  glBindVertexArray(vao);
+  glBindBuffer(GL_ARRAY_BUFFER, asset->vbo);
+  glBindVertexArray(asset->vao);
 
   return self;
 }
@@ -139,18 +129,16 @@ qgame_model_asset_unbind(mrb_state* mrb, mrb_value self)
 mrb_value
 qgame_model_asset_render(mrb_state* mrb, mrb_value self)
 {
-  mrb_value mrb_triangle_count = mrb_iv_get(mrb, self, mrb_intern(mrb, "triangle_count"));
-  int triangle_count = mrb_fixnum(mrb_triangle_count);
-  
-  glDrawArrays(GL_TRIANGLES, 0, triangle_count);
+  struct model_asset* asset = model_asset_get_ptr(mrb, self);
+  glDrawArrays(GL_TRIANGLES, 0, asset->triangle_count);
 
   return self;
 }
 
 void
 qgame_model_asset_init(mrb_state* mrb, struct RClass* mrb_qgame_class) {
-  qgame_model_asset_class = mrb_define_class_under(mrb, mrb_qgame_class, 
-    "ModelAsset", mrb->object_class);
+  qgame_model_asset_class = mrb_define_class_under(mrb, mrb_qgame_class, "ModelAsset", mrb->object_class);
+  MRB_SET_INSTANCE_TT(qgame_model_asset_class, MRB_TT_DATA);
 
   mrb_define_method(mrb, qgame_model_asset_class, "load_from_file", qgame_model_asset_load_from_file, ARGS_REQ(1));
   mrb_define_method(mrb, qgame_model_asset_class, "render", qgame_model_asset_render, ARGS_NONE());
