@@ -6,7 +6,7 @@ module QGame
       @@shader ||= ShaderProgramAsset.new(QGame::AssetManager.vertex('screen_text'), 
                                           QGame::AssetManager.fragment('screen_text'))
     end
-
+    
     def initialize(args = {}, &block)
       @frequency = args[:frequency] || 1.0
       @position = args[:position] || Vec2.new

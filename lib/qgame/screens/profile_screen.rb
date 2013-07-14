@@ -21,7 +21,7 @@ module QGame
           "#{count} / #{min_count} - #{max_count}"
         end
 
-        dynamic_text(:frequency => 0.1, :position => Vec2.new(100, 110), :font_size => 10) do
+        dynamic_text(:frequency => 0, :position => Vec2.new(100, 110), :font_size => 10) do
           elapsed = (QGame::Application.elapsed * 1000).to_i
           min_elapsed = elapsed if elapsed < min_elapsed
           max_elapsed = elapsed if elapsed > max_elapsed

@@ -23,6 +23,10 @@ module QGame
       @@model ||= QGame::AssetManager.model('triangle')
     end
 
+    def model
+      Sprite.model
+    end
+
     def self.shader
       @@shader ||= ShaderProgramAsset.new(QGame::AssetManager.vertex('sprite'), 
                                           QGame::AssetManager.fragment('sprite'))
@@ -37,10 +41,8 @@ module QGame
     end
 
     def render
-      model = Sprite.model
       shader = Sprite.shader
 
-      model.bind
       shader.bind
       
       @texture.bind unless @texture.nil?
@@ -65,7 +67,6 @@ module QGame
 
       @texture.unbind unless @texture.nil?
       shader.unbind
-      model.unbind
     end
   end
 end

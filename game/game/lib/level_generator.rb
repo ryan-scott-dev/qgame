@@ -17,6 +17,8 @@ module Game
         :scale => Vec2.new(@tile_width)
       }
 
+      @underground_tile_offset = Vec2.new(64, 128) / @texture.size
+
       @tiles = []
       build(@tiles_per_screen)
     end
@@ -28,7 +30,27 @@ module Game
         tile_properties = @tile_base_properties.merge({
           :position => Vec2.new(@tile_position_offset, @tile_height_offset), 
         })
+        tile = QGame::Sprite.new(tile_properties)
+        @tiles << tile
 
+        tile_properties = @tile_base_properties.merge({
+          :position => Vec2.new(@tile_position_offset, @tile_height_offset + 64), 
+          :sprite_relative_offset => @underground_tile_offset,
+        })
+        tile = QGame::Sprite.new(tile_properties)
+        @tiles << tile
+
+        tile_properties = @tile_base_properties.merge({
+          :position => Vec2.new(@tile_position_offset, @tile_height_offset + 128), 
+          :sprite_relative_offset => @underground_tile_offset,
+        })
+        tile = QGame::Sprite.new(tile_properties)
+        @tiles << tile
+
+        tile_properties = @tile_base_properties.merge({
+          :position => Vec2.new(@tile_position_offset, @tile_height_offset + 192), 
+          :sprite_relative_offset => @underground_tile_offset,
+        })
         tile = QGame::Sprite.new(tile_properties)
         @tiles << tile
 
@@ -48,7 +70,7 @@ module Game
 
     def cleanup_old_tiles
       tile_count = tiles_out_of_bounds
-      @tiles = @tiles.slice(tile_count, @tiles.length - tile_count)
+      @tiles = @tiles.slice(tile_count * 4, (@tiles.length - tile_count) * 4)
       @tile_start_offset = @tile_position_offset
     end
 

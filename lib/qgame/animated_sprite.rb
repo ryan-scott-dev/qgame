@@ -47,7 +47,7 @@ module QGame
     end
 
     def self.shader
-      @@shader ||= ShaderProgramAsset.new(QGame::AssetManager.vertex('animated_sprite'), 
+      @@shader ||= ShaderProgramAsset.new(QGame::AssetManager.vertex('sprite'), 
                                           QGame::AssetManager.fragment('sprite'))
     end
 
@@ -78,10 +78,8 @@ module QGame
     end
 
     def render
-      model = Sprite.model
       shader = AnimatedSprite.shader
 
-      model.bind
       shader.bind
       
       @texture.bind unless @texture.nil?
@@ -93,8 +91,8 @@ module QGame
       shader.set_uniform('rotation', @rotation)
       shader.set_uniform('scale', @scale)
       shader.set_uniform('offset', @offset)
-      shader.set_uniform('frame_offset', @current_animation[@current_frame.to_i])
-      shader.set_uniform('frame_scale', frame_offset)
+      shader.set_uniform('sprite_offset', @current_animation[@current_frame.to_i])
+      shader.set_uniform('sprite_scale', frame_offset)
       
       GL.blend_alpha_transparency
       
@@ -104,7 +102,6 @@ module QGame
 
       @texture.unbind unless @texture.nil?
       shader.unbind
-      model.unbind
     end
   end
 end
