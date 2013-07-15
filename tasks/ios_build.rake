@@ -1,6 +1,6 @@
 SDK_VERSION = '6.1'
 
-MRuby::Toolchain.new(:ios) do |conf|
+MRuby::Toolchain.new(:ios_i386) do |conf|
   toolchain :clang
   
   arch 'i386'

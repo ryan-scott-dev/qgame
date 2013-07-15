@@ -16,8 +16,8 @@ Game::Build.new do |conf|
   end
 end
 
-Game::BuildiOS.new('ios') do |conf|
-  toolchain :ios
+Game::BuildiOS.new('ios_i386') do |conf|
+  toolchain :ios_i386
   
   conf.bins = %w(GameTest.app)
   conf.cc do |cc|
@@ -76,8 +76,8 @@ QGame::Build.new do |conf|
   end
 end
 
-QGame::BuildiOS.new('ios') do |conf|
-  toolchain :ios
+QGame::BuildiOS.new('ios_i386') do |conf|
+  toolchain :ios_i386
 
   gem_include_paths = Dir.glob("build/mrbgems/**/include")
 
@@ -126,8 +126,8 @@ MRuby::Build.new do |conf|
   conf.gembox 'default'
 end
 
-MRuby::CrossBuildiOS.new('ios') do |conf|
-  toolchain :ios
+MRuby::CrossBuildiOS.new('ios_i386') do |conf|
+  toolchain :ios_i386
   
   conf.cc do |cc|
     cc.include_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/include"

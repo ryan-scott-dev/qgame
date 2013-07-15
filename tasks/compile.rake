@@ -30,6 +30,7 @@ load MRUBY_CONFIG
 load "#{QGAME_ROOT}/tasks/sdl.rake"
 load "#{QGAME_ROOT}/tasks/freetype.rake"
 
+load "#{QGAME_ROOT}/tasks/ios_lipo.rake"
 load "#{QGAME_ROOT}/tasks/ios-sim.rake"
 
 # load basic rules
