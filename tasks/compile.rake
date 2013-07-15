@@ -67,6 +67,7 @@ puts "----------------------------------"
 load "#{QGAME_ROOT}/tasks/mruby_compile.rake"
 load "#{QGAME_ROOT}/tasks/qgame_compile.rake"
 load "#{QGAME_ROOT}/tasks/game_compile.rake"
+load "#{QGAME_ROOT}/tasks/app_compile.rake"
 puts "----------------------------------"
 puts "----------------------------------"
 puts ""
@@ -116,8 +117,16 @@ task :compile do |args|
   puts "----------------------------------"
   puts "Compiling your files..."
   puts "----------------------------------"
-  Rake::Task['game:ios_compile'].invoke(args)
   Rake::Task['game:compile'].invoke(args)
+  Rake::Task['game:ios_compile'].invoke(args)
+  puts "----------------------------------"
+  puts "Done!"
+  puts ""
+  puts ""
+  puts "----------------------------------"
+  puts "Building the application..."
+  puts "----------------------------------"
+  Rake::Task['game:app_compile'].invoke(args)
   
   # This should produce a runnable application
   puts "----------------------------------"
