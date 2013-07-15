@@ -39,4 +39,13 @@ namespace :freetype do
 
   task :compile => libs do
   end
+
+  output_dir = "#{DEPENDENCIES_DIR}/freetype"
+  lib_name = 'libfreetype'
+
+  task :ios_compile => ["#{output_dir}/ios_arm/lib/#{lib_name}.a", "#{output_dir}/ios_i386/lib/#{lib_name}.a"] do
+    FileUtils.mkdir_p "#{output_dir}/ios/lib"
+    FileUtils.cp_r "#{output_dir}/ios_arm/include", "#{output_dir}/ios"
+    FileUtils.sh "lipo -create -output #{output_dir}/ios/lib/#{lib_name}.a #{output_dir}/ios_arm/lib/#{lib_name}.a #{output_dir}/ios_i386/lib/#{lib_name}.a"
+  end
 end

@@ -82,4 +82,31 @@ namespace :sdl do
 
   task :compile => libs do
   end
+
+  sdl_output_dir = "#{DEPENDENCIES_DIR}/SDL2"
+  sdl_lib_name = 'libSDL2'
+
+  task :ios_compile_sdl => ["#{sdl_output_dir}/ios_arm/lib/#{sdl_lib_name}.a", "#{sdl_output_dir}/ios_i386/lib/#{sdl_lib_name}.a"] do
+    FileUtils.mkdir_p "#{sdl_output_dir}/ios/lib"
+    FileUtils.cp_r "#{sdl_output_dir}/ios_arm/include", "#{sdl_output_dir}/ios"
+    
+    FileUtils.sh "lipo -create -output #{sdl_output_dir}/ios/lib/#{sdl_lib_name}.a #{sdl_output_dir}/ios_arm/lib/#{sdl_lib_name}.a #{sdl_output_dir}/ios_i386/lib/#{sdl_lib_name}.a"
+  end
+
+  sdl_image_lib_name = 'libSDL2_image'
+
+  task :ios_compile_sdl_image => ["#{sdl_output_dir}/ios_arm/lib/#{sdl_image_lib_name}.a", "#{sdl_output_dir}/ios_i386/lib/#{sdl_image_lib_name}.a"] do
+    FileUtils.mkdir_p "#{sdl_output_dir}/ios/lib"
+    FileUtils.sh "lipo -create -output #{sdl_output_dir}/ios/lib/#{sdl_image_lib_name}.a #{sdl_output_dir}/ios_arm/lib/#{sdl_image_lib_name}.a #{sdl_output_dir}/ios_i386/lib/#{sdl_image_lib_name}.a"
+  end
+
+  sdl_mixer_lib_name = 'libSDL2_mixer'
+
+  task :ios_compile_sdl_mixer => ["#{sdl_output_dir}/ios_arm/lib/#{sdl_mixer_lib_name}.a", "#{sdl_output_dir}/ios_i386/lib/#{sdl_mixer_lib_name}.a"] do
+    FileUtils.mkdir_p "#{sdl_output_dir}/ios/lib"
+    FileUtils.sh "lipo -create -output #{sdl_output_dir}/ios/lib/#{sdl_mixer_lib_name}.a #{sdl_output_dir}/ios_arm/lib/#{sdl_mixer_lib_name}.a #{sdl_output_dir}/ios_i386/lib/#{sdl_mixer_lib_name}.a"
+  end
+
+  task :ios_compile => [:ios_compile_sdl, :ios_compile_sdl_image, :ios_compile_sdl_mixer] do
+  end
 end
