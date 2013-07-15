@@ -63,17 +63,20 @@ namespace :sdl do
     
     file sdl_output_file => SDL_EXTRACTED_DIR do |t|
       target.build_sdl(directory: SDL_EXTRACTED_DIR, 
-        current_dir: current_dir, output_dir: output_dir, library: target.libfile("libSDL2"), output_file: sdl_output_file)
+        current_dir: current_dir, output_dir: output_dir, library: target.libfile("libSDL2"), 
+        output_file: sdl_output_file, target: target)
     end
 
     file sdl_image_output_file => [sdl_output_file, SDL_IMAGE_EXTRACTED_DIR] do |t|
       target.build_sdl_library(directory: SDL_IMAGE_EXTRACTED_DIR, 
-        current_dir: current_dir, output_dir: output_dir, library: target.libfile("libSDL2_image"), output_file: sdl_image_output_file)
+        current_dir: current_dir, output_dir: output_dir, library: target.libfile("libSDL2_image"), 
+        output_file: sdl_image_output_file, target: target)
     end
 
     file sdl_mixer_output_file => [sdl_output_file, SDL_MIXER_EXTRACTED_DIR] do |t|
       target.build_sdl_library(directory: SDL_MIXER_EXTRACTED_DIR, 
-        current_dir: current_dir, output_dir: output_dir, library: target.libfile("libSDL2_mixer"), output_file: sdl_mixer_output_file)
+        current_dir: current_dir, output_dir: output_dir, library: target.libfile("libSDL2_mixer"), 
+        output_file: sdl_mixer_output_file, target: target)
     end
   end
 

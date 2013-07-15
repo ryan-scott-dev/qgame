@@ -82,7 +82,7 @@ module QGame
       FileUtils.mkdir_p "#{args[:output_dir]}/include/SDL2"
       FileUtils.mkdir_p "#{args[:output_dir]}/lib"
       
-      if name == 'ios'
+      if name.include?('ios')
         build_sdl_ios(args)
       else
         build_sdl_unix(args)
@@ -104,9 +104,9 @@ module QGame
       FileUtils.cp "#{args[:directory]}/include/SDL_config_iphoneos.h", "#{args[:directory]}/include/SDL_config.h"
       FileUtils.cd "#{args[:directory]}/Xcode-IOS/SDL"
       FileUtils.sh "xcodebuild clean"
-      FileUtils.sh "xcodebuild build -target libSDL -arch i386 -sdk iphonesimulator6.1"
+      FileUtils.sh "xcodebuild build -target libSDL -arch #{args[:target].arch} -sdk #{args[:target].sdk}"
 
-      FileUtils.cp "./build/Release-iphonesimulator/#{args[:library]}", "#{args[:output_file]}"
+      FileUtils.cp "./build/Release-#{args[:target].sdk}/#{args[:library]}", "#{args[:output_file]}"
       
       FileUtils.cd args[:current_dir]
     end
@@ -115,7 +115,7 @@ module QGame
       FileUtils.mkdir_p "#{args[:output_dir]}/include/freetype"
       FileUtils.mkdir_p "#{args[:output_dir]}/lib"
       
-      if name == 'ios'
+      if name.include?('ios')
         build_freetype_ios(args)
       else
         build_freetype_unix(args)
@@ -132,8 +132,15 @@ module QGame
     end
 
     def build_freetype_ios(args = {})
+      target = args[:target]
+      puts "PLATFORM: #{target.platform}"
       FileUtils.cd args[:directory]
-      FileUtils.sh "./configure --prefix=#{args[:output_dir]} --without-png CFLAGS=\"-arch i386\""
+      FileUtils.sh "./configure --prefix=#{args[:output_dir]} --host=arm-apple-darwin --without-png --enable-static=yes --enable-shared=no " +
+        " CC=#{target.platform}/Developer/usr/bin/gcc" +
+        " AR=#{target.platform}/Developer/usr/bin/ar" +
+        " CFLAGS=\"#{target.cc.all_flags}\"" +
+        " LDFLAGS=\"#{target.linker.all_flags}\""
+
       FileUtils.sh 'make clean'
       FileUtils.sh 'make'
       FileUtils.sh 'make install'
@@ -141,7 +148,7 @@ module QGame
     end
 
     def build_sdl_library(args = {})
-      if name == 'ios'
+      if name.include?('ios')
         build_sdl_library_ios(args)
       else
         build_sdl_library_unix(args)
@@ -162,9 +169,33 @@ module QGame
       
       FileUtils.cd "#{args[:directory]}/Xcode-IOS"
       FileUtils.sh "xcodebuild clean"
-      FileUtils.sh "xcodebuild build -arch i386 -sdk iphonesimulator6.1"
-      FileUtils.cp "./build/Release-iphonesimulator/#{args[:library]}", "#{args[:output_file]}"
+      FileUtils.sh "xcodebuild build -arch #{args[:target].arch} -sdk #{args[:target].sdk}"
+      FileUtils.cp "./build/Release-#{args[:target].sdk}/#{args[:library]}", "#{args[:output_file]}"
       FileUtils.cd args[:current_dir]
     end
+  end
+
+  class BuildiOS < Build
+    
+    def platform(platform = nil)
+      @platform ||= platform
+    end
+
+    def sdk_path(sdk_path = nil)
+      @sdk_path ||= sdk_path
+    end
+
+    def sdk_version(sdk_version = nil)
+      @sdk_version ||= sdk_version
+    end
+
+    def sdk(sdk = nil)
+      @sdk ||= sdk
+    end
+
+    def arch(arch = nil)
+      @arch ||= arch
+    end
+
   end
 end

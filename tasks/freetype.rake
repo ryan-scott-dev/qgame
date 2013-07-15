@@ -32,7 +32,8 @@ namespace :freetype do
 
     file freetype_output_file => FREETYPE_EXTRACTED_DIR do |t|
       target.build_freetype(directory: FREETYPE_EXTRACTED_DIR, 
-        current_dir: current_dir, output_dir: output_dir, library: target.libfile("libfreetype"), output_file: freetype_output_file)
+        current_dir: current_dir, output_dir: output_dir, library: target.libfile("libfreetype"), 
+        output_file: freetype_output_file, target: target)
     end
   end
 
