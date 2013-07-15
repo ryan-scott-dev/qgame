@@ -12,7 +12,7 @@ MRuby::Toolchain.new(:ios) do |conf|
   conf.bins = %w()
   [conf.cc, conf.cxx, conf.objc, conf.asm].each do |cc|
     cc.command = `xcode-select -print-path`.chomp+'/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang'
-    cc.flags = [ENV['CFLAGS'] || ["-arch #{arch}"]]
+    cc.flags = [ENV['CFLAGS'] || ["-arch #{arch}", "-miphoneos-version-min=#{sdk_version}"]]
     cc.flags << ["-isysroot #{sdk_path}"]
     cc.flags << %Q[-fmessage-length=0 -std=gnu99 -fpascal-strings -fexceptions -fasm-blocks -gdwarf-2]
     cc.flags << %Q[-fobjc-abi-version=2]

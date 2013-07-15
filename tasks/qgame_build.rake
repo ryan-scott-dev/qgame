@@ -124,7 +124,7 @@ module QGame
 
     def build_freetype_unix(args = {})
       FileUtils.cd args[:directory]
-      FileUtils.sh "./configure --prefix=#{args[:output_dir]} --without-png"
+      FileUtils.sh "./configure --prefix=#{args[:output_dir]} --without-zlib --without-bzip2 --without-png"
       FileUtils.sh 'make clean'
       FileUtils.sh 'make'
       FileUtils.sh 'make install'
@@ -135,7 +135,7 @@ module QGame
       target = args[:target]
       puts "PLATFORM: #{target.platform}"
       FileUtils.cd args[:directory]
-      FileUtils.sh "./configure --prefix=#{args[:output_dir]} --host=arm-apple-darwin --without-png --enable-static=yes --enable-shared=no " +
+      FileUtils.sh "./configure --prefix=#{args[:output_dir]} --host=arm-apple-darwin --without-zlib --without-bzip2 --without-png --enable-static=yes --enable-shared=no " +
         " CC=#{target.platform}/Developer/usr/bin/gcc" +
         " AR=#{target.platform}/Developer/usr/bin/ar" +
         " CFLAGS=\"#{target.cc.all_flags}\"" +
