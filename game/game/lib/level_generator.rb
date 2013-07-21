@@ -35,6 +35,13 @@ module Game
       (0..tile_count).each do |tile_index|
         @tile_position_offset = @tile_offset * @tile_width
         
+        tile_properties = @tile_base_properties.merge({
+          :position => Vec2.new(@tile_position_offset, @tile_height_offset + 4 * @tile_height), 
+          :collidable => true
+        })
+        tile = Game::Block.new(tile_properties)
+        screen << tile
+        
         tile_rand = @randomize.rand
         if tile_rand < 0.2
           @tile_offset += 1
@@ -65,7 +72,7 @@ module Game
         screen << tile
 
         tile_properties = @tile_base_properties.merge({
-          :position => Vec2.new(@tile_position_offset, @tile_height_offset + 64), 
+          :position => Vec2.new(@tile_position_offset, @tile_height_offset + 1 * @tile_height), 
           :sprite_relative_offset => @underground_tile_offset,
           :collidable => false
         })
@@ -73,7 +80,7 @@ module Game
         screen << tile
 
         tile_properties = @tile_base_properties.merge({
-          :position => Vec2.new(@tile_position_offset, @tile_height_offset + 128), 
+          :position => Vec2.new(@tile_position_offset, @tile_height_offset + 2 * @tile_height), 
           :sprite_relative_offset => @underground_tile_offset,
           :collidable => false
         })
@@ -81,7 +88,7 @@ module Game
         screen << tile
 
         tile_properties = @tile_base_properties.merge({
-          :position => Vec2.new(@tile_position_offset, @tile_height_offset + 192), 
+          :position => Vec2.new(@tile_position_offset, @tile_height_offset + 3 * @tile_height), 
           :sprite_relative_offset => @underground_tile_offset,
           :collidable => false
         })

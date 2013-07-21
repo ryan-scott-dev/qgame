@@ -8,7 +8,7 @@ module Game
     MAX_SPEEDS = [70, 100, 140, 180, 260, 300]
     SPEED_WAIT = [5, 6, 7, 5, 5, 5]
 
-    attr_accessor :falling
+    attr_accessor :falling, :score
 
     def initialize(args = {})
       defaults = {
@@ -84,6 +84,7 @@ module Game
     def update
       move_right
       
+      @score += 1
       @velocity = @max_speed if @velocity > @max_speed
 
       @position.x += @velocity * Application.elapsed
