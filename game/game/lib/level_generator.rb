@@ -42,9 +42,16 @@ module Game
           next
         end
 
-        if tile_rand > 0.8
+        if tile_rand > 0.8 && tile_rand < 0.9
           tile_properties = @tile_base_properties.merge({
             :position => Vec2.new(@tile_position_offset, @tile_height_offset - 2 * @tile_height), 
+            :sprite_relative_offset =>  Vec2.new(5 * @tile_width, 0) / @texture.size,
+          })
+          tile = Game::Block.new(tile_properties)
+          screen << tile
+        elsif tile_rand > 0.9
+          tile_properties = @tile_base_properties.merge({
+            :position => Vec2.new(@tile_position_offset, @tile_height_offset - 3 * @tile_height), 
             :sprite_relative_offset =>  Vec2.new(5 * @tile_width, 0) / @texture.size,
           })
           tile = Game::Block.new(tile_properties)

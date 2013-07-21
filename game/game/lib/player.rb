@@ -87,10 +87,10 @@ module Game
       @velocity = @max_speed if @velocity > @max_speed
 
       @position.x += @velocity * Application.elapsed
-      @position.y += 98 * Application.elapsed if @falling
+      @position.y += 140 * Application.elapsed if @falling
 
       if @jumping 
-        @position.y -= 130 * Application.elapsed
+        @position.y -= 180 * Application.elapsed
         @jumping_countdown += Application.elapsed
 
         if @jumping_countdown > @jumping_cooldown
