@@ -40,7 +40,7 @@ module Game
         @gperf = MRuby::Command::Gperf.new(self)
         @git = MRuby::Command::Git.new(self)
         @mrbc = MRuby::Command::Mrbc.new(self)
-
+        @build_dir = "#{PROJECT_ROOT}/build/#{self.name}"
         @bins = %w(main)
         @gems, @libgame = MRuby::Gem::List.new, []
         Game.targets[@name] = self
@@ -53,10 +53,6 @@ module Game
 
     def root
       PROJECT_ROOT
-    end
-
-    def build_dir
-      "#{PROJECT_ROOT}/build/#{self.name}"
     end
 
     def define_rules

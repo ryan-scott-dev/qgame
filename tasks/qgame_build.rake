@@ -40,6 +40,7 @@ module QGame
         @gperf = MRuby::Command::Gperf.new(self)
         @git = MRuby::Command::Git.new(self)
         @mrbc = MRuby::Command::Mrbc.new(self)
+        @build_dir = "#{QGAME_ROOT}/build/#{self.name}"
 
         @gems = MRuby::Gem::List.new
         @libqgame, @libmruby = [], []
@@ -60,10 +61,6 @@ module QGame
 
     def root
       QGAME_ROOT
-    end
-
-    def build_dir
-      "#{QGAME_ROOT}/build/#{self.name}"
     end
 
     def define_rules
