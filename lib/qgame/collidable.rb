@@ -30,7 +30,7 @@ module QGame
         next if collidable == self
         next unless self.can_collide_with?(collidable)
         
-        self.collide_with(collidable) if self.has_collided?(collidable)
+        self.collide_with(collidable) if collidable.has_collided?(self)
       end
     end
   end

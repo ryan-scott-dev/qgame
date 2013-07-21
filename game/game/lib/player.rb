@@ -90,7 +90,7 @@ module Game
       @position.y += 98 * Application.elapsed if @falling
 
       if @jumping 
-        @position.y -= 98 * Application.elapsed
+        @position.y -= 130 * Application.elapsed
         @jumping_countdown += Application.elapsed
 
         if @jumping_countdown > @jumping_cooldown

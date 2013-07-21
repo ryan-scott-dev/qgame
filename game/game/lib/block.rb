@@ -1,12 +1,13 @@
 module Game
   class Block < QGame::Sprite
     include QGame::Collidable
-    include QGame::CollidableFast
+    include QGame::CollidableAbove
 
     def initialize(args = {})
       super(args)
 
-      collides_as :block
+      @collidable = args[:collidable].nil? ? true : args[:collidable]
+      collides_as :block if @collidable
     end
 
   end

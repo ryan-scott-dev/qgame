@@ -2,7 +2,7 @@ module Game
   class LevelGenerator
 
     def initialize
-      @tile_width = 64
+      @tile_width = @tile_height = 64
       @tile_offset = -tiles_per_screen
       @tile_position_offset = 0
       @tile_height_offset = 400
@@ -35,10 +35,20 @@ module Game
       (0..tile_count).each do |tile_index|
         @tile_position_offset = @tile_offset * @tile_width
         
-        if @randomize.rand < 0.2
+        tile_rand = @randomize.rand
+        if tile_rand < 0.2
           @tile_offset += 1
-          
+
           next
+        end
+
+        if tile_rand > 0.8
+          tile_properties = @tile_base_properties.merge({
+            :position => Vec2.new(@tile_position_offset, @tile_height_offset - 2 * @tile_height), 
+            :sprite_relative_offset =>  Vec2.new(5 * @tile_width, 0) / @texture.size,
+          })
+          tile = Game::Block.new(tile_properties)
+          screen << tile
         end
 
         tile_properties = @tile_base_properties.merge({
@@ -50,6 +60,7 @@ module Game
         tile_properties = @tile_base_properties.merge({
           :position => Vec2.new(@tile_position_offset, @tile_height_offset + 64), 
           :sprite_relative_offset => @underground_tile_offset,
+          :collidable => false
         })
         tile = Game::Block.new(tile_properties)
         screen << tile
@@ -57,6 +68,7 @@ module Game
         tile_properties = @tile_base_properties.merge({
           :position => Vec2.new(@tile_position_offset, @tile_height_offset + 128), 
           :sprite_relative_offset => @underground_tile_offset,
+          :collidable => false
         })
         tile = Game::Block.new(tile_properties)
         screen << tile
@@ -64,6 +76,7 @@ module Game
         tile_properties = @tile_base_properties.merge({
           :position => Vec2.new(@tile_position_offset, @tile_height_offset + 192), 
           :sprite_relative_offset => @underground_tile_offset,
+          :collidable => false
         })
         tile = Game::Block.new(tile_properties)
         screen << tile
