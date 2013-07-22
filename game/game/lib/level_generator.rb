@@ -1,7 +1,9 @@
 module Game
   class LevelGenerator
 
-    def initialize
+    def initialize(player)
+      @player = player
+
       @tile_width = @tile_height = 64
       @tile_offset = -tiles_per_screen
       @tile_position_offset = 0
@@ -20,10 +22,18 @@ module Game
       @underground_tile_offset = Vec2.new(64, 128) / @texture.size
 
       @screen_offset = 0
+      @gap_count = 0
+      @difficulty = 0
       @screens = []
 
       @screens << build(tiles_per_screen)
       @screens << build(tiles_per_screen)
+
+      @difficulty = 1
+    end
+
+    def safe_gap_width
+      4  
     end
 
     def tiles_per_screen
@@ -42,9 +52,13 @@ module Game
         screen << tile
         
         tile_rand = @randomize.rand
-        if tile_rand < 0.2
-          @tile_offset += 1
+        if tile_rand < 0.1 && @difficulty > 0
+          @gap_count = safe_gap_width
+        end
 
+        if @gap_count > 0
+          @tile_offset += 1
+          @gap_count -= 1
           next
         end
 

@@ -1,9 +1,10 @@
 QGame::Screen.new(:game) do
-
-  level_generator = Game::LevelGenerator.new
-  @components << level_generator
   
   player = Game::Player.new(:position => Vec2.new(300, 300))
+
+  level_generator = Game::LevelGenerator.new(player)
+  @components << level_generator
+  
   handle_events player
   @components << player
 
