@@ -5,7 +5,7 @@ module Game
     include QGame::CollidableFast
 
     MOVE_SPEED = 1
-    MAX_SPEEDS = [70, 100, 140, 180, 260, 300]
+    MAX_SPEEDS = [100, 140, 160, 190, 220, 260]
     SPEED_WAIT = [5, 6, 7, 5, 5, 5]
 
     attr_accessor :falling, :score
@@ -24,9 +24,12 @@ module Game
         :default_animation => :idle
       }
 
-      @velocity = 0
+      @velocity_x = 0
+      @velocity_y = 0
+
       @score = 0
       @max_speed = MAX_SPEEDS.first
+      @max_velocity_y = 380
       @speed_countdown = SPEED_WAIT.first
       @current_speed = 0
       @falling = true
@@ -34,7 +37,7 @@ module Game
       @jumping_countdown = 0
       @jumping_cooldown = 1
       @game_over = false
-
+      @friction = 0
       super(args.merge(defaults))
 
       setup_events
@@ -46,7 +49,7 @@ module Game
       end
 
       collides_with :block do |other|
-        self.falling = false
+        self.stop_falling
       end
     end
 
@@ -57,19 +60,24 @@ module Game
     end
 
     def move_right
-      @velocity += MOVE_SPEED
+      @velocity_x += MOVE_SPEED
       loop_animation(:walk_right) unless @jumping
     end
 
     def move_left
-      @velocity -= MOVE_SPEED
+      @velocity_x -= MOVE_SPEED
       loop_animation(:walk_left) unless @jumping
+    end
+
+    def stop_falling
+      @falling = false
+      @velocity_y = 0
     end
 
     def jump
       unless @jumping || @falling
         @jumping = true
-
+        @velocity_y = -6.5
         loop_animation(:jump)
       end
     end
@@ -91,17 +99,19 @@ module Game
 
     def update
 
-      @position.y += 140 * Application.elapsed if @falling
+      @velocity_y += 200 * Application.elapsed if @falling
+      @velocity_y = @max_velocity_y if @velocity_y > @max_velocity_y
 
       unless @game_over
         move_right
         
         @score += 1
-        @velocity = @max_speed if @velocity > @max_speed
+        @velocity_x = @max_speed if @velocity_x > @max_speed
 
-        @position.x += @velocity * Application.elapsed
+        @position.x += @velocity_x * Application.elapsed
+        @position.y += @velocity_y * Application.elapsed
 
-        if @jumping 
+        if @jumping
           @position.y -= 180 * Application.elapsed
           @jumping_countdown += Application.elapsed
 
