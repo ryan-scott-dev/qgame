@@ -17,6 +17,8 @@ module QGame
       @sprite_size = args[:sprite_size] || @texture.size
       @scale = args[:scale] || @sprite_size
       @sprite_scale = args[:sprite_scale] || @sprite_size / @texture.size
+
+      @alive = true
     end
 
     def self.model
@@ -38,10 +40,11 @@ module QGame
 
     def destruct
       QGame::ScreenManager.current.remove(self)
+      @alive = false
     end
 
     def update
-      QGame::RenderManager.submit(self)
+      QGame::RenderManager.submit(self) if @alive
     end
 
     def render

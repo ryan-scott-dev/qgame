@@ -21,7 +21,7 @@ module Game
     end
 
     def update
-      check_collisions
+      check_collisions if @alive
 
       super
     end

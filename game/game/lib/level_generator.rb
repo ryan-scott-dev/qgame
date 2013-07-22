@@ -48,6 +48,11 @@ module Game
           next
         end
 
+        if tile_rand > 0.6 && tile_rand < 0.65
+          coin = Game::Coin.new(:position => Vec2.new(@tile_position_offset, @tile_height_offset - @tile_height), :parent => screen)
+          screen << coin
+        end
+
         if tile_rand > 0.8 && tile_rand < 0.9
           tile_properties = @tile_base_properties.merge({
             :position => Vec2.new(@tile_position_offset, @tile_height_offset - 2 * @tile_height), 

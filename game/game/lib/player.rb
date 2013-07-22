@@ -79,12 +79,14 @@ module Game
     end
 
     def collect(collectable)
-      @score += 10
+      @score += 1000
     end
 
     def game_over
       @game_over = true
       idle
+
+      Game::ScreenManager.transition_to(:main_menu)
     end
 
     def update

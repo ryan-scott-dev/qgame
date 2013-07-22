@@ -21,7 +21,9 @@ module QGame
     end
 
     def build
-      self.instance_eval(&@configure) unless @built
+      @components.clear
+
+      self.instance_eval(&@configure)
       @built = true
       self
     end
