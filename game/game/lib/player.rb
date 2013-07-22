@@ -57,6 +57,10 @@ module Game
       on_event :mouse_down do |event|
         jump
       end
+
+      on_event :mouse_up do |event|
+        release_jump
+      end
     end
 
     def move_right
@@ -70,16 +74,23 @@ module Game
     end
 
     def stop_falling
-      @falling = false
-      @velocity_y = 0
+      unless @jumping 
+        @falling = false
+        @velocity_y = 0
+      end
     end
 
     def jump
+      @jump_held = true
       unless @jumping || @falling
         @jumping = true
-        @velocity_y = -6.5
+        @velocity_y = -200
         loop_animation(:jump)
       end
+    end
+
+    def release_jump
+      @jump_held = false
     end
 
     def idle
@@ -99,7 +110,7 @@ module Game
 
     def update
 
-      @velocity_y += 200 * Application.elapsed if @falling
+      @velocity_y += 200 * Application.elapsed if @falling || @jumping
       @velocity_y = @max_velocity_y if @velocity_y > @max_velocity_y
 
       unless @game_over
@@ -108,19 +119,28 @@ module Game
         @score += 1
         @velocity_x = @max_speed if @velocity_x > @max_speed
 
-        @position.x += @velocity_x * Application.elapsed
-        @position.y += @velocity_y * Application.elapsed
-
         if @jumping
-          @position.y -= 180 * Application.elapsed
+          @velocity_y -= 120 * Application.elapsed
+          @velocity_y = -@max_velocity_y if @velocity_y < -@max_velocity_y
+
           @jumping_countdown += Application.elapsed
+
+          unless @jump_held
+            if @velocity_y < -189
+              @jumping = false
+            end
+          end
 
           if @jumping_countdown > @jumping_cooldown
             @jumping = false
             @falling = true
+            @jump_held = false
             @jumping_countdown = 0
           end
         end
+
+        @position.x += @velocity_x * Application.elapsed
+        @position.y += @velocity_y * Application.elapsed
 
         @speed_countdown -= Application.elapsed
         if @speed_countdown <= 0
