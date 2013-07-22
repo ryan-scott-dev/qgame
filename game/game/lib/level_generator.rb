@@ -36,8 +36,7 @@ module Game
         @tile_position_offset = @tile_offset * @tile_width
         
         tile_properties = @tile_base_properties.merge({
-          :position => Vec2.new(@tile_position_offset, @tile_height_offset + 4 * @tile_height), 
-          :collidable => true
+          :position => Vec2.new(@tile_position_offset, @tile_height_offset + 4 * @tile_height)
         })
         tile = Game::Block.new(tile_properties)
         screen << tile

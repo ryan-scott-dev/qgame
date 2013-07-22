@@ -33,6 +33,7 @@ module Game
       @jumping = false
       @jumping_countdown = 0
       @jumping_cooldown = 1
+      @game_over = false
 
       super(args.merge(defaults))
 
@@ -81,36 +82,47 @@ module Game
       @score += 10
     end
 
-    def update
-      move_right
-      
-      @score += 1
-      @velocity = @max_speed if @velocity > @max_speed
+    def game_over
+      @game_over = true
+      idle
+    end
 
-      @position.x += @velocity * Application.elapsed
+    def update
+
       @position.y += 140 * Application.elapsed if @falling
 
-      if @jumping 
-        @position.y -= 180 * Application.elapsed
-        @jumping_countdown += Application.elapsed
+      unless @game_over
+        move_right
+        
+        @score += 1
+        @velocity = @max_speed if @velocity > @max_speed
 
-        if @jumping_countdown > @jumping_cooldown
-          @jumping = false
-          @falling = true
-          @jumping_countdown = 0
+        @position.x += @velocity * Application.elapsed
+
+        if @jumping 
+          @position.y -= 180 * Application.elapsed
+          @jumping_countdown += Application.elapsed
+
+          if @jumping_countdown > @jumping_cooldown
+            @jumping = false
+            @falling = true
+            @jumping_countdown = 0
+          end
         end
-      end
 
-      @speed_countdown -= Application.elapsed
-      if @speed_countdown <= 0
-        @current_speed += 1
+        @speed_countdown -= Application.elapsed
+        if @speed_countdown <= 0
+          @current_speed += 1
 
-        if @current_speed < MAX_SPEEDS.length
-          @max_speed = MAX_SPEEDS[@current_speed]
-          @speed_countdown = SPEED_WAIT[@current_speed]
+          if @current_speed < MAX_SPEEDS.length
+            @max_speed = MAX_SPEEDS[@current_speed]
+            @speed_countdown = SPEED_WAIT[@current_speed]
+          end
         end
-      end
 
+        game_over if @position.y > 350
+      end
+     
       @falling = true unless @jumping
       check_collisions
 
