@@ -22,7 +22,11 @@ module Game
       @underground_tile_offset = Vec2.new(64, 128) / @texture.size
 
       @screen_offset = 0
+      
       @gap_count = 0
+      @last_gap_offset = 0
+      @min_gap_offset = 4
+
       @difficulty = 0
       @screens = []
 
@@ -52,15 +56,17 @@ module Game
         screen << tile
         
         tile_rand = @randomize.rand
-        if tile_rand < 0.1 && @difficulty > 0
+        if tile_rand < 0.1 && @difficulty > 0 && @last_gap_offset > @min_gap_offset
           @gap_count = safe_gap_width
         end
 
         if @gap_count > 0
           @tile_offset += 1
           @gap_count -= 1
+          @last_gap_offset = 0
           next
         end
+        @last_gap_offset += 1
 
         if tile_rand > 0.6 && tile_rand < 0.65
           coin = Game::Coin.new(:position => Vec2.new(@tile_position_offset, @tile_height_offset - @tile_height), :parent => screen)
