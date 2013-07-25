@@ -3,13 +3,15 @@ module Game
     include QGame::EventHandler
     include QGame::Collidable
     include QGame::CollidableFast
+    
+    include Game::Fallable
     include Game::Jumpable
 
     MOVE_SPEED = 1
     MAX_SPEEDS = [160, 200, 240, 280, 320, 360]
     SPEED_WAIT = [5, 6, 7, 5, 5, 5]
 
-    attr_accessor :falling, :score
+    attr_accessor :score
 
     def initialize(args = {})
       defaults = {
@@ -76,11 +78,7 @@ module Game
 
     def stop_falling(other)
       unless @jumping 
-        @velocity_y = 0
-
-        # set the player bottom to the top of the other sprite
-        @position.y = (other.top - (@offset.y * @scale.y))
-        @falling = false
+        super
         stop_jumping
       end
     end
@@ -111,10 +109,6 @@ module Game
     end
 
     def update
-
-      @velocity_y += 400 * Application.elapsed if @falling || @jumping
-      @velocity_y = @max_velocity_y if @velocity_y > @max_velocity_y
-
       unless @game_over
         move_right
         
@@ -133,11 +127,13 @@ module Game
       end
       
       update_jump
+      update_falling
 
       @position.x += @velocity_x * Application.elapsed
+
+      @velocity_y = @max_velocity_y if @velocity_y > @max_velocity_y
       @position.y += @velocity_y * Application.elapsed
 
-      @falling = true unless @jumping
       check_collisions
 
       game_over if @position.y > 350
