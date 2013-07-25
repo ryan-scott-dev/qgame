@@ -47,6 +47,10 @@ module QGame
       QGame::RenderManager.submit(self) if @alive
     end
 
+    def top
+      @position.y - (@offset.y * @scale.y)
+    end
+
     def render
       view = @screen_space ? Mat4.new : QGame::RenderManager.camera.view
       shader.set_uniform('view', view)

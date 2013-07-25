@@ -124,7 +124,7 @@ module Game
       check_collisions
 
       @velocity_x = @max_speed if @velocity_x > @max_speed
-      # @position.x += @velocity_x * Application.elapsed
+      @position.x += @velocity_x * Application.elapsed
 
       @velocity_y = @max_velocity_y if @velocity_y > @max_velocity_y
       @position.y += @velocity_y * Application.elapsed

@@ -6,7 +6,7 @@ module Game
       @velocity_y = 0
 
       # set the player bottom to the top of the other sprite
-      # @position.y = (other.top - (@offset.y * @scale.y))
+      @position.y = (other.top - (@offset.y * @scale.y)) + 1
       @falling = false
     end
 
