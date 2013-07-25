@@ -56,7 +56,7 @@ module Game
         screen << tile
         
         tile_rand = @randomize.rand
-        if tile_rand < 0.1 && @difficulty > 0 && @last_gap_offset > @min_gap_offset
+        if tile_rand < 0.05 && @difficulty > 0 && @last_gap_offset > @min_gap_offset
           @gap_count = safe_gap_width
         end
 

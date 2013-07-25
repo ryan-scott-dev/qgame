@@ -5,7 +5,7 @@ module Game
     include QGame::CollidableFast
 
     MOVE_SPEED = 1
-    MAX_SPEEDS = [100, 140, 160, 190, 220, 260]
+    MAX_SPEEDS = [160, 200, 240, 280, 320, 360]
     SPEED_WAIT = [5, 6, 7, 5, 5, 5]
 
     attr_accessor :falling, :score
@@ -29,13 +29,13 @@ module Game
 
       @score = 0
       @max_speed = MAX_SPEEDS.first
-      @max_velocity_y = 380
+      @max_velocity_y = 500
       @speed_countdown = SPEED_WAIT.first
       @current_speed = 0
       @falling = true
       @jumping = false
       @jumping_countdown = 0
-      @jumping_cooldown = 1
+      @jumping_cooldown = 0.4
       @game_over = false
       @friction = 0
       super(args.merge(defaults))
@@ -49,7 +49,7 @@ module Game
       end
 
       collides_with :block do |other|
-        self.stop_falling
+        self.stop_falling(other)
       end
     end
 
@@ -73,18 +73,25 @@ module Game
       loop_animation(:walk_left) unless @jumping
     end
 
-    def stop_falling
+    def stop_falling(other)
       unless @jumping 
-        @falling = false
         @velocity_y = 0
+
+        # set the player bottom to the top of the other sprite
+        @position.y = (other.top - (@offset.y * @scale.y))
+        @jumping = false
+        @falling = false
+        @jump_held = false
       end
     end
 
     def jump
       @jump_held = true
+
       unless @jumping || @falling
         @jumping = true
-        @velocity_y = -200
+        @jumping_countdown = 0
+        @velocity_y = -320
         loop_animation(:jump)
       end
     end
@@ -103,14 +110,16 @@ module Game
 
     def game_over
       @game_over = true
-      idle
+      idle  
 
-      Game::ScreenManager.transition_to(:main_menu)
+      @velocity_x = 0
+
+      # Game::ScreenManager.transition_to(:main_menu)
     end
 
     def update
 
-      @velocity_y += 200 * Application.elapsed if @falling || @jumping
+      @velocity_y += 400 * Application.elapsed if @falling || @jumping
       @velocity_y = @max_velocity_y if @velocity_y > @max_velocity_y
 
       unless @game_over
@@ -120,7 +129,7 @@ module Game
         @velocity_x = @max_speed if @velocity_x > @max_speed
 
         if @jumping
-          @velocity_y -= 120 * Application.elapsed
+          @velocity_y -= 200 * Application.elapsed
           @velocity_y = -@max_velocity_y if @velocity_y < -@max_velocity_y
 
           @jumping_countdown += Application.elapsed
@@ -139,9 +148,6 @@ module Game
           end
         end
 
-        @position.x += @velocity_x * Application.elapsed
-        @position.y += @velocity_y * Application.elapsed
-
         @speed_countdown -= Application.elapsed
         if @speed_countdown <= 0
           @current_speed += 1
@@ -151,12 +157,15 @@ module Game
             @speed_countdown = SPEED_WAIT[@current_speed]
           end
         end
-
-        game_over if @position.y > 350
       end
      
+      @position.x += @velocity_x * Application.elapsed
+      @position.y += @velocity_y * Application.elapsed
+
       @falling = true unless @jumping
       check_collisions
+
+      game_over if @position.y > 350
 
       super
     end
