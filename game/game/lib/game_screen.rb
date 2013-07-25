@@ -1,6 +1,6 @@
 QGame::Screen.new(:game) do
   
-  player = Game::Player.new(:position => Vec2.new(300, 300))
+  player = Game::Player.new(:position => Vec2.new(50, 300))
 
   level_generator = Game::LevelGenerator.new(player)
   @components << level_generator
@@ -11,6 +11,9 @@ QGame::Screen.new(:game) do
   dynamic_text(:frequency => 0.1, :position => Vec2.new(20), :font_size => 16) do
     "Score: #{player.score}"
   end
+
+  test = Game::Test.new(:position => Vec2.new(100, 300))
+  @components << test
 
   camera(:follow, :target => player)
   overlay(:virtual_gamepad) if Game::Input.input_type_active? :virtual_gamepad
