@@ -3,6 +3,7 @@ module Game
     include QGame::EventHandler
     include QGame::Collidable
     include QGame::CollidableFast
+    include Game::Jumpable
 
     MOVE_SPEED = 1
     MAX_SPEEDS = [160, 200, 240, 280, 320, 360]
@@ -79,25 +80,17 @@ module Game
 
         # set the player bottom to the top of the other sprite
         @position.y = (other.top - (@offset.y * @scale.y))
-        @jumping = false
         @falling = false
-        @jump_held = false
+        stop_jumping
       end
     end
 
     def jump
-      @jump_held = true
-
       unless @jumping || @falling
-        @jumping = true
-        @jumping_countdown = 0
-        @velocity_y = -320
         loop_animation(:jump)
       end
-    end
 
-    def release_jump
-      @jump_held = false
+      super
     end
 
     def idle
@@ -128,26 +121,6 @@ module Game
         @score += 1
         @velocity_x = @max_speed if @velocity_x > @max_speed
 
-        if @jumping
-          @velocity_y -= 200 * Application.elapsed
-          @velocity_y = -@max_velocity_y if @velocity_y < -@max_velocity_y
-
-          @jumping_countdown += Application.elapsed
-
-          unless @jump_held
-            if @velocity_y < -189
-              @jumping = false
-            end
-          end
-
-          if @jumping_countdown > @jumping_cooldown
-            @jumping = false
-            @falling = true
-            @jump_held = false
-            @jumping_countdown = 0
-          end
-        end
-
         @speed_countdown -= Application.elapsed
         if @speed_countdown <= 0
           @current_speed += 1
@@ -158,7 +131,9 @@ module Game
           end
         end
       end
-     
+      
+      update_jump
+
       @position.x += @velocity_x * Application.elapsed
       @position.y += @velocity_y * Application.elapsed
 
