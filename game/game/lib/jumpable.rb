@@ -1,10 +1,11 @@
 module Game
   module Jumpable
+    include Game::Fallable
 
     def jump
       @jump_held = true
 
-      unless @jumping || @falling
+      unless is_jumping?
         @jumping = true
         @jumping_countdown = 0
         @velocity_y = -320
@@ -20,7 +21,7 @@ module Game
       @jump_held = false
     end
 
-    def update_jump
+    def update_jumping
       if @jumping
         @velocity_y -= 200 * Application.elapsed
         @velocity_y = -@max_velocity_y if @velocity_y < -@max_velocity_y
@@ -41,5 +42,25 @@ module Game
         end
       end
     end
+
+    def is_jumping?
+      @jumping || @falling
+    end
+
+    # Falling Overrides
+
+    def update_falling
+      unless @jumping
+        super
+      end
+    end
+
+    def stop_falling(other)
+      unless @jumping 
+        super
+        stop_jumping
+      end
+    end
+
   end
 end

@@ -76,15 +76,8 @@ module Game
       loop_animation(:walk_left) unless @jumping
     end
 
-    def stop_falling(other)
-      unless @jumping 
-        super
-        stop_jumping
-      end
-    end
-
     def jump
-      unless @jumping || @falling
+      unless is_jumping?
         loop_animation(:jump)
       end
 
@@ -113,7 +106,6 @@ module Game
         move_right
         
         @score += 1
-        @velocity_x = @max_speed if @velocity_x > @max_speed
 
         @speed_countdown -= Application.elapsed
         if @speed_countdown <= 0
@@ -126,9 +118,10 @@ module Game
         end
       end
       
-      update_jump
+      update_jumping
       update_falling
-
+      
+      @velocity_x = @max_speed if @velocity_x > @max_speed
       @position.x += @velocity_x * Application.elapsed
 
       @velocity_y = @max_velocity_y if @velocity_y > @max_velocity_y

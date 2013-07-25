@@ -11,8 +11,8 @@ module Game
     end
 
     def update_falling
-      @velocity_y += 400 * Application.elapsed if @falling || @jumping
-      @falling = true unless @jumping
+      @velocity_y += 400 * Application.elapsed if @falling
+      @falling = true
     end
   end
 end
