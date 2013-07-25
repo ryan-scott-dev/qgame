@@ -1,7 +1,7 @@
 module QGame
   module CollidableAbove
 
-    OVERLAP = 5
+    OVERLAP = 10
     
     def has_collided?(other)
       self_position = @position - (@scale * @offset)

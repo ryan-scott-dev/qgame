@@ -38,7 +38,7 @@ module Game
       @falling = true
       @jumping = false
       @jumping_countdown = 0
-      @jumping_cooldown = 0.4
+      @jumping_cooldown = 0.3
       @game_over = false
       @friction = 0
       super(args.merge(defaults))
@@ -77,7 +77,7 @@ module Game
     end
 
     def jump
-      unless is_jumping?
+      if can_jump?
         loop_animation(:jump)
       end
 
@@ -117,17 +117,17 @@ module Game
           end
         end
       end
-      
+
       update_jumping
       update_falling
       
+      check_collisions
+
       @velocity_x = @max_speed if @velocity_x > @max_speed
-      @position.x += @velocity_x * Application.elapsed
+      # @position.x += @velocity_x * Application.elapsed
 
       @velocity_y = @max_velocity_y if @velocity_y > @max_velocity_y
       @position.y += @velocity_y * Application.elapsed
-
-      check_collisions
 
       game_over if @position.y > 350
 

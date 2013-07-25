@@ -5,8 +5,9 @@ module Game
     def jump
       @jump_held = true
 
-      unless is_jumping?
+      if can_jump?
         @jumping = true
+        @falling = false
         @jumping_countdown = 0
         @velocity_y = -320
       end
@@ -23,7 +24,7 @@ module Game
 
     def update_jumping
       if @jumping
-        @velocity_y -= 200 * Application.elapsed
+        @velocity_y -= 50 * Application.elapsed
         @velocity_y = -@max_velocity_y if @velocity_y < -@max_velocity_y
 
         @jumping_countdown += Application.elapsed
@@ -43,8 +44,8 @@ module Game
       end
     end
 
-    def is_jumping?
-      @jumping || @falling
+    def can_jump?
+      !(@jumping || @falling) && @velocity_y >= 0
     end
 
     # Falling Overrides

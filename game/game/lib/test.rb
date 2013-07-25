@@ -20,7 +20,7 @@ module Game
       @falling = true
       @jumping = false
       @jumping_countdown = 0
-      @jumping_cooldown = 0.4
+      @jumping_cooldown = 0.3
 
       super(args.merge(defaults))
 
@@ -33,6 +33,7 @@ module Game
 
     def update
       jump
+      release_jump
       
       update_jumping
       update_falling
