@@ -4,7 +4,7 @@ module QGame
 
     include QGame::EventManager
 
-    attr_accessor :name
+    attr_accessor :name, :paused, :camera
     
     def self.find(screen_name)
       @@screens[screen_name]
@@ -48,12 +48,24 @@ module QGame
       @components << entity
     end
 
+    def pause
+      @paused = true
+    end
+
+    def resume
+      stop_handling_events @parent_screen unless @parent_screen.nil?
+      @parent_screen = nil
+
+      @paused = false
+      QGame::RenderManager.camera = @camera
+    end
+
     def camera(type, args = {})
       case type
       when :fixed  
-        QGame::RenderManager.camera = QGame::Camera2D.new(args)
+        @camera = QGame::RenderManager.camera = QGame::Camera2D.new(args)
       when :follow
-        QGame::RenderManager.camera = QGame::FollowCamera.new(args)
+        @camera = QGame::RenderManager.camera = QGame::FollowCamera.new(args)
       end
     end
 
@@ -103,7 +115,7 @@ module QGame
 
       args = centered_args_from_texture(args)
 
-      new_button = QGame::Button.new({:texture => texture, :texture_pressed => texture_pressed, 
+      new_button = QGame::Button.new({:screen_space => true, :texture => texture, :texture_pressed => texture_pressed, 
         :scale => texture.size}.merge(args), &block)
       
       on_event(:mouse_up) do |event|

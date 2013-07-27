@@ -12,6 +12,11 @@ QGame::Screen.new(:game) do
     "Score: #{player.score}"
   end
 
+  button('pause_icon', :position => Vec2.new(128, 64)) do
+    Game::ScreenManager.current.pause
+    Game::ScreenManager.current.overlay(:pause_screen)
+  end
+
   test = Game::Test.new(:position => Vec2.new(100, 300))
   @components << test
 

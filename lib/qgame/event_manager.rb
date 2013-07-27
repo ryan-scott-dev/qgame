@@ -10,6 +10,10 @@ module QGame
       event_catchers << event_handler
     end
 
+    def stop_handling_events(event_handler)
+      event_catchers.delete(event_handler)
+    end
+
     def handle_event(event_type, event)
       event_catchers.each do |catcher|
         catcher.handle_event(event_type, event)
