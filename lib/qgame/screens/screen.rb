@@ -133,7 +133,6 @@ module QGame
 
       args = centered_args_from_texture(args)
       new_text = QGame::Text.new({:text => text}.merge(args))
-
       @components << new_text
       new_text
     end

@@ -7,7 +7,7 @@ module QGame
                                           QGame::AssetManager.fragment('screen_text'))
     end
     
-    attr_accessor :text
+    attr_accessor :text, :size, :position
 
     def initialize(args = {})
       @position = args[:position] || Vec2.new
@@ -16,10 +16,20 @@ module QGame
       @font = args[:font] || './assets/fonts/Vera.ttf'
       @font_size = args[:font_size] || 16
       @text = args[:text] || ''
-      
+      @flag = args[:flag] || nil
+
       @text_buffer = FreetypeGL::FontBuffer.create(@font, @font_size)
-      @text_buffer.text = @text
+      @text_buffer.set_text(@text, @flag)
       @size = @text_buffer.calculate_size(@text)
+    end
+
+    def text=(val)
+      @text = val
+      @text_buffer.set_text(@text, @flag)
+    end
+
+    def text
+      @text
     end
 
     def destruct

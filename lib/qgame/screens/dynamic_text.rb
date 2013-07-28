@@ -39,7 +39,7 @@ module QGame
 
     def update_text
       @text = self.instance_eval(&@calculate_text).to_s
-      @text_buffer.text = @text
+      @text_buffer.set_text(@text)
     end
 
     def render
