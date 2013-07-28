@@ -69,18 +69,21 @@ module QGame
       end
     end
 
+    def screen_center
+      Vec2.new((screen_height / 2.0), (screen_width / 2.0))
+    end
+
     def centered_args_from_texture(args)
       if args.has_key? :centered
         args[:position] = Vec2.new unless args.has_key? :position
 
         case args[:centered]
         when :horizontal
-          args[:position].x = (screen_width / 2.0)
+          args[:position].x = screen_center.x
         when :vertical  
-          args[:position].y = (screen_height / 2.0)
+          args[:position].y = screen_center.y
         when :both
-          args[:position].x = (screen_width / 2.0)
-          args[:position].y = (screen_height / 2.0)
+          args[:position] = screen_center
         end
 
         args = args.reject!{ |k| k == :centered }
@@ -124,6 +127,15 @@ module QGame
 
       @components << new_button
       new_button
+    end
+
+    def text(text, args = {}) 
+
+      args = centered_args_from_texture(args)
+      new_text = QGame::Text.new({:text => text}.merge(args))
+
+      @components << new_text
+      new_text
     end
 
     def joystick(texture_name, args = {})
