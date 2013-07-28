@@ -102,38 +102,35 @@ module Game
     end
 
     def update
-      unless Game::ScreenManager.current.paused
+      unless @game_over
+        move_right
+        
+        @score += 1
 
-        unless @game_over
-          move_right
-          
-          @score += 1
+        @speed_countdown -= Application.elapsed
+        if @speed_countdown <= 0
+          @current_speed += 1
 
-          @speed_countdown -= Application.elapsed
-          if @speed_countdown <= 0
-            @current_speed += 1
-
-            if @current_speed < MAX_SPEEDS.length
-              @max_speed = MAX_SPEEDS[@current_speed]
-              @speed_countdown = SPEED_WAIT[@current_speed]
-            end
+          if @current_speed < MAX_SPEEDS.length
+            @max_speed = MAX_SPEEDS[@current_speed]
+            @speed_countdown = SPEED_WAIT[@current_speed]
           end
         end
-
-        update_jumping
-        update_falling
-        
-        check_collisions
-
-        @velocity_x = @max_speed if @velocity_x > @max_speed
-        @position.x += @velocity_x * Application.elapsed
-
-        @velocity_y = @max_velocity_y if @velocity_y > @max_velocity_y
-        @position.y += @velocity_y * Application.elapsed
-
-        game_over if @position.y > 350
       end
+
+      update_jumping
+      update_falling
       
+      check_collisions
+
+      @velocity_x = @max_speed if @velocity_x > @max_speed
+      @position.x += @velocity_x * Application.elapsed
+
+      @velocity_y = @max_velocity_y if @velocity_y > @max_velocity_y
+      @position.y += @velocity_y * Application.elapsed
+
+      game_over if @position.y > 350
+   
       super
     end
   end

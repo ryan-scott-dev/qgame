@@ -149,13 +149,15 @@ module QGame
     end
 
     def update
-      @components.each do |component|
-        component.update
+      unless @paused
+        @components.each do |component|
+          component.update
+        end
+
+        QGame::RenderManager.camera.update
+
+        @parent_screen.update unless @parent_screen.nil?
       end
-
-      QGame::RenderManager.camera.update
-
-      @parent_screen.update unless @parent_screen.nil?
     end
 
     def submit_render
