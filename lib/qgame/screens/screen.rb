@@ -73,6 +73,10 @@ module QGame
       Vec2.new((screen_height / 2.0), (screen_width / 2.0))
     end
 
+    def center_position_from_size(size)
+      Vec2.new((screen_height / 2) - (size.x / 2), (screen_width / 2) - (size.y / 2))
+    end
+
     def centered_args_from_texture(args)
       if args.has_key? :centered
         args[:position] = Vec2.new unless args.has_key? :position
@@ -131,8 +135,9 @@ module QGame
 
     def text(text, args = {}) 
 
-      args = centered_args_from_texture(args)
       new_text = QGame::Text.new({:text => text}.merge(args))
+      new_text.position = center_position_from_size(new_text.size)
+      # new_text.position += Vec2.new(-new_text.size.x / 2, 0)
       @components << new_text
       new_text
     end

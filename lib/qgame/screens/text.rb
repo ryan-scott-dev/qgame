@@ -12,20 +12,20 @@ module QGame
     def initialize(args = {})
       @position = args[:position] || Vec2.new
       @rotation = args[:rotation] || 0.0
-      @offset = args[:offset] || Vec2.new(0.5)
+      @offset = args[:offset] || Vec2.new(0)
       @font = args[:font] || './assets/fonts/Vera.ttf'
       @font_size = args[:font_size] || 16
       @text = args[:text] || ''
       @flag = args[:flag] || nil
 
       @text_buffer = FreetypeGL::FontBuffer.create(@font, @font_size)
-      @text_buffer.set_text(@text, @flag)
-      @size = @text_buffer.calculate_size(@text)
+      self.text = @text
     end
 
     def text=(val)
       @text = val
       @text_buffer.set_text(@text, @flag)
+      @size = @text_buffer.calculate_size(@text)
     end
 
     def text
