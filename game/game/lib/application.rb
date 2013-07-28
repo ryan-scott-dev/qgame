@@ -46,6 +46,7 @@ Game::Application.run do
     GL.clear
 
     # render logic
+    Game::ScreenManager.submit_render
     Game::RenderManager.render
 
     @window.swap_gl_window

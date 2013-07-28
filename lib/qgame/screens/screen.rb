@@ -157,5 +157,13 @@ module QGame
 
       @parent_screen.update unless @parent_screen.nil?
     end
+
+    def submit_render
+      @components.each do |component|
+        component.submit_render
+      end
+
+      @parent_screen.submit_render unless @parent_screen.nil?
+    end
   end
 end

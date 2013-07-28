@@ -133,6 +133,14 @@ module Game
       @screens = @screens.slice(1, @screens.length - 1)
     end
 
+    def submit_render
+      @screens.each do |screen|
+        screen.each do |tile|
+          tile.submit_render
+        end
+      end
+    end
+
     def update
       if tiles_required?
         @screens << build(tiles_per_screen)

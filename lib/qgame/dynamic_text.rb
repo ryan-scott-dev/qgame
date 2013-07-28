@@ -31,6 +31,9 @@ module QGame
         @timer = 0.0
         update_text
       end
+    end
+
+    def submit_render
       QGame::RenderManager.submit(self)
     end
 

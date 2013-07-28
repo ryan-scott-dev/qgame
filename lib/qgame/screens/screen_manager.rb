@@ -21,5 +21,9 @@ module QGame
     def self.update
       self.current.update unless self.current.nil?
     end
+
+    def self.submit_render
+      self.current.submit_render unless self.current.nil?
+    end
   end
 end

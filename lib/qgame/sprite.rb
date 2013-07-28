@@ -44,6 +44,9 @@ module QGame
     end
 
     def update
+    end
+
+    def submit_render
       QGame::RenderManager.submit(self) if @alive
     end
 
