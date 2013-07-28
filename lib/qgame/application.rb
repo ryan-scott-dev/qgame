@@ -86,6 +86,10 @@ module QGame
     end
 
     def quit
+      @running = false
+    end
+
+    def cleanup
       @context.destroy
       @window.destroy
       SDL.quit

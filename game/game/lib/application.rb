@@ -57,5 +57,5 @@ Game::Application.run do
   end
 
   # End of application lifecycle
-  quit
+  cleanup
 end
