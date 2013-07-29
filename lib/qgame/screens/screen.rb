@@ -97,8 +97,12 @@ module QGame
     end
 
     def overlay(screen_name)
-      @parent_screen = QGame::Screen.find(screen_name).build
-      handle_events @parent_screen
+      if screen_name.nil?
+        @parent_screen = nil
+      else
+        @parent_screen = QGame::Screen.find(screen_name).build
+        handle_events @parent_screen
+      end
     end
 
     def dynamic_text(args = {}, &block)

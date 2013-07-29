@@ -93,12 +93,14 @@ module Game
     end
 
     def game_over
-      @game_over = true
-      idle  
+      unless @game_over
+        @game_over = true
+        idle  
 
-      @velocity_x = 0
+        @velocity_x = 0
 
-      # Game::ScreenManager.transition_to(:main_menu)
+        Game::ScreenManager.current.overlay(:game_over)
+      end
     end
 
     def update
