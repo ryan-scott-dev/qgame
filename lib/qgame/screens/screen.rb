@@ -172,6 +172,12 @@ module QGame
       new_joystick
     end
 
+    def has_transition?(transition_name)
+    end
+
+    def transition(transition_name, &block)
+    end
+
     def update
       unless @paused
         @components.each do |component|

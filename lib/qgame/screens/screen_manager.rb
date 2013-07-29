@@ -15,7 +15,13 @@ module QGame
     end
 
     def self.transition_to(screen_name)
-      self.current = QGame::Screen.find(screen_name).build
+      new_screen = QGame::Screen.find(screen_name).build
+      old_screen = self.current
+      self.current = new_screen
+
+      if !old_screen.nil? && old_screen.has_transition?(:out)
+        old_screen.transition_out_to(new_screen)
+      end
     end
 
     def self.update
