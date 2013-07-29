@@ -123,10 +123,14 @@ module QGame
       args = centered_args_from_texture(args)
 
       new_button = QGame::Button.new({:screen_space => true, :texture => texture, :texture_pressed => texture_pressed, 
-        :scale => texture.size}.merge(args), &block)
+        :scale => texture.size, :mode => :on_release}.merge(args), &block)
       
       on_event(:mouse_up) do |event|
         new_button.handle_mouse_up(event)
+      end
+
+      on_event(:mouse_down) do |event|
+        new_button.handle_mouse_down(event)
       end
 
       @components << new_button
