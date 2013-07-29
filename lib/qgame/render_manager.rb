@@ -26,7 +26,6 @@ module QGame
     end
 
     def self.submit(entity)
-      # This is currently rendering multiple times per frame...
       if @@submitted_entities[entity].nil?
         @@render_batch.submit(entity)
         @@submitted_entities[entity] = true

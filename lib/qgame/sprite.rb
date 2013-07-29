@@ -17,6 +17,7 @@ module QGame
       @sprite_size = args[:sprite_size] || @texture.size
       @scale = args[:scale] || @sprite_size
       @sprite_scale = args[:sprite_scale] || @sprite_size / @texture.size
+      @z_index = args[:z_index] || 0.0
 
       @alive = true
     end
@@ -64,7 +65,8 @@ module QGame
       shader.set_uniform('offset', @offset)
       shader.set_uniform('sprite_offset', @sprite_relative_offset)
       shader.set_uniform('sprite_scale', @sprite_scale)
-      
+      shader.set_uniform('z_index', @z_index)
+
       model.render
     end
   end

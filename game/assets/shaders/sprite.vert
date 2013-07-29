@@ -14,6 +14,7 @@ uniform vec2 scale;
 uniform vec2 offset;
 uniform vec2 sprite_offset;
 uniform vec2 sprite_scale; 
+uniform float z_index;
 
 void main() {
     fragTexCoord = sprite_offset + vertTexCoord * sprite_scale;
@@ -38,7 +39,8 @@ void main() {
     mat4 position_mat = mat4(1.0);
     position_mat[3][0] = offset.x + position.x;
     position_mat[3][1] = offset.y + position.y;
-
+    position_mat[3][2] = z_index;
+    
     mat4 world = position_mat * rotation_mat * scale_mat * offset_mat;
 
     gl_Position = projection * view * world * vec4(vert, 1);
