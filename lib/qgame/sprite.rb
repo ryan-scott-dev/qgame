@@ -3,7 +3,7 @@ module QGame
     @@model = nil
     @@shader = nil
     
-    attr_accessor :position, :rotation, :scale, :offset, :texture
+    attr_accessor :position, :rotation, :scale, :offset, :texture, :transparency
 
     def initialize(args = {})
       @texture = args[:texture]
@@ -18,6 +18,8 @@ module QGame
       @scale = args[:scale] || @sprite_size
       @sprite_scale = args[:sprite_scale] || @sprite_size / @texture.size
       @z_index = args[:z_index] || 0.0
+      @local_transparency = args[:transparency] || 1.0
+      @absolute_transparency = @local_transparency
 
       @alive = true
     end
@@ -66,6 +68,7 @@ module QGame
       shader.set_uniform('sprite_offset', @sprite_relative_offset)
       shader.set_uniform('sprite_scale', @sprite_scale)
       shader.set_uniform('z_index', @z_index)
+      shader.set_uniform('transparency', @absolute_transparency)
 
       model.render
     end

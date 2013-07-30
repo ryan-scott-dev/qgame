@@ -4,6 +4,7 @@ attribute vec3 vert;
 attribute vec2 vertTexCoord;
 
 varying vec2 fragTexCoord;
+varying float fragTransparency;
 
 uniform mat4 projection;
 uniform mat4 view;
@@ -15,9 +16,11 @@ uniform vec2 offset;
 uniform vec2 sprite_offset;
 uniform vec2 sprite_scale; 
 uniform float z_index;
+uniform float transparency;
 
 void main() {
     fragTexCoord = sprite_offset + vertTexCoord * sprite_scale;
+    fragTransparency = transparency;
 
     float sr = sin(rotation);
     float cr = cos(rotation);
