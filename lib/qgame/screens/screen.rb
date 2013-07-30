@@ -4,7 +4,7 @@ module QGame
 
     include QGame::EventManager
 
-    attr_accessor :name, :paused, :camera
+    attr_accessor :name, :paused, :camera, :transparency
     
     def self.find(screen_name)
       @@screens[screen_name]
@@ -14,6 +14,9 @@ module QGame
       @built = false
       @name = screen_name
       @components = []
+      @transitions = {}
+      @animations = []
+      @transparency = 1.0
 
       @configure = block
       
@@ -173,9 +176,27 @@ module QGame
     end
 
     def has_transition?(transition_name)
+      @transitions.has_key? transition_name
     end
 
     def transition(transition_name, &block)
+      @transitions[transition_name] = block
+    end
+
+    def start_transition(transition_name, args = {}, &callback)
+      args[:callback] = callback
+
+      self.instance_exec(args, &@transitions[transition_name])
+    end
+    
+    def animate(property_name)
+      new_animation = PropertyAnimation.new(self, property_name)
+      @animations << new_animation
+      new_animation
+    end
+
+    def remove_animation(animation)
+      @animations.delete(animation)
     end
 
     def update
@@ -187,6 +208,10 @@ module QGame
         QGame::RenderManager.camera.update
 
         @parent_screen.update unless @parent_screen.nil?
+      end
+
+      @animations.each do |animation|
+        animation.update
       end
     end
 

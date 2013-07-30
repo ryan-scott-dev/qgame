@@ -1,8 +1,9 @@
 QGame::Screen.new(:main_menu) do
-  transition(:out) do |to|
+  transition(:out) do |args|
     animate(:transparency).from(0).to(1)
-                          .over(1.second)
-                          .on_tick { |new_value| to.alpha = 1 - new_value}
+                          .over(0.3)
+                          .on_tick { |new_value| args[:to].transparency = 1 - new_value}
+                          .on_complete(&args[:callback])
   end
 
   camera(:fixed)

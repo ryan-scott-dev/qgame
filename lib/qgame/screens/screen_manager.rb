@@ -1,6 +1,7 @@
 module QGame
   class ScreenManager
     @@current_screen = nil
+    @@next_screen = nil
 
     def self.current=(screen)
       @@current_screen = screen
@@ -10,26 +11,43 @@ module QGame
       @@current_screen
     end
 
+    def self.next_screen=(screen)
+      @@next_screen = screen
+    end
+
+    def self.next_screen
+      @@next_screen
+    end
+
     def self.handle_event(event_type, event)
       current.handle_event(event_type, event) unless current.nil?
     end
 
     def self.transition_to(screen_name)
-      new_screen = QGame::Screen.find(screen_name).build
-      old_screen = self.current
-      self.current = new_screen
-
-      if !old_screen.nil? && old_screen.has_transition?(:out)
-        old_screen.transition_out_to(new_screen)
+      self.next_screen = QGame::Screen.find(screen_name).build
+      self.next_screen.pause
+      
+      if !self.current.nil? && self.current.has_transition?(:out)
+        self.current.start_transition(:out, {:to => self.next_screen}) do
+          self.current = self.next_screen
+          self.current.resume
+          self.next_screen = nil
+        end
+      else
+        self.current = self.next_screen
+        self.current.resume
+        self.next_screen = nil
       end
     end
 
     def self.update
       self.current.update unless self.current.nil?
+      self.next_screen.update unless self.next_screen.nil?
     end
 
     def self.submit_render
       self.current.submit_render unless self.current.nil?
+      self.next_screen.submit_render unless self.next_screen.nil?
     end
   end
 end
