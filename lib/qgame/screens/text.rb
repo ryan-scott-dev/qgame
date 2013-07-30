@@ -7,7 +7,7 @@ module QGame
                                           QGame::AssetManager.fragment('screen_text'))
     end
     
-    attr_accessor :text, :size, :position
+    attr_accessor :text, :size, :position, :parent
 
     def initialize(args = {})
       @position = args[:position] || Vec2.new
@@ -17,9 +17,11 @@ module QGame
       @font_size = args[:font_size] || 16
       @text = args[:text] || ''
       @flag = args[:flag] || nil
+      @local_transparency = args[:transparency] || 1.0
 
       @text_buffer = FreetypeGL::FontBuffer.create(@font, @font_size)
       self.text = @text
+      calculate_transparency
     end
 
     def text=(val)
@@ -34,6 +36,11 @@ module QGame
 
     def destruct
       QGame::ScreenManager.current.remove(self)
+    end
+
+    def calculate_transparency
+      @absolute_transparency = @local_transparency
+      @absolute_transparency *= @parent.transparency if @parent
     end
 
     def update
@@ -54,6 +61,7 @@ module QGame
       shader.set_uniform('position', @position)
       shader.set_uniform('rotation', @rotation)
       shader.set_uniform('offset', @offset)
+      shader.set_uniform('transparency', @absolute_transparency)
       
       @text_buffer.render
 

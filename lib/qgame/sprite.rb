@@ -3,7 +3,7 @@ module QGame
     @@model = nil
     @@shader = nil
     
-    attr_accessor :position, :rotation, :scale, :offset, :texture, :transparency
+    attr_accessor :position, :rotation, :scale, :offset, :texture, :transparency, :parent
 
     def initialize(args = {})
       @texture = args[:texture]
@@ -19,9 +19,10 @@ module QGame
       @sprite_scale = args[:sprite_scale] || @sprite_size / @texture.size
       @z_index = args[:z_index] || 0.0
       @local_transparency = args[:transparency] || 1.0
-      @absolute_transparency = @local_transparency
 
       @alive = true
+
+      calculate_transparency
     end
 
     def self.model
@@ -47,6 +48,11 @@ module QGame
     end
 
     def update
+    end
+
+    def calculate_transparency
+      @absolute_transparency = @local_transparency
+      @absolute_transparency *= @parent.transparency if @parent
     end
 
     def submit_render

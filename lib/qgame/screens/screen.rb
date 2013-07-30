@@ -31,6 +31,14 @@ module QGame
       self
     end
 
+    def transparency=(val)
+      self.instance_variable_set('@transparency', val)
+
+      @components.each do |component|
+        component.calculate_transparency
+      end
+    end
+
     def screen_width
       QGame::RenderManager.screen_width
     end
@@ -44,10 +52,12 @@ module QGame
     end
 
     def remove(entity)
+      entity.parent = nil
       @components.delete(entity)
     end
 
     def add(entity)
+      entity.parent = self
       @components << entity
     end
 
@@ -110,7 +120,7 @@ module QGame
 
     def dynamic_text(args = {}, &block)
       new_text = QGame::DynamicText.new(args, &block)
-      @components << new_text
+      add(new_text)
     end
 
     def image(texture_name, args = {})
@@ -119,7 +129,7 @@ module QGame
       args = centered_args_from_texture(args)
 
       new_image = QGame::Sprite.new({:texture => texture, :scale => texture.size}.merge(args))
-      @components << new_image
+      add(new_image)
       new_image
     end
 
@@ -140,7 +150,7 @@ module QGame
         new_button.handle_mouse_down(event)
       end
 
-      @components << new_button
+      add(new_button)
       new_button
     end
 
@@ -149,7 +159,7 @@ module QGame
       new_text = QGame::Text.new({:text => text}.merge(args))
       new_text.position = center_position_from_size(new_text.size)
       # new_text.position += Vec2.new(-new_text.size.x / 2, 0)
-      @components << new_text
+      add(new_text)
       new_text
     end
 
@@ -171,7 +181,7 @@ module QGame
         new_joystick.handle_mouse_down(event)
       end
 
-      @components << new_joystick
+      add(new_joystick)
       new_joystick
     end
 

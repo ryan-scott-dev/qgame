@@ -1,6 +1,6 @@
 QGame::Screen.new(:main_menu) do
   transition(:out) do |args|
-    animate(:transparency).from(0).to(1)
+    animate(:transparency).from(1).to(0)
                           .over(0.3)
                           .on_tick { |new_value| args[:to].transparency = 1 - new_value}
                           .on_complete(&args[:callback])

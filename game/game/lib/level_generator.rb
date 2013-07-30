@@ -1,5 +1,6 @@
 module Game
   class LevelGenerator
+    attr_accessor :parent
 
     def initialize(player)
       @player = player
@@ -36,6 +37,9 @@ module Game
       @difficulty = 1
     end
 
+    def calculate_transparency
+    end
+    
     def safe_gap_width
       4  
     end

@@ -35,6 +35,7 @@
 uniform vec2 position;
 uniform float rotation;
 uniform vec2 offset;
+uniform float transparency;
 
 uniform mat4 view;
 uniform mat4 projection;
@@ -45,6 +46,7 @@ attribute vec4 color;
 
 varying vec2 fragTexCoord;
 varying vec4 textColor;
+varying float fragTransparency;
 
 void main()
 {
@@ -69,5 +71,6 @@ void main()
 
     fragTexCoord.xy   = tex_coord.xy;
     textColor         = color;
+    fragTransparency  = transparency;
     gl_Position       = projection*(view*(world*vec4(vertex,1.0)));
 }
