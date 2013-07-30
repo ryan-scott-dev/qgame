@@ -36,15 +36,16 @@ module QGame
       self
     end
     
-    def ease(current_time, initial_value, final_value, duration)
-      return final_value * (current_time /= duration) * current_time + initial_value;
+    def ease(current_time, initial_value, change_value, duration)
+      return change_value * (current_time /= duration) * current_time + initial_value;
     end
 
     def update
       if !@finished || @elapsed < @duration
         @elapsed += Application.elapsed
 
-        new_value = ease(@elapsed, @initial_value, @final_value, @duration)
+        new_value = ease(@elapsed, @initial_value, @final_value - @initial_value, @duration)
+        puts new_value
         set_value(new_value)
         @on_tick.call(new_value) if @on_tick
 
