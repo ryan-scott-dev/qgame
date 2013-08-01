@@ -38,8 +38,20 @@ module Game
     end
 
     def calculate_transparency
+      @absolute_transparency = 1
+      @absolute_transparency *= @parent.transparency if @parent
+
+      @screens.each do |screen|
+        screen.each do |tile|
+          tile.calculate_transparency
+        end
+      end
     end
-    
+
+    def transparency
+      @absolute_transparency
+    end
+
     def safe_gap_width
       4  
     end
@@ -57,6 +69,7 @@ module Game
           :position => Vec2.new(@tile_position_offset, @tile_height_offset + 4 * @tile_height)
         })
         tile = Game::Block.new(tile_properties)
+        tile.parent = self
         screen << tile
         
         tile_rand = @randomize.rand
@@ -74,6 +87,7 @@ module Game
 
         if tile_rand > 0.6 && tile_rand < 0.65
           coin = Game::Coin.new(:position => Vec2.new(@tile_position_offset, @tile_height_offset - @tile_height), :parent => screen)
+          coin.parent = self
           screen << coin
         end
 
@@ -83,6 +97,7 @@ module Game
             :sprite_relative_offset =>  Vec2.new(5 * @tile_width, 0) / @texture.size,
           })
           tile = Game::Block.new(tile_properties)
+          tile.parent = self
           screen << tile
         elsif tile_rand > 0.9
           tile_properties = @tile_base_properties.merge({
@@ -90,6 +105,7 @@ module Game
             :sprite_relative_offset =>  Vec2.new(5 * @tile_width, 0) / @texture.size,
           })
           tile = Game::Block.new(tile_properties)
+          tile.parent = self
           screen << tile
         end
 
@@ -97,6 +113,7 @@ module Game
           :position => Vec2.new(@tile_position_offset, @tile_height_offset), 
         })
         tile = Game::Block.new(tile_properties)
+        tile.parent = self
         screen << tile
 
         tile_properties = @tile_base_properties.merge({
@@ -105,6 +122,7 @@ module Game
           :collidable => false
         })
         tile = Game::Block.new(tile_properties)
+        tile.parent = self
         screen << tile
 
         tile_properties = @tile_base_properties.merge({
@@ -113,6 +131,7 @@ module Game
           :collidable => false
         })
         tile = Game::Block.new(tile_properties)
+        tile.parent = self
         screen << tile
 
         tile_properties = @tile_base_properties.merge({
@@ -121,6 +140,7 @@ module Game
           :collidable => false
         })
         tile = Game::Block.new(tile_properties)
+        tile.parent = self
         screen << tile
 
         @tile_offset += 1

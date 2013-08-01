@@ -17,6 +17,7 @@ module QGame
       @font_size = args[:font_size] || 16
       @text = args[:text] || ''
       @flag = args[:flag] || nil
+      @z_index = args[:z_index] || 0.0
       @local_transparency = args[:transparency] || 1.0
 
       @text_buffer = FreetypeGL::FontBuffer.create(@font, @font_size)
@@ -61,8 +62,9 @@ module QGame
       shader.set_uniform('position', @position)
       shader.set_uniform('rotation', @rotation)
       shader.set_uniform('offset', @offset)
+      shader.set_uniform('z_index', @z_index)
       shader.set_uniform('transparency', @absolute_transparency)
-      
+
       @text_buffer.render
 
       @text_buffer.unbind

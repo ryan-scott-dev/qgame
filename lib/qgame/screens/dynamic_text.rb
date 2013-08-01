@@ -16,8 +16,9 @@ module QGame
       @offset = args[:offset] || Vec2.new(0.5)
       @font = args[:font] || './assets/fonts/Vera.ttf'
       @font_size = args[:font_size] || 16
+      @z_index = args[:z_index] || 0.0
       @local_transparency = args[:transparency] || 1.0
-
+      
       @text_buffer = FreetypeGL::FontBuffer.create(@font, @font_size)
 
       @timer = 0.0
@@ -62,6 +63,7 @@ module QGame
       shader.set_uniform('position', @position)
       shader.set_uniform('rotation', @rotation)
       shader.set_uniform('offset', @offset)
+      shader.set_uniform('z_index', @z_index)
       shader.set_uniform('transparency', @absolute_transparency)
       
       @text_buffer.render
