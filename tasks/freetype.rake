@@ -7,7 +7,6 @@ namespace :freetype do
     FileUtils.sh "curl -L -o #{path} #{url}"
   end
 
-  DEPENDENCIES_DIR = "#{QGAME_ROOT}/dependencies"
   FREETYPE_URL = 'http://download.savannah.gnu.org/releases/freetype/freetype-2.5.0.1.tar.bz2'
   FREETYPE_CLONE_DIR = "#{DEPENDENCIES_DIR}/freetype-2.5.0.1.tar.bz2"
   FREETYPE_EXTRACTED_DIR = "#{DEPENDENCIES_DIR}/freetype-2.5.0.1"

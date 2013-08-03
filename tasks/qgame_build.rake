@@ -1,8 +1,6 @@
 load "#{MRUBY_ROOT}/tasks/mruby_build_gem.rake"
 load "#{MRUBY_ROOT}/tasks/mruby_build_commands.rake"
 
-load "#{MRUBY_ROOT}/tasks/mruby_build.rake"
-
 module QGame 
   class << self
     def targets

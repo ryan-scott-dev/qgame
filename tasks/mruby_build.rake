@@ -1,5 +1,3 @@
-load "#{MRUBY_ROOT}/tasks/mruby_build.rake"
-
 module MRuby
   class CrossBuildiOS < CrossBuild
     def platform(platform = nil)

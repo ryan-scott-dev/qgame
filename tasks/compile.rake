@@ -3,9 +3,11 @@ load "#{QGAME_ROOT}/tasks/platforms.rake"
 MRUBY_ROOT = ENV['MRUBY_ROOT'] || "#{PROJECT_ROOT}/build/mruby"
 PLATFORM = ENV['PLATFORM'] || default_platform
 MRUBY_BUILD_HOST_IS_CYGWIN = RUBY_PLATFORM.include?('cygwin')
+DEPENDENCIES_DIR = "#{QGAME_ROOT}/dependencies"
 
 # load build systems
 load "#{MRUBY_ROOT}/tasks/ruby_ext.rake"
+load "#{MRUBY_ROOT}/tasks/mruby_build.rake"
 load "#{QGAME_ROOT}/tasks/mruby_build.rake"
 load "#{MRUBY_ROOT}/tasks/mrbgem_spec.rake"
 load "#{QGAME_ROOT}/tasks/qgame_build.rake"

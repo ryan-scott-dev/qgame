@@ -8,7 +8,6 @@ namespace :ios_sim do
     FileUtils.sh "git clone #{url} #{path}"
   end
 
-  DEPENDENCIES_DIR = "#{QGAME_ROOT}/dependencies"
   IOS_SIM_URL = 'git://github.com/phonegap/ios-sim.git'
   IOS_SIM_CLONE_DIR = "#{DEPENDENCIES_DIR}/ios-sim"
 

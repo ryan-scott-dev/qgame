@@ -7,7 +7,6 @@ namespace :sdl do
     FileUtils.sh "curl -o #{path} #{url}"
   end
 
-  DEPENDENCIES_DIR = "#{QGAME_ROOT}/dependencies"
   SDL_URL = 'http://www.libsdl.org/tmp/release/SDL2-2.0.0.tar.gz'
   SDL_CLONE_DIR = "#{DEPENDENCIES_DIR}/SDL2-2.0.0.tar.gz"
   SDL_EXTRACTED_DIR = "#{DEPENDENCIES_DIR}/SDL"
