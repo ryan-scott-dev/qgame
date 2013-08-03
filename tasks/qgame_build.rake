@@ -41,7 +41,8 @@ module QGame
         @git = MRuby::Command::Git.new(self)
         @mrbc = MRuby::Command::Mrbc.new(self)
         @build_dir = "#{QGAME_ROOT}/build/#{self.name}"
-
+        @gem_clone_dir = "#{QGAME_ROOT}/build/mrbgems"
+        
         @gems = MRuby::Gem::List.new
         @libqgame, @libmruby = [], []
         QGame.targets[@name] = self

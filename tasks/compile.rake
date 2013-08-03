@@ -1,13 +1,4 @@
-def default_platform
-  case 
-  when RUBY_PLATFORM.downcase.include?("darwin")
-    return :osx
-  when RUBY_PLATFORM.downcase.include?("linux")
-    return :linux
-  when RUBY_PLATFORM.downcase.include?("mswin")
-    return :win
-  end
-end
+load "#{QGAME_ROOT}/tasks/platforms.rake"
 
 MRUBY_ROOT = ENV['MRUBY_ROOT'] || "#{PROJECT_ROOT}/build/mruby"
 PLATFORM = ENV['PLATFORM'] || default_platform
@@ -24,7 +15,6 @@ load "#{QGAME_ROOT}/tasks/ios_build.rake"
 # load configuration file
 load "#{PROJECT_ROOT}/config/build_config.rb"
 MRUBY_CONFIG = (ENV['BUILD_CONFIG'] && ENV['BUILD_CONFIG'] != '') ? ENV['BUILD_CONFIG'] : "#{PROJECT_ROOT}/config/platforms/#{PLATFORM.to_s}/build_config.rb"
-MRUBY_CONFIG = "#{PROJECT_ROOT}/config/platforms/ios/build_config.rb"
 load MRUBY_CONFIG
 
 load "#{QGAME_ROOT}/tasks/sdl.rake"

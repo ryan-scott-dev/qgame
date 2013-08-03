@@ -8,7 +8,7 @@ end
 
 namespace :run do
   task :ios, [:args] do |t, args|
-    QGame::RunProject.run(:ios, args)
+    QGame::RunProject.run(:ios_i386, args)
   end
 end
 
