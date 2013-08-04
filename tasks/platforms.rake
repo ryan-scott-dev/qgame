@@ -1,3 +1,5 @@
+#TODO: RS - Encapsulate into its own class
+
 def default_platform
   case 
   when RUBY_PLATFORM.downcase.include?("darwin")

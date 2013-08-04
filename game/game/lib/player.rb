@@ -13,7 +13,13 @@ module Game
 
     attr_accessor :score
 
+    def self.current
+      @@current
+    end
+
     def initialize(args = {})
+      @@current = self
+
       defaults = {
         :texture => Game::AssetManager.texture('robot'), 
         :frame_size => Vec2.new(51, 93),

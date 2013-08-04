@@ -86,6 +86,10 @@ module QGame
       Vec2.new((screen_height / 2.0), (screen_width / 2.0))
     end
 
+    def center_horizontal_position
+      Vec2.new(screen_center.x, 0)
+    end
+
     def center_position_from_size(size)
       Vec2.new((screen_height / 2) - (size.x / 2), (screen_width / 2) - (size.y / 2))
     end
@@ -137,11 +141,12 @@ module QGame
       texture = QGame::AssetManager.texture(texture_name)
       texture_pressed = QGame::AssetManager.texture("#{texture_name}_pressed")
 
-      args = centered_args_from_texture(args)
+      # args = centered_args_from_texture(args)
 
       new_button = QGame::Button.new({:screen_space => true, :texture => texture, :texture_pressed => texture_pressed, 
         :scale => texture.size, :mode => :on_release}.merge(args), &block)
-      
+      new_button.position += center_horizontal_position if args[:centered] && args[:centered] == :horizontal
+
       on_event(:mouse_up) do |event|
         new_button.handle_mouse_up(event)
       end
@@ -157,8 +162,7 @@ module QGame
     def text(text, args = {}) 
 
       new_text = QGame::Text.new({:text => text}.merge(args))
-      new_text.position = center_position_from_size(new_text.size)
-      # new_text.position += Vec2.new(-new_text.size.x / 2, 0)
+      new_text.position += center_horizontal_position if args[:centered] && args[:centered] == :horizontal
       add(new_text)
       new_text
     end

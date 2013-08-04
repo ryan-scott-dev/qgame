@@ -12,11 +12,11 @@ module QGame
     def initialize(args = {})
       @position = args[:position] || Vec2.new
       @rotation = args[:rotation] || 0.0
-      @offset = args[:offset] || Vec2.new(0)
+      @offset = args[:offset] || Vec2.new(0.5)
       @font = args[:font] || './assets/fonts/Vera.ttf'
       @font_size = args[:font_size] || 16
       @text = args[:text] || ''
-      @flag = args[:flag] || nil
+      @flag = args[:flag] || :normal
       @z_index = args[:z_index] || 0.0
       @local_transparency = args[:transparency] || 1.0
 
@@ -61,7 +61,7 @@ module QGame
 
       shader.set_uniform('position', @position)
       shader.set_uniform('rotation', @rotation)
-      shader.set_uniform('offset', @offset)
+      shader.set_uniform('offset', @offset * @size)
       shader.set_uniform('z_index', @z_index)
       shader.set_uniform('transparency', @absolute_transparency)
 

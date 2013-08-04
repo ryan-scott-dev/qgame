@@ -45,7 +45,6 @@ module QGame
         @elapsed += Application.elapsed
 
         new_value = ease(@elapsed, @initial_value, @final_value - @initial_value, @duration)
-        puts new_value
         set_value(new_value)
         @on_tick.call(new_value) if @on_tick
 
