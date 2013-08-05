@@ -1,5 +1,2 @@
-- Remove GLEW
-- Compile SDL as a rake task based on the current target platform (win, osx, ios, android)
 - Clean up ios.rake so that it is more friendly to different versions of ios / xcode
-- Create ruby gem for QGame
 - Remove .rake and .c files from the game structure (i.e. add those tasks into the qgame framework)

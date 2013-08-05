@@ -328,6 +328,7 @@
 					"\"$(SRCROOT)/../../../../dependencies/SDL2/ios/lib\"",
 					"\"$(SRCROOT)/../../../../dependencies/freetype/ios/lib\"",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

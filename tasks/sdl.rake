@@ -42,7 +42,7 @@ namespace :sdl do
     end
     
     file SDL_CLONE_DIR do |t|
-      download_file(SDL_MIXER_URL, SDL_CLONE_DIR)  
+      download_file(SDL_MIXER_URL, SDL_MIXER_CLONE_DIR)  
     end
 
     directory SDL_EXTRACTED_DIR => SDL_CLONE_DIR do |t|

@@ -21,4 +21,5 @@ Gem::Specification.new do |s|
   s.files       += Dir['tasks/**/*']
   s.files       += Dir['tools/**/*']
   s.files       += ['bin/qgame']
+  s.files       += ['dependencies/.gitkeep']
 end
