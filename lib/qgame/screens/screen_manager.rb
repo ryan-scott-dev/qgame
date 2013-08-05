@@ -33,10 +33,13 @@ module QGame
           self.current.resume
           self.next_screen = nil
         end
+        self.next_screen
       else
         self.current = self.next_screen
         self.current.resume
         self.next_screen = nil
+        
+        self.current
       end
     end
 
