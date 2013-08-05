@@ -25,3 +25,5 @@ DerivedData/
 *.swp
 *.lock
 profile
+
+*.gem
