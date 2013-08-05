@@ -1,5 +1,5 @@
 Game.each_target do |t|
-  current_dir = File.dirname(__FILE__).relative_path_from(Dir.pwd)
+  current_dir = File.dirname(__FILE__)
   relative_from_root = File.dirname(__FILE__).relative_path_from(QGAME_ROOT)
   current_build_dir = "#{build_dir}/#{relative_from_root}"
 
