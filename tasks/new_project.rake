@@ -24,7 +24,7 @@ module QGame
     end
 
     def create_from_skeleteon
-      FileUtils.cp_r "lib/structure/", "#{@project_name}/"
+      FileUtils.cp_r "#{QGAME_ROOT}/lib/structure/", "#{@project_name}/"
     end
 
     def customise_created_skeleton

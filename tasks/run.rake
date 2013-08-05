@@ -2,12 +2,12 @@ require 'fileutils'
 
 PROJECT_ROOT = Dir.pwd
 
-task :run, [:args] do |t, args|
+task :run, [:args] => :prepare_compile do |t, args|
   QGame::RunProject.run(:host, args)
 end
 
 namespace :run do
-  task :ios, [:args] do |t, args|
+  task :ios, [:args] => :prepare_compile do |t, args|
     QGame::RunProject.run(:ios_i386, args)
   end
 end
