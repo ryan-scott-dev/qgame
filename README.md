@@ -25,7 +25,7 @@ Run the game on a specific platform
 
 Profile the game (currently just displays some basic information about object allocation)
 
-	qgame profile
+	qgame analyse
 
 # Notes
 

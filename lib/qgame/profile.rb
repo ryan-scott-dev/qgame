@@ -1,9 +1,9 @@
 module QGame
-  class Platform
+  class Profile
     attr_accessor :name
 
     def self.current
-      Platform.new
+      Profile.new
     end
 
     def initialize
@@ -17,6 +17,7 @@ module QGame
       when "Mac OS X"
         true
       when "Windows"
+        true
       else
         false
       end

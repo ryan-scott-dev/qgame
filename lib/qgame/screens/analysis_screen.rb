@@ -2,9 +2,9 @@ module QGame
   class Screen
   end
 
-  class ProfileScreen < Screen
+  class AnalysisScreen < Screen
   	def self.enable
-      ProfileScreen.new(:profile) do
+      AnalysisScreen.new(:analyse) do
         object_count = {}
         min_count = 10000
         max_count = 0
@@ -35,7 +35,7 @@ module QGame
 
   			define_method(:transition_to) do |screen_name|
   				screen = old_transition_to(screen_name)
-          screen.overlay(:profile)
+          screen.overlay(:analyse)
   			end
   		end)
   	end

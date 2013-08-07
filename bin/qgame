@@ -5,5 +5,5 @@ QGAME_ROOT = ENV['QGAME_ROOT'] || File.expand_path(File.join(File.dirname(__FILE
 lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 
-require 'runner'
+load "#{QGAME_ROOT}/lib/runner.rb"
 QGame::Runner.start

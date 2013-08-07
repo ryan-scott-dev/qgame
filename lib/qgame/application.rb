@@ -8,7 +8,7 @@ module QGame
 
   class Application
     @@config = {}
-    @@platform = nil
+    @@profile = nil
 
     attr_accessor :elapsed
     
@@ -28,8 +28,8 @@ module QGame
       @@current
     end
 
-    def self.platform
-      @@platform ||= Platform.current
+    def self.profile
+      @@profile ||= Profile.current
     end
 
     def self.configure(&block)

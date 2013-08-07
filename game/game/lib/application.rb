@@ -5,9 +5,9 @@ Game::Application.run do
   
   @running = true
 
-  if ARGV.include? 'profile'
-    puts "Running in profile mode"
-    QGame::ProfileScreen.enable 
+  if ARGV.include? 'analyse'
+    puts "Running in analysis mode"
+    QGame::AnalysisScreen.enable 
   end
 
   on_event :quit do |event|
