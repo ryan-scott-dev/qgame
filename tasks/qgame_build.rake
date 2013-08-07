@@ -129,7 +129,6 @@ module QGame
 
     def build_freetype_ios(args = {})
       target = args[:target]
-      puts "PLATFORM: #{target.platform}"
       FileUtils.cd args[:directory]
       FileUtils.sh "./configure --prefix=#{args[:output_dir]} --host=arm-apple-darwin --without-zlib --without-bzip2 --without-png --enable-static=yes --enable-shared=no " +
         " CC=#{target.platform}/Developer/usr/bin/gcc" +

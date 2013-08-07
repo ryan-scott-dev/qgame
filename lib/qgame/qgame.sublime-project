@@ -4,7 +4,8 @@
 		{
 			"follow_symlinks": true,
 			"path": "/Users/administrator/Projects/qgame",
-			"folder_exclude_patterns": ["dependencies", ".idea"]
+			"folder_exclude_patterns": ["dependencies", ".idea", "build"],
+			"folder_include_patterns": ["game/build/mruby"]
 		}
 	]
 }

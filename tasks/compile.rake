@@ -3,8 +3,8 @@ task :prepare_compile do |args|
   load "#{QGAME_ROOT}/tasks/platforms.rake"
 
   MRUBY_ROOT = ENV['MRUBY_ROOT'] || "#{PROJECT_ROOT}/build/mruby"
-  PLATFORM = ENV['PLATFORM'] || default_platform
-  MRUBY_BUILD_HOST_IS_CYGWIN = RUBY_PLATFORM.include?('cygwin')
+  COMPILE_PLATFORM = Platform.platform_for(ENV['PLATFORM']) || Platform.host_platform
+  MRUBY_BUILD_HOST_IS_CYGWIN = Platform.host_platform.is_cygwin?
   DEPENDENCIES_DIR = "#{QGAME_ROOT}/dependencies"
 
   # load build systems
@@ -18,7 +18,7 @@ task :prepare_compile do |args|
 
   # load configuration file
   load "#{PROJECT_ROOT}/config/build_config.rb"
-  MRUBY_CONFIG = (ENV['BUILD_CONFIG'] && ENV['BUILD_CONFIG'] != '') ? ENV['BUILD_CONFIG'] : "#{PROJECT_ROOT}/config/platforms/#{PLATFORM.to_s}/build_config.rb"
+  MRUBY_CONFIG = (ENV['BUILD_CONFIG'] && ENV['BUILD_CONFIG'] != '') ? ENV['BUILD_CONFIG'] : "#{PROJECT_ROOT}/config/platforms/#{COMPILE_PLATFORM.name}/build_config.rb"
   load MRUBY_CONFIG
 
   load "#{QGAME_ROOT}/tasks/sdl.rake"
@@ -73,7 +73,7 @@ task :compile => :prepare_compile do |args|
   puts "Compiling sdl..."
   puts "----------------------------------"
   Rake::Task['sdl:compile'].invoke(args)
-  Rake::Task['sdl:ios_compile'].invoke(args) if PLATFORM == 'ios'
+  Rake::Task['sdl:ios_compile'].invoke(args) if COMPILE_PLATFORM.is_ios?
   # This should produce a linkable mruby library
   puts "----------------------------------"
   puts "Done!"
@@ -83,7 +83,7 @@ task :compile => :prepare_compile do |args|
   puts "Compiling freetype..."
   puts "----------------------------------"
   Rake::Task['freetype:compile'].invoke(args)
-  Rake::Task['freetype:ios_compile'].invoke(args) if PLATFORM == 'ios'
+  Rake::Task['freetype:ios_compile'].invoke(args) if COMPILE_PLATFORM.is_ios?
   # This should produce a linkable mruby library
   puts "----------------------------------"
   puts "Done!"
@@ -93,7 +93,7 @@ task :compile => :prepare_compile do |args|
   puts "Compiling mruby..."
   puts "----------------------------------"
   Rake::Task['mruby:compile'].invoke(args)
-  Rake::Task['mruby:ios_compile'].invoke(args) if PLATFORM == 'ios'
+  Rake::Task['mruby:ios_compile'].invoke(args) if COMPILE_PLATFORM.is_ios?
   # This should produce a linkable mruby library
   puts "----------------------------------"
   puts "Done!"
@@ -103,7 +103,7 @@ task :compile => :prepare_compile do |args|
   puts "Compiling qgame..."
   puts "----------------------------------"
   Rake::Task['qgame:compile'].invoke(args)
-  Rake::Task['qgame:ios_compile'].invoke(args) if PLATFORM == 'ios'
+  Rake::Task['qgame:ios_compile'].invoke(args) if COMPILE_PLATFORM.is_ios?
   # This should produce a linkable qgame library
   puts "----------------------------------"
   puts "Done!"
@@ -113,7 +113,7 @@ task :compile => :prepare_compile do |args|
   puts "Compiling your files..."
   puts "----------------------------------"
   Rake::Task['game:compile'].invoke(args)
-  Rake::Task['game:ios_compile'].invoke(args) if PLATFORM == 'ios'
+  Rake::Task['game:ios_compile'].invoke(args) if COMPILE_PLATFORM.is_ios?
   puts "----------------------------------"
   puts "Done!"
   puts ""
