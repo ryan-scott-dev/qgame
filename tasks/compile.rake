@@ -24,7 +24,7 @@ task :prepare_compile do |args|
   load "#{QGAME_ROOT}/tasks/sdl.rake"
   load "#{QGAME_ROOT}/tasks/freetype.rake"
 
-  load "#{QGAME_ROOT}/tasks/ios-sim.rake"
+  load "#{QGAME_ROOT}/tasks/ios-sim.rake" if COMPILE_PLATFORM.is_ios?
 
   # load basic rules
   puts ""

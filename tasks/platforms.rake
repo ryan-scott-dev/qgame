@@ -1,17 +1,20 @@
-#TODO: RS - Encapsulate into its own class
-
 class Platform
-  attr_accessor :name
+  attr_accessor :name, :build_target
 
-  def self.host_platform
+  def self.host_ruby_platform_to_qgame_platform
     case 
     when RUBY_PLATFORM.downcase.include?("darwin")
-      return platform_for(:osx)
+      return :osx
     when RUBY_PLATFORM.downcase.include?("linux")
-      return platform_for(:linux)
+      return :linux
     when RUBY_PLATFORM.downcase.include?("mswin")
-      return platform_for(:win)
+      return :win
     end
+    return :unknown
+  end
+
+  def self.host_platform
+    platform_for(host_ruby_platform_to_qgame_platform)
   end
 
   def self.platform_for(platform_name)
@@ -39,12 +42,14 @@ end
 class PlatformOSX < Platform
   def initialize
     @name = :osx
+    @build_target = Platform.host_ruby_platform_to_qgame_platform == :osx ? :host : :osx
   end
 end
 
 class PlatformIOS < Platform
   def initialize
     @name = :ios
+    @build_target = :ios_i386
   end
 
   def is_ios?
@@ -55,5 +60,6 @@ end
 class PlatformUnknown < Platform
   def initialize
     @name = :unknown
+    @build_target = nil
   end
 end
