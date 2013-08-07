@@ -67,12 +67,12 @@ module Game
 
     def run(args)
       run_dependency = exefile("#{build_dir}/tools/main")
-
+      
       # run generated executable
       Rake::Task['compile'].invoke(args)
 
       # Execute with mruby
-      FileUtils.sh("#{run_dependency} #{args[:args].join(' ')}")
+      FileUtils.sh("#{run_dependency} #{args[:args].flatten.join(' ')}")
     end
   end
 
