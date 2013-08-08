@@ -32,6 +32,9 @@ qgame_init(mrb_state *);
 void 
 mrb_init_mrbgems(mrb_state *);
 
+void 
+mrb_init_gamegems(mrb_state *);
+
 void
 mrb_mruby_freetype_gl_gem_init(mrb_state*);
 
@@ -61,6 +64,8 @@ main(int argc, char **argv)
   mrb_init_gamelib(mrb);
   mrb_mruby_freetype_gl_gem_init(mrb);
   
+  mrb_init_gamegems(mrb);
+
   mrb_init_application(mrb);
 
   mrb_close(mrb);

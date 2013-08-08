@@ -12,6 +12,7 @@ namespace :game do
   task :game_prepare do
     # load "#{PROJECT_ROOT}/game/src/game_core.rake"
     load "#{PROJECT_ROOT}/game/lib/gamelib.rake"
+    load "#{QGAME_ROOT}/tasks/game_gems.rake"
     load "#{QGAME_ROOT}/tasks/libgame.rake"
     load "#{QGAME_ROOT}/tools/application.rake"
 

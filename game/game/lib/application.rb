@@ -1,3 +1,5 @@
+Game.testing_things
+
 Game::Application.run do
   # Full application lifecycle
   GL.set_clear_color(0.713, 0.788, 0.623)

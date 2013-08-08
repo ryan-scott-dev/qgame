@@ -1,6 +1,6 @@
 Game.each_target do
-  puts "Library: #{libgame.flatten}"
-  file libfile("#{build_dir}/lib/libgame") => libgame.flatten do |t|
+  puts "Library: #{libmruby.flatten}"
+  file libfile("#{build_dir}/lib/libgame") => (libgame + libmruby).flatten do |t|
     archiver.run t.name, t.prerequisites
     open("#{build_dir}/lib/libgame.flags.mak", 'w') do |f|
       f.puts 'GAME_CFLAGS = %s' % cc.all_flags.gsub('"', '\\"') 

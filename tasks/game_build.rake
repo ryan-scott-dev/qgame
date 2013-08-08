@@ -15,7 +15,7 @@ module Game
   end
 
   class Build < MRuby::Build
-    attr_reader :libgame
+    attr_reader :libgame, :libmruby
 
     def initialize(name='host', &block)
       @name = name.to_s
@@ -39,14 +39,23 @@ module Game
         @git = MRuby::Command::Git.new(self)
         @mrbc = MRuby::Command::Mrbc.new(self)
         @build_dir = "#{PROJECT_ROOT}/build/#{self.name}"
+        @gem_clone_dir = "#{PROJECT_ROOT}/gems"
+        
         @bins = %w(main)
-        @gems, @libgame = MRuby::Gem::List.new, []
+        @gems, @libgame, @libmruby = MRuby::Gem::List.new, [], []
         Game.targets[@name] = self
       end
 
       MRuby::Build.current = Game.targets[@name]
       Game::Build.current = Game.targets[@name]
       Game.targets[@name].instance_eval(&block)
+
+      Game.targets[@name].instance_eval do
+        gembox = File.expand_path("game.gembox", "#{PROJECT_ROOT}/gems")
+        fail "Can't find gembox '#{gembox}'" unless File.exists?(gembox)
+        MRuby::GemBox.config = self
+        instance_eval File.read(gembox)
+      end
     end
 
     def root
@@ -56,9 +65,9 @@ module Game
     def define_rules
       compilers.each do |compiler|
         if respond_to?(:enable_gems?) && enable_gems?
-          compiler.defines -= %w(DISABLE_GEMS) 
+          compiler.defines -= %w(DISABLE_GEMS)
         else
-          compiler.defines += %w(DISABLE_GEMS) 
+          compiler.defines += %w(DISABLE_GEMS)
         end
 
         compiler.define_rules build_dir, File.expand_path(File.join(File.dirname(__FILE__), '..'))
