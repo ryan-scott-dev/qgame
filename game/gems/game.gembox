@@ -1,3 +1,4 @@
 MRuby::GemBox.new do |conf|
   conf.gem './game-test-gem'
+  conf.gem './qgame-console-gem'
 end

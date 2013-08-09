@@ -167,6 +167,17 @@ module QGame
       new_text
     end
 
+    def text_input(args = {})
+      new_text_input = QGame::TextInput.new(args)
+
+      on_event(:mouse_up) do |event|
+        new_text_input.handle_mouse_up(event)
+      end
+
+      add(new_text_input)
+      new_text_input
+    end
+
     def joystick(texture_name, args = {})
       texture = QGame::AssetManager.texture(texture_name)
       texture_base = "#{texture_name}_base"

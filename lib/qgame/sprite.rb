@@ -63,6 +63,15 @@ module QGame
       @position.y - (@offset.y * @scale.y)
     end
 
+    def inside?(point)
+      screen_space_point = point
+      return false if screen_space_point.nil?
+
+      world_position = @position - (@scale * @offset)
+      screen_space_point.x > world_position.x && screen_space_point.x < world_position.x + @scale.x &&
+      screen_space_point.y > world_position.y && screen_space_point.y < world_position.y + @scale.y
+    end
+    
     def render
       view = @screen_space ? Mat4.new : QGame::RenderManager.camera.view
       shader.set_uniform('view', view)

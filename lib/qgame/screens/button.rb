@@ -31,14 +31,5 @@ module QGame
         self.instance_eval(&@on_pressed) unless @on_pressed.nil?
       end
     end
-
-    def inside?(point)
-      screen_space_point = point
-      return false if screen_space_point.nil?
-
-      world_position = @position - (@scale * @offset)
-      screen_space_point.x > world_position.x && screen_space_point.x < world_position.x + @scale.x &&
-      screen_space_point.y > world_position.y && screen_space_point.y < world_position.y + @scale.y
-    end
   end
 end
