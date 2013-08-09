@@ -174,6 +174,18 @@ module QGame
         new_text_input.handle_mouse_up(event)
       end
 
+      on_event(:key_down) do |event|
+        new_text_input.handle_key_down(event)
+      end
+
+      on_event(:text_input) do |event|
+        new_text_input.handle_text_input(event)
+      end
+
+      on_event(:text_editing) do |event|
+        new_text_input.handle_editing(event)
+      end
+
       add(new_text_input)
       new_text_input
     end
