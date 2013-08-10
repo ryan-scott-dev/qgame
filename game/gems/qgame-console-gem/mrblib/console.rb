@@ -3,8 +3,14 @@ module QGame
     def initialize(args = {})
       @history = []
       @history_offset = 0
+      @output = []
 
       super
+    end
+
+    def output(str)
+      puts str
+      @output << str
     end
 
     def handle_key_down(event)
@@ -53,14 +59,14 @@ module QGame
 
     def execute_from_buffer
       begin
-        puts "> #{@buffer}"
+        output "> #{@buffer}"
         result = eval(@buffer)
       rescue Exception => e
-        puts "Error: #{e.message}"
+        output "Error: #{e.message}"
         return
       end
 
-      puts " => #{result.inspect}"
+      output " => #{result.inspect}"
     end
   end
 
