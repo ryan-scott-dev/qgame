@@ -8,7 +8,7 @@ QGame::Screen.new(:main_menu) do
 
   camera(:fixed)
 
-  console(:default_text => 'ASD', :font => './assets/fonts/Vera.ttf', :font_size => 16, 
+  console(:default_text => 'ASD', :font => './assets/fonts/Vera.ttf', :font_size => 10, 
     :position => Vec2.new(100, 100), :input_offset => Vec2.new(2, 3),
     :background => 'textinput', :background_focus => 'textinput_focus')
 

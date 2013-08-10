@@ -53,10 +53,14 @@ module QGame
 
     def execute_from_buffer
       begin
-        eval(@buffer)
+        puts "> #{@buffer}"
+        result = eval(@buffer)
       rescue Exception => e
         puts "Error: #{e.message}"
+        return
       end
+
+      puts " => #{result.inspect}"
     end
   end
 
