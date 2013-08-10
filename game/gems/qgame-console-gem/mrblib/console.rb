@@ -52,7 +52,11 @@ module QGame
     end
 
     def execute_from_buffer
-      eval(@buffer)
+      begin
+        eval(@buffer)
+      rescue Exception => e
+        puts "Error: #{e.message}"
+      end
     end
   end
 
