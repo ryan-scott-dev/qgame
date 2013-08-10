@@ -48,6 +48,6 @@ MRuby::Build.new do |conf|
   toolchain :clang
 
   conf.gembox 'default'
-
+  conf.gem :core => "mruby-eval"
   # load specific platform settings
 end

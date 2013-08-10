@@ -33,9 +33,6 @@ module QGame
       when :backspace
         @buffer = @buffer[0...-1]
         @text_display.text = @buffer
-      when :return
-        @buffer = ''
-        @text_display.text = @buffer
       end
     end
 
