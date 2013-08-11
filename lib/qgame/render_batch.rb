@@ -85,11 +85,6 @@ class ModelRenderBatch
   end
 
   def render
-    @queue.each do |entity|
-      entity.render
-    end
-    @queue.clear
-
     @batch.each do |model, entities|
       model.bind
 
@@ -97,5 +92,11 @@ class ModelRenderBatch
 
       model.unbind
     end
+
+    # Moved after to make sure text is always drawn last...
+    @queue.each do |entity|
+      entity.render
+    end
+    @queue.clear
   end
 end

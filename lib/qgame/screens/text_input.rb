@@ -17,7 +17,7 @@ module QGame
 
     def submit_render
       @text_display.submit_render
-      # @background.submit_render
+      @background.submit_render
     end
     
     def focus_input
