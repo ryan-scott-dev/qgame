@@ -15,6 +15,7 @@ module QGame
       load "#{QGAME_ROOT}/tasks/run.rake"
       load "#{QGAME_ROOT}/tasks/compile.rake"
       load "#{QGAME_ROOT}/tasks/analyse.rake"
+      load "#{QGAME_ROOT}/tasks/release.rake"
 
       Rake.verbose(true)
       Rake::Task[given_args[0]].invoke(other_args)

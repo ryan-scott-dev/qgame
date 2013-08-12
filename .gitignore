@@ -3,6 +3,7 @@
 build/
 bin/mrbc
 dependencies/
+release/
 
 .idea/
 *.sublime-workspace

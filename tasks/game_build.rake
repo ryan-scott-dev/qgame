@@ -62,6 +62,10 @@ module Game
       PROJECT_ROOT
     end
 
+    def output_application
+      exefile("#{build_dir}/tools/main")
+    end
+
     def define_rules
       compilers.each do |compiler|
         if respond_to?(:enable_gems?) && enable_gems?
@@ -75,13 +79,11 @@ module Game
     end
 
     def run(args)
-      run_dependency = exefile("#{build_dir}/tools/main")
-      
       # run generated executable
       Rake::Task['compile'].invoke(args)
 
       # Execute with mruby
-      FileUtils.sh("#{run_dependency} #{args[:args].flatten.join(' ')}")
+      FileUtils.sh("#{output_application} #{args[:args].flatten.join(' ')}")
     end
   end
 
@@ -112,12 +114,14 @@ module Game
       @bins << 'GameTest.app'
     end
 
+    def output_application
+      "#{PROJECT_ROOT}/platforms/ios/GameTest/build/Debug-iphonesimulator/GameTest.app"
+    end
+
     def run(args)
       Rake::Task['compile'].invoke(args)
 
-      app = "#{PROJECT_ROOT}/platforms/ios/GameTest/build/Debug-iphonesimulator/GameTest.app"
-      
-      FileUtils.sh "#{IOS_SIM_EXEC} launch #{app}"
+      FileUtils.sh "#{IOS_SIM_EXEC} launch #{output_application}"
     end
   end
 end
