@@ -85,6 +85,10 @@ module Game
       # Execute with mruby
       FileUtils.sh("#{output_application} #{args[:args].flatten.join(' ')}")
     end
+
+    def copy_assets?
+      true
+    end
   end
 
   class BuildiOS < Build
@@ -122,6 +126,10 @@ module Game
       Rake::Task['compile'].invoke(args)
 
       FileUtils.sh "#{IOS_SIM_EXEC} launch #{output_application}"
+    end
+    
+    def copy_assets?
+      false
     end
   end
 end
