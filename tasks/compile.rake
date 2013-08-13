@@ -12,6 +12,7 @@ task :prepare_compile do |args|
   load "#{MRUBY_ROOT}/tasks/mruby_build.rake"
   load "#{QGAME_ROOT}/tasks/mruby_build.rake"
   load "#{MRUBY_ROOT}/tasks/mrbgem_spec.rake"
+  load "#{QGAME_ROOT}/tasks/base_build.rake"
   load "#{QGAME_ROOT}/tasks/qgame_build.rake"
   load "#{QGAME_ROOT}/tasks/game_build.rake"
   load "#{QGAME_ROOT}/tasks/ios_build.rake"
@@ -130,7 +131,7 @@ task :compile => :prepare_compile do |args|
   puts ""
 end
 
-task :clean do
+task :clean => :prepare_compile do
   MRuby.each_target do |t|
     FileUtils.rm_rf t.build_dir, { :verbose => $verbose }
   end
