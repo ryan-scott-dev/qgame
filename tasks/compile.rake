@@ -2,7 +2,7 @@
 task :prepare_compile do |args|
   load "#{QGAME_ROOT}/tasks/platforms.rake"
 
-  MRUBY_ROOT = ENV['MRUBY_ROOT'] || "#{PROJECT_ROOT}/build/mruby"
+  MRUBY_ROOT = ENV['MRUBY_ROOT'] || "#{QGAME_ROOT}/dependencies/mruby"
   COMPILE_PLATFORM = Platform.platform_for(ENV['PLATFORM']) || Platform.host_platform
   MRUBY_BUILD_HOST_IS_CYGWIN = Platform.host_platform.is_cygwin?
   DEPENDENCIES_DIR = "#{QGAME_ROOT}/dependencies"
