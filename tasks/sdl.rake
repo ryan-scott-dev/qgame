@@ -7,15 +7,15 @@ namespace :sdl do
     FileUtils.sh "curl -o #{path} #{url}"
   end
 
-  SDL_URL = 'http://www.libsdl.org/tmp/release/SDL2-2.0.0.tar.gz'
+  SDL_URL = 'http://www.libsdl.org/release/SDL2-2.0.0.tar.gz'
   SDL_CLONE_DIR = "#{DEPENDENCIES_DIR}/SDL2-2.0.0.tar.gz"
   SDL_EXTRACTED_DIR = "#{DEPENDENCIES_DIR}/SDL"
 
-  SDL_IMAGE_URL = 'http://www.libsdl.org/tmp/SDL_image/release/SDL2_image-2.0.0.tar.gz'
+  SDL_IMAGE_URL = 'http://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.0.tar.gz'
   SDL_IMAGE_CLONE_DIR = "#{DEPENDENCIES_DIR}/SDL2_image-2.0.0.tar.gz"
   SDL_IMAGE_EXTRACTED_DIR = "#{DEPENDENCIES_DIR}/SDL_image"
 
-  SDL_MIXER_URL = 'http://www.libsdl.org/tmp/SDL_mixer/release/SDL2_mixer-2.0.0.tar.gz'
+  SDL_MIXER_URL = 'http://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.0.tar.gz'
   SDL_MIXER_CLONE_DIR = "#{DEPENDENCIES_DIR}/SDL2_mixer-2.0.0.tar.gz"
   SDL_MIXER_EXTRACTED_DIR = "#{DEPENDENCIES_DIR}/SDL_mixer"
 
