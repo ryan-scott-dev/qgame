@@ -11,7 +11,7 @@ Game::Build.new do |conf|
 
   # Linker settings
   conf.linker do |linker|
-    linker.libraries = %w(SDL2_image SDL2_mixer SDL2 GLEW GL freetype)
+    linker.libraries = %w(SDL2_image SDL2_mixer SDL2 GL freetype)
 
     linker.library_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/lib"
     linker.library_paths << "/System/Library/Frameworks/OpenGL.framework/Libraries"

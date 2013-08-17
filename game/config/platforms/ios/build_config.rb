@@ -134,7 +134,7 @@ MRuby::CrossBuildiOS.new('ios_i386') do |conf|
   end
 
   conf.linker do |linker|
-    linker.libraries = %w(SDL2_image SDL2_mixer SDL2 GLEW GL)
+    linker.libraries = %w(SDL2_image SDL2_mixer SDL2 GL)
     linker.library_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/lib"
   end
 
@@ -198,7 +198,7 @@ MRuby::CrossBuildiOS.new('ios_arm') do |conf|
   end
 
   conf.linker do |linker|
-    linker.libraries = %w(SDL2_image SDL2_mixer SDL2 GLEW GL)
+    linker.libraries = %w(SDL2_image SDL2_mixer SDL2 GL)
     linker.library_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/lib"
   end
 
