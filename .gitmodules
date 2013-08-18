@@ -3,13 +3,13 @@
 	url = https://github.com/mruby/mruby
 [submodule "dependencies/freetype"]
 	path = dependencies/freetype
-	url = git@github.com:Archytaus/qgame-freetype-mirror.git
+url=https://github.com/Archytaus/qgame-freetype-mirror.git
 [submodule "dependencies/SDL_mixer"]
 	path = dependencies/SDL_mixer
-	url = git@github.com:Archytaus/qgame-sdl2-mixer-mirror.git
+url=https://github.com/Archytaus/qgame-sdl2-mixer-mirror.git
 [submodule "dependencies/SDL_image"]
 	path = dependencies/SDL_image
-	url = git@github.com:Archytaus/qgame-sdl2-image-mirror.git
+url=https://github.com/Archytaus/qgame-sdl2-image-mirror.git
 [submodule "dependencies/SDL"]
 	path = dependencies/SDL
-	url = git@github.com:Archytaus/qgame-sdl2-mirror.git
+url=https://github.com/Archytaus/qgame-sdl2-mirror.git
