@@ -2,12 +2,12 @@ class Platform
   attr_accessor :name, :build_target
 
   def self.host_ruby_platform_to_qgame_platform
-    case 
+    case
     when RUBY_PLATFORM.downcase.include?("darwin")
       return :osx
     when RUBY_PLATFORM.downcase.include?("linux")
       return :linux
-    when RUBY_PLATFORM.downcase.include?("mswin")
+    when RUBY_PLATFORM.downcase.include?("w32")
       return :win
     end
     return :unknown
@@ -21,11 +21,12 @@ class Platform
     platform_name = platform_name.to_sym if platform_name.is_a? String
     platform_name ? supported[platform_name] : nil
   end
-  
+
   def self.supported
     @@platforms ||= {
       :osx => PlatformOSX.new,
       :ios => PlatformIOS.new,
+      :win => PlatformWin.new,
       :unknown => PlatformUnknown.new
     }
   end
@@ -54,6 +55,13 @@ class PlatformIOS < Platform
 
   def is_ios?
     true
+  end
+end
+
+class PlatformWin < Platform
+  def initialize
+    @name = :win
+    @build_target = Platform.host_ruby_platform_to_qgame_platform == :win ? :host : :win
   end
 end
 
