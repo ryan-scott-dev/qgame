@@ -1,1 +1,1 @@
-ruby %~dp0qgame
+ruby %~dp0qgame %*
