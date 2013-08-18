@@ -24,23 +24,23 @@ namespace :sdl do
     libs << sdl_output_file
     libs << sdl_image_output_file
     libs << sdl_mixer_output_file
-    
+
     file sdl_output_file => SDL_EXTRACTED_DIR do |t|
-      target.build_sdl(directory: SDL_EXTRACTED_DIR, 
-        current_dir: current_dir, output_dir: output_dir, library: target.libfile("libSDL2"), 
+      target.build_sdl(directory: SDL_EXTRACTED_DIR,
+        current_dir: current_dir, output_dir: output_dir, library: target.libfile("libSDL2"),
         output_file: sdl_output_file, target: target)
     end
 
     file sdl_image_output_file => [sdl_output_file, SDL_IMAGE_EXTRACTED_DIR] do |t|
-      target.build_sdl_library(directory: SDL_IMAGE_EXTRACTED_DIR, 
-        current_dir: current_dir, output_dir: output_dir, library: target.libfile("libSDL2_image"), 
-        output_file: sdl_image_output_file, target: target)
+      target.build_sdl_library(directory: SDL_IMAGE_EXTRACTED_DIR,
+        current_dir: current_dir, output_dir: output_dir, library: target.libfile("libSDL2_image"),
+        output_file: sdl_image_output_file, target: target, library_name: 'SDL_image')
     end
 
     file sdl_mixer_output_file => [sdl_output_file, SDL_MIXER_EXTRACTED_DIR] do |t|
-      target.build_sdl_library(directory: SDL_MIXER_EXTRACTED_DIR, 
-        current_dir: current_dir, output_dir: output_dir, library: target.libfile("libSDL2_mixer"), 
-        output_file: sdl_mixer_output_file, target: target)
+      target.build_sdl_library(directory: SDL_MIXER_EXTRACTED_DIR,
+        current_dir: current_dir, output_dir: output_dir, library: target.libfile("libSDL2_mixer"),
+        output_file: sdl_mixer_output_file, target: target, library_name: 'SDL_mixer')
     end
   end
 
@@ -53,7 +53,7 @@ namespace :sdl do
   task :ios_compile_sdl => ["#{sdl_output_dir}/ios_arm/lib/#{sdl_lib_name}.a", "#{sdl_output_dir}/ios_i386/lib/#{sdl_lib_name}.a"] do
     FileUtils.mkdir_p "#{sdl_output_dir}/ios/lib"
     FileUtils.cp_r "#{sdl_output_dir}/ios_arm/include", "#{sdl_output_dir}/ios"
-    
+
     FileUtils.sh "lipo -create -output #{sdl_output_dir}/ios/lib/#{sdl_lib_name}.a #{sdl_output_dir}/ios_arm/lib/#{sdl_lib_name}.a #{sdl_output_dir}/ios_i386/lib/#{sdl_lib_name}.a"
   end
 

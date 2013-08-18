@@ -4,3 +4,6 @@ Requirements:
   - Ruby
   - Git
   - VS
+  - DirectX SDK
+
+http://stackoverflow.com/questions/84404/using-visual-studios-cl-from-a-normal-command-line

@@ -1,7 +1,7 @@
 load "#{MRUBY_ROOT}/tasks/mruby_build_gem.rake"
 load "#{MRUBY_ROOT}/tasks/mruby_build_commands.rake"
 
-module QGame 
+module QGame
   class << self
     def targets
       @targets ||= {}
@@ -27,7 +27,7 @@ module QGame
         setup_toolchain_defaults
 
         @libqgame = []
-        
+
         QGame.targets[@name] = self
       end
 
@@ -37,7 +37,7 @@ module QGame
 
       load_gembox(QGame.targets[@name], File.expand_path("qgame.gembox", "#{QGAME_ROOT}/mrbgems"))
     end
-    
+
     def root
       QGAME_ROOT
     end
@@ -49,12 +49,25 @@ module QGame
     def build_sdl(args = {})
       FileUtils.mkdir_p "#{args[:output_dir]}/include/SDL2"
       FileUtils.mkdir_p "#{args[:output_dir]}/lib"
-      
-      if name.include?('ios')
+
+      if COMPILE_PLATFORM.is_ios?
         build_sdl_ios(args)
+      elsif COMPILE_PLATFORM.is_cygwin?
+        build_sdl_win(args)
       else
         build_sdl_unix(args)
       end
+    end
+
+    def build_sdl_win(args = {})
+      args[:library] = args[:library].sub(/lib/, '')
+
+      FileUtils.cd args[:directory]
+      FileUtils.sh 'vcvars32.bat'
+      FileUtils.sh "devenv ./VisualC/SDL_VS2012.sln /Build"
+      FileUtils.cp "./VisualC/SDL/Win32/Debug/#{args[:library]}", "#{args[:output_file]}"
+
+      FileUtils.cd args[:current_dir]
     end
 
     def build_sdl_unix(args = {})
@@ -76,14 +89,14 @@ module QGame
       FileUtils.sh "xcodebuild build -target libSDL -arch #{args[:target].arch} -sdk #{args[:target].sdk}"
 
       FileUtils.cp "./build/Release-#{args[:target].sdk}/#{args[:library]}", "#{args[:output_file]}"
-      
+
       FileUtils.cd args[:current_dir]
     end
 
     def build_freetype(args = {})
       FileUtils.mkdir_p "#{args[:output_dir]}/include/freetype"
       FileUtils.mkdir_p "#{args[:output_dir]}/lib"
-      
+
       if name.include?('ios')
         build_freetype_ios(args)
       else
@@ -116,11 +129,25 @@ module QGame
     end
 
     def build_sdl_library(args = {})
-      if name.include?('ios')
+      if COMPILE_PLATFORM.is_ios?
         build_sdl_library_ios(args)
+      elsif COMPILE_PLATFORM.is_cygwin?
+        build_sdl_library_win(args)
       else
         build_sdl_library_unix(args)
       end
+    end
+
+    def build_sdl_library_win(args = {})
+      args[:library] = args[:library].sub(/lib/, '')
+
+      FileUtils.cd args[:directory]
+      FileUtils.sh 'vcvars32.bat'
+      FileUtils.sh "devenv ./VisualC/#{args[:library_name]}_VS2012.sln /Build"
+      output_file = Dir.glob("./VisualC/**/#{args[:library]}").first
+      FileUtils.cp output_file, "#{args[:output_file]}"
+
+      FileUtils.cd args[:current_dir]
     end
 
     def build_sdl_library_unix(args = {})
@@ -135,7 +162,7 @@ module QGame
 
     def build_sdl_library_ios(args ={})
       FileUtils.cp_r Dir.glob("#{args[:directory]}/*.h"), "#{args[:output_dir]}/include/SDL2"
-      
+
       FileUtils.cd "#{args[:directory]}/Xcode-IOS"
       FileUtils.sh "xcodebuild clean"
       FileUtils.sh "xcodebuild build -arch #{args[:target].arch} -sdk #{args[:target].sdk}"
@@ -145,7 +172,7 @@ module QGame
   end
 
   class BuildiOS < Build
-    
+
     def platform(platform = nil)
       @platform ||= platform
     end
