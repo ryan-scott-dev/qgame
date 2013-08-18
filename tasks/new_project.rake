@@ -1,5 +1,4 @@
 require 'fileutils'
-require 'active_support/all'
 
 task :new, :args do |t, args|
   QGame::NewProjectTask.run(args)
@@ -40,7 +39,7 @@ module QGame
         contents.gsub!(PROJECT_NAME_TOKEN, app_const)
         File.open(file, "w+") { |f| f.write(contents) }
       end
-    
+
     end
 
     def defined_app_const_base
@@ -65,7 +64,7 @@ module QGame
     def git_clone(git_url, path)
       FileUtils.sh "git clone #{git_url} #{path}"
     end
-    
+
     def validate_project_name
       if app_const =~ /^\d/
         raise Error, "Invalid application name #{app_name}. Please give a name which does not start with numbers."
