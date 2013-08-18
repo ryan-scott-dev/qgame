@@ -5,5 +5,5 @@ Requirements:
   - Git
   - VS
   - DirectX SDK
-
+  - GnuWin32
 http://stackoverflow.com/questions/84404/using-visual-studios-cl-from-a-normal-command-line

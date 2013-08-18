@@ -1,6 +1,6 @@
 [submodule "dependencies/mruby"]
 	path = dependencies/mruby
-	url = https://github.com/mruby/mruby
+url=https://github.com/Archytaus/mruby.git
 [submodule "dependencies/freetype"]
 	path = dependencies/freetype
 url=https://github.com/Archytaus/qgame-freetype-mirror.git

@@ -64,7 +64,7 @@ class PlatformWin < Platform
     @build_target = Platform.host_ruby_platform_to_qgame_platform == :win ? :host : :win
   end
 
-  def is_cygwin?
+  def is_win?
     true
   end
 end

@@ -52,7 +52,7 @@ module QGame
 
       if COMPILE_PLATFORM.is_ios?
         build_sdl_ios(args)
-      elsif COMPILE_PLATFORM.is_cygwin?
+      elsif COMPILE_PLATFORM.is_win?
         build_sdl_win(args)
       else
         build_sdl_unix(args)
@@ -97,11 +97,24 @@ module QGame
       FileUtils.mkdir_p "#{args[:output_dir]}/include/freetype"
       FileUtils.mkdir_p "#{args[:output_dir]}/lib"
 
-      if name.include?('ios')
+      if COMPILE_PLATFORM.is_ios?
         build_freetype_ios(args)
+      elsif COMPILE_PLATFORM.is_win?
+        build_freetype_win(args)
       else
         build_freetype_unix(args)
       end
+    end
+
+    def build_freetype_win(args = {})
+      args[:library] = args[:library].sub(/lib/, '')
+
+      FileUtils.cd args[:directory]
+      FileUtils.sh 'vcvars32.bat'
+      FileUtils.sh "devenv ./builds/win32/vc2012/freetype.sln /Build"
+      FileUtils.cp "./objs/win32/vc2012/freetype250_D.lib", "#{args[:output_file]}"
+
+      FileUtils.cd args[:current_dir]
     end
 
     def build_freetype_unix(args = {})
@@ -131,7 +144,7 @@ module QGame
     def build_sdl_library(args = {})
       if COMPILE_PLATFORM.is_ios?
         build_sdl_library_ios(args)
-      elsif COMPILE_PLATFORM.is_cygwin?
+      elsif COMPILE_PLATFORM.is_win?
         build_sdl_library_win(args)
       else
         build_sdl_library_unix(args)
