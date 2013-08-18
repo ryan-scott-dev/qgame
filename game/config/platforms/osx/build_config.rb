@@ -13,7 +13,7 @@ Game::Build.new do |conf|
   conf.linker do |linker|
     linker.libraries = %w(SDL2_image SDL2_mixer SDL2 GL freetype)
 
-    linker.library_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/lib"
+    linker.library_paths << "#{QGAME_ROOT}/build/#{conf.name}/sdl/lib"
     linker.library_paths << "/System/Library/Frameworks/OpenGL.framework/Libraries"
     linker.library_paths << "#{QGAME_ROOT}/build/#{conf.name}/freetype/lib"
   end
@@ -40,7 +40,7 @@ QGame::Build.new do |conf|
     linker.libraries = %w(libmruby)
     linker.library_paths = ["#{QGAME_ROOT}/build/#{conf.name}/lib"]
     linker.library_paths << "#{QGAME_ROOT}/build/#{conf.name}/freetype/lib"
-    linker.library_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/lib"
+    linker.library_paths << "#{QGAME_ROOT}/build/#{conf.name}/sdl/lib"
   end
 end
 

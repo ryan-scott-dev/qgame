@@ -59,6 +59,7 @@ module QGame
 
     def build_sdl_unix(args = {})
       FileUtils.cd args[:directory]
+      FileUtils.sh './autogen.sh'
       FileUtils.sh "./configure --prefix=#{args[:output_dir]}"
       FileUtils.sh 'make clean'
       FileUtils.sh 'make'
@@ -124,6 +125,7 @@ module QGame
 
     def build_sdl_library_unix(args = {})
       FileUtils.cd args[:directory]
+      FileUtils.sh './autogen.sh'
       FileUtils.sh "./configure --disable-sdltest --prefix=#{args[:output_dir]} --with-sdl-prefix=#{args[:output_dir]}"
       FileUtils.sh 'make clean'
       FileUtils.sh 'make'

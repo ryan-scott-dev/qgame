@@ -2,8 +2,6 @@
 
 build/
 bin/mrbc
-dependencies/
-!dependencies/mruby/
 release/
 
 .idea/
