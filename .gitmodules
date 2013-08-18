@@ -1,3 +1,6 @@
 [submodule "dependencies/mruby"]
 	path = dependencies/mruby
 	url = https://github.com/mruby/mruby
+[submodule "dependencies/freetype"]
+	path = dependencies/freetype
+	url = git@github.com:Archytaus/qgame-freetype-mirror.git
