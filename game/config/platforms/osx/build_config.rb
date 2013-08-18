@@ -1,12 +1,12 @@
 Game::Build.new do |conf|
   toolchain :clang
- 
+
   # C compiler settings
   conf.cc do |cc|
     cc.include_paths = ["#{QGAME_ROOT}/include", "#{MRUBY_ROOT}/include"]
     cc.include_paths << "#{QGAME_ROOT}/dependencies/freetype/#{conf.name}/include"
     cc.include_paths << "#{QGAME_ROOT}/dependencies/freetype/#{conf.name}/include/freetype2"
-    cc.include_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/include"
+    cc.include_paths << "#{QGAME_ROOT}/dependencies/SDL/#{conf.name}/include"
   end
 
   # Linker settings
@@ -30,9 +30,9 @@ QGame::Build.new do |conf|
   conf.cc do |cc|
     cc.include_paths = ["#{QGAME_ROOT}/include", "#{MRUBY_ROOT}/include"]
     cc.include_paths.concat gem_include_paths
-    cc.include_paths << "#{QGAME_ROOT}/dependencies/SDL2/#{conf.name}/include"
-    cc.include_paths << "#{QGAME_ROOT}/dependencies/freetype/#{conf.name}/include"
-    cc.include_paths << "#{QGAME_ROOT}/dependencies/freetype/#{conf.name}/include/freetype2"
+    cc.include_paths << "#{QGAME_ROOT}/dependencies/SDL/include"
+    cc.include_paths << "#{QGAME_ROOT}/dependencies/freetype/include"
+    cc.include_paths << "#{QGAME_ROOT}/dependencies/freetype/include/freetype2"
   end
 
   # Linker settings

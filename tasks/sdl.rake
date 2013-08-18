@@ -11,8 +11,6 @@ namespace :sdl do
   SDL_IMAGE_EXTRACTED_DIR = "#{DEPENDENCIES_DIR}/SDL_image"
   SDL_MIXER_EXTRACTED_DIR = "#{DEPENDENCIES_DIR}/SDL_mixer"
 
-  SDL_HOST_OUTPUT = "#{DEPENDENCIES_DIR}/SDL2/host/lib/libSDL2.a"
-
   libs = []
 
   QGame.each_target do |target|
