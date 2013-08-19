@@ -34,7 +34,7 @@ model_asset_wrap(mrb_state *mrb, struct RClass *tc, struct model_asset* tm)
 struct model_asset*
 model_asset_get_ptr(mrb_state* mrb, mrb_value value)
 {
-  return (struct model_asset*)mrb_data_get_ptr(mrb, value, &model_asset_type);
+  return DATA_CHECK_GET_PTR(mrb, value, &model_asset_type, struct model_asset);
 }
 
 mrb_value 
