@@ -18,7 +18,6 @@ task :prepare_compile do |args|
   load "#{QGAME_ROOT}/tasks/ios_build.rake"
 
   # load configuration file
-  load "#{PROJECT_ROOT}/config/build_config.rb"
   MRUBY_CONFIG = (ENV['BUILD_CONFIG'] && ENV['BUILD_CONFIG'] != '') ? ENV['BUILD_CONFIG'] : "#{PROJECT_ROOT}/config/platforms/#{COMPILE_PLATFORM.name}/build_config.rb"
   load MRUBY_CONFIG
 
