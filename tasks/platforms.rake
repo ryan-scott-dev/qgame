@@ -38,6 +38,10 @@ class Platform
   def is_cygwin?
     false
   end
+
+  def is_win?
+    false
+  end
 end
 
 class PlatformOSX < Platform
