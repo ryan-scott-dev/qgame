@@ -36,6 +36,14 @@ module QGame
       instance_eval(&block)
     end
 
+    def self.render_manager
+      QGame::RenderManager
+    end
+
+    def self.screen_manager
+      QGame::ScreenManager
+    end
+
     def title
       Application.conf[:title]
     end
