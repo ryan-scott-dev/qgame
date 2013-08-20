@@ -18,8 +18,6 @@ module QGame
     def run
       create_from_skeleteon
       customise_created_skeleton
-
-      git_clone('git://github.com/mruby/mruby.git', "#{@project_name}/build/mruby")
     end
 
     def create_from_skeleteon
@@ -59,10 +57,6 @@ module QGame
 
     def app_const
       @app_const ||= defined_app_const_base || app_name.gsub(/\W/, '_').squeeze('_').camelize
-    end
-
-    def git_clone(git_url, path)
-      FileUtils.sh "git clone #{git_url} #{path}"
     end
 
     def validate_project_name
