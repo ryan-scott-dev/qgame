@@ -11,6 +11,7 @@ module QGame
         ENV['PLATFORM'] = match_data[1] if match_data and match_data[1]
       end
 
+      load "#{QGAME_ROOT}/tasks/helpers.rake"
       load "#{QGAME_ROOT}/tasks/new_project.rake"
       load "#{QGAME_ROOT}/tasks/run.rake"
       load "#{QGAME_ROOT}/tasks/compile.rake"

@@ -1,5 +1,5 @@
 Game::Build.new do |conf|
-  toolchain :clang
+  toolchain :vs2012
 
   # C compiler settings
   conf.cc do |cc|
@@ -22,7 +22,7 @@ Game::Build.new do |conf|
 end
 
 QGame::Build.new do |conf|
-  toolchain :clang
+  toolchain :vs2012
 
   gem_include_paths = Dir.glob("build/mrbgems/**/include")
 
@@ -45,7 +45,7 @@ QGame::Build.new do |conf|
 end
 
 MRuby::Build.new do |conf|
-  toolchain :clang
+  toolchain :vs2012
 
   conf.gembox 'default'
   conf.gem :core => "mruby-eval"
