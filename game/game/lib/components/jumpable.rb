@@ -1,6 +1,6 @@
-module Game
+module TestGame
   module Jumpable
-    include Game::Fallable
+    include TestGame::Fallable
 
     def jump
       @jump_held = true

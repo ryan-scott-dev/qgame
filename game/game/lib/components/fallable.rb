@@ -1,4 +1,4 @@
-module Game
+module TestGame
   module Fallable
     attr_accessor :falling
 

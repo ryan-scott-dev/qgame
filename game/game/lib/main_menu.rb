@@ -16,6 +16,6 @@ QGame::Screen.new(:main_menu) do
        :font_size => 42, :flag => :cartoon, :position => Vec2.new(0, 120), :centered => :horizontal)
 
   button('start_button', :position => Vec2.new(0, 300), :centered => :horizontal) do
-    Game::ScreenManager.transition_to(:game)
+    QGame::ScreenManager.transition_to(:game)
   end
 end

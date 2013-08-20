@@ -1,6 +1,6 @@
 Game.testing_things
 
-Game::Application.run do
+TestGame::Application.run do
   # Full application lifecycle
   GL.set_clear_color(0.713, 0.788, 0.623)
   GL.set_clear_flags([:color, :depth])
@@ -17,12 +17,12 @@ Game::Application.run do
   end
 
   on_event :window_resized do |event|
-    Game::RenderManager.resize_window(event.resize_width, event.resize_height)
+    QGame::RenderManager.resize_window(event.resize_width, event.resize_height)
   end
 
-  Game::ScreenManager.transition_to(:main_menu)
+  QGame::ScreenManager.transition_to(:main_menu)
 
-  handle_events Game::ScreenManager
+  handle_events QGame::ScreenManager
   
   timestep = 1.0 / 60.0
   @elapsed = 0.0
@@ -39,7 +39,7 @@ Game::Application.run do
       @elapsed = Math.min(frame_time, timestep)
 
       # update
-      Game::ScreenManager.update
+      QGame::ScreenManager.update
 
       frame_time -= @elapsed
     end
@@ -48,8 +48,8 @@ Game::Application.run do
     GL.clear
 
     # render logic
-    Game::ScreenManager.submit_render
-    Game::RenderManager.render
+    QGame::ScreenManager.submit_render
+    QGame::RenderManager.render
 
     @window.swap_gl_window
 

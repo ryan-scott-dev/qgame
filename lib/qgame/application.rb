@@ -67,7 +67,7 @@ module QGame
       @context = @window.create_gl_context
       setup_input
 
-      Game::RenderManager.resize_window(@window.width, @window.height)
+      QGame::RenderManager.resize_window(@window.width, @window.height)
 
       AssetManager.register_asset_loader("shaders", ShaderAssetLoader.new)
       AssetManager.register_asset_loader("models", ModelAssetLoader.new)

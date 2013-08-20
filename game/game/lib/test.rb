@@ -1,14 +1,14 @@
-module Game
+module TestGame
   class Test < QGame::AnimatedSprite
     include QGame::Collidable
     include QGame::CollidableFast
     
-    include Game::Fallable
-    include Game::Jumpable
+    include TestGame::Fallable
+    include TestGame::Jumpable
 
     def initialize(args = {})
       defaults = {
-        :texture => Game::AssetManager.texture('test_sprite'), 
+        :texture => QGame::AssetManager.texture('test_sprite'), 
         :frame_size => Vec2.new(60, 60),
         :frame_rate => 20,
       }

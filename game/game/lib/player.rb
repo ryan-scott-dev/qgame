@@ -1,11 +1,11 @@
-module Game
+module TestGame
   class Player < QGame::AnimatedSprite
     include QGame::EventHandler
     include QGame::Collidable
     include QGame::CollidableFast
     
-    include Game::Fallable
-    include Game::Jumpable
+    include TestGame::Fallable
+    include TestGame::Jumpable
 
     MOVE_SPEED = 1
     MAX_SPEEDS = [160, 200, 240, 280, 320, 360]
@@ -21,7 +21,7 @@ module Game
       @@current = self
 
       defaults = {
-        :texture => Game::AssetManager.texture('robot'), 
+        :texture => QGame::AssetManager.texture('robot'), 
         :frame_size => Vec2.new(51, 93),
         :frame_rate => 10,
         :animations => {
@@ -105,7 +105,7 @@ module Game
 
         @velocity_x = 0
 
-        Game::ScreenManager.current.overlay(:game_over)
+        QGame::ScreenManager.current.overlay(:game_over)
       end
     end
 

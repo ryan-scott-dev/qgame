@@ -1,9 +1,9 @@
-module Game
+module TestGame
   class WoodSprite < QGame::Sprite
     def initialize(args = {})
       @timestep = 0
 
-      super(args.merge({:texture => Game::AssetManager.texture('wood')}))
+      super(args.merge({:texture => QGame::AssetManager.texture('wood')}))
     end
 
     def update

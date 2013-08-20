@@ -1,11 +1,11 @@
-module Game
+module TestGame
   class Coin < QGame::AnimatedSprite
     include QGame::Collidable
     include QGame::CollidableFast
 
     def initialize(args = {})
       defaults = {
-        :texture => Game::AssetManager.texture('coin'), 
+        :texture => QGame::AssetManager.texture('coin'), 
         :frame_size => Vec2.new(42),
         :frame_rate => 10
       }

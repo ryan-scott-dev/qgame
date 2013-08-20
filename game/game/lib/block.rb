@@ -1,4 +1,4 @@
-module Game
+module TestGame
   class Block < QGame::Sprite
     include QGame::Collidable
     include QGame::CollidableAbove

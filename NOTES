@@ -7,3 +7,11 @@ Requirements:
   - DirectX SDK
   - GnuWin32
 http://stackoverflow.com/questions/84404/using-visual-studios-cl-from-a-normal-command-line
+
+
+----------------
+Responsibilities
+----------------
+TESTGAME - Programmer defined functionality
+GAME  - Base class for TESTGAME
+QGAME - Library

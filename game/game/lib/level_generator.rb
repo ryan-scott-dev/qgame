@@ -1,4 +1,4 @@
-module Game
+module TestGame
   class LevelGenerator
     attr_accessor :parent
 
@@ -68,7 +68,7 @@ module Game
         tile_properties = @tile_base_properties.merge({
           :position => Vec2.new(@tile_position_offset, @tile_height_offset + 4 * @tile_height)
         })
-        tile = Game::Block.new(tile_properties)
+        tile = TestGame::Block.new(tile_properties)
         tile.parent = self
         screen << tile
         
@@ -86,7 +86,7 @@ module Game
         @last_gap_offset += 1
 
         if tile_rand > 0.6 && tile_rand < 0.65
-          coin = Game::Coin.new(:position => Vec2.new(@tile_position_offset, @tile_height_offset - @tile_height), :parent => screen)
+          coin = TestGame::Coin.new(:position => Vec2.new(@tile_position_offset, @tile_height_offset - @tile_height), :parent => screen)
           coin.parent = self
           screen << coin
         end
@@ -96,7 +96,7 @@ module Game
             :position => Vec2.new(@tile_position_offset, @tile_height_offset - 2 * @tile_height), 
             :sprite_relative_offset =>  Vec2.new(5 * @tile_width, 0) / @texture.size,
           })
-          tile = Game::Block.new(tile_properties)
+          tile = TestGame::Block.new(tile_properties)
           tile.parent = self
           screen << tile
         elsif tile_rand > 0.9
@@ -104,7 +104,7 @@ module Game
             :position => Vec2.new(@tile_position_offset, @tile_height_offset - 3 * @tile_height), 
             :sprite_relative_offset =>  Vec2.new(5 * @tile_width, 0) / @texture.size,
           })
-          tile = Game::Block.new(tile_properties)
+          tile = TestGame::Block.new(tile_properties)
           tile.parent = self
           screen << tile
         end
@@ -112,7 +112,7 @@ module Game
         tile_properties = @tile_base_properties.merge({
           :position => Vec2.new(@tile_position_offset, @tile_height_offset), 
         })
-        tile = Game::Block.new(tile_properties)
+        tile = TestGame::Block.new(tile_properties)
         tile.parent = self
         screen << tile
 
@@ -121,7 +121,7 @@ module Game
           :sprite_relative_offset => @underground_tile_offset,
           :collidable => false
         })
-        tile = Game::Block.new(tile_properties)
+        tile = TestGame::Block.new(tile_properties)
         tile.parent = self
         screen << tile
 
@@ -130,7 +130,7 @@ module Game
           :sprite_relative_offset => @underground_tile_offset,
           :collidable => false
         })
-        tile = Game::Block.new(tile_properties)
+        tile = TestGame::Block.new(tile_properties)
         tile.parent = self
         screen << tile
 
@@ -139,7 +139,7 @@ module Game
           :sprite_relative_offset => @underground_tile_offset,
           :collidable => false
         })
-        tile = Game::Block.new(tile_properties)
+        tile = TestGame::Block.new(tile_properties)
         tile.parent = self
         screen << tile
 
