@@ -1,5 +1,3 @@
-puts "ASD"
-
 TestGame::Application.screen_manager.define_screen(:main_menu) do
   transition(:out) do |args|
     animate(:transparency).from(1).to(0)

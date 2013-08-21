@@ -1,9 +1,9 @@
-QGame::Screen.new(:pause_screen) do
+TestGame::Application.screen_manager.define_screen(:pause_screen) do
   button('start_button', :z_index => 1.0, :position => Vec2.new(0, 400), :centered => :horizontal) do
-    QGame::ScreenManager.current.resume
+    TestGame::Application.screen_manager.current.resume
   end
 
   button('start_button', :z_index => 1.0, :position => Vec2.new(0, 500), :centered => :horizontal) do
-    QGame::Application.current.quit
+    TestGame::Application.current.quit
   end
 end

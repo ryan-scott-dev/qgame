@@ -1,5 +1,4 @@
-QGame::Screen.new(:game_over) do
-
+TestGame::Application.screen_manager.define_screen(:game_over) do
   text("Score: #{TestGame::Player.current.score}", :z_index => 1.0, :position => Vec2.new(0, 100), :font_size => 24,
     :centered => :horizontal)
 
@@ -7,7 +6,7 @@ QGame::Screen.new(:game_over) do
        :font_size => 42, :flag => :cartoon, :position => Vec2.new(0, 200), :centered => :horizontal)
 
   button('start_button', :z_index => 1.0, :position => Vec2.new(0, 200), :centered => :horizontal) do
-    QGame::ScreenManager.current.overlay(nil)
-    QGame::ScreenManager.transition_to(:game)
+    TestGame::Application.screen_manager.current.overlay(nil)
+    TestGame::Application.screen_manager.transition_to(:game)
   end
 end

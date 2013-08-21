@@ -1,7 +1,7 @@
-QGame::Screen.new(:game) do
+TestGame::Application.screen_manager.define_screen(:game) do
   button('pause_icon', :position => Vec2.new(128, 64), :mode => :on_press) do
-    QGame::ScreenManager.current.pause
-    QGame::ScreenManager.current.overlay(:pause_screen)
+    TestGame::Application.screen_manager.current.pause
+    TestGame::Application.screen_manager.current.overlay(:pause_screen)
   end
 
   player = TestGame::Player.new(:position => Vec2.new(50, 300))
