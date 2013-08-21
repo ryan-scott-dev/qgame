@@ -39,6 +39,10 @@ module Game
       load_gembox(Game.targets[@name], File.expand_path("game.gembox", "#{PROJECT_ROOT}/gems"))
     end
 
+    def enable_gems?
+      true
+    end
+
     def root
       PROJECT_ROOT
     end

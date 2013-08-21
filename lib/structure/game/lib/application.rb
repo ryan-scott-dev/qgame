@@ -19,7 +19,7 @@ module $PROJ_NAME
       Application.render_manager.resize_window(event.resize_width, event.resize_height)
     end
 
-    Application.screen_manager.transition_to(:main_menu)
+    Application.screen_manager.transition_to(:game)
 
     handle_events Application.screen_manager
     

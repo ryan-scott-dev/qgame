@@ -28,13 +28,17 @@ module QGame
       # Find a reserved word, and replace with the project name
 
       # foreach file in the skeleton
-      files = Dir["#{@project_name}/**/*"].select{|file| File.file? file}
+      files = Dir["#{@project_name}/**/*.rb"].select{|file| File.file? file}
       files.each do |file|
         contents = ""
 
         File.open(file) { |f| contents = f.read }
         # replace every occurance of the reserved word with our own
-        contents.gsub!(PROJECT_NAME_TOKEN, app_const)
+        begin
+          contents.gsub!(PROJECT_NAME_TOKEN, app_const)
+        rescue
+          puts "Error with #{file}"
+        end
         File.open(file, "w+") { |f| f.write(contents) }
       end
 
