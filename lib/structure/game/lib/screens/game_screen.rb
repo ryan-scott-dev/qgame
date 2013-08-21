@@ -1,4 +1,4 @@
-QGame::Screen.new(:game) do
+$PROJ_NAME::Application.screen_manager.define_screen(:game) do
   camera(:fixed)
   overlay(:virtual_gamepad) if QGame::Input.input_type_active? :virtual_gamepad
   
