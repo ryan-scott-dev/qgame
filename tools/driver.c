@@ -61,11 +61,11 @@ main(int argc, char **argv)
   
   qgame_init(mrb);
   mrb_init_qgamelib(mrb);
-  mrb_init_gamelib(mrb);
   mrb_mruby_freetype_gl_gem_init(mrb);
   
   mrb_init_gamegems(mrb);
-
+  mrb_init_gamelib(mrb);
+  
   mrb_init_application(mrb);
 
   mrb_close(mrb);

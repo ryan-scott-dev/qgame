@@ -6,19 +6,18 @@ Game.each_target do |t|
   clib = "#{current_build_dir}/main.c"
   mlib = clib.ext(exts.object)
   init = "#{current_dir}/init_application.c"
-  bootstrap = "#{PROJECT_ROOT}/config/bootstrap.rb"
   config = Dir.glob("#{PROJECT_ROOT}/config/**.rb")
-  config.reject! {|conf_file| conf_file.include?('bootstrap.rb') || conf_file.include?('build_config.rb') }
+  config.reject! {|conf_file| conf_file.include?('build_config.rb') }
 
   application = "#{PROJECT_ROOT}/game/lib/application.rb"
   
   file mlib => [clib]
-  file clib => [mrbcfile, init, bootstrap, config, application].flatten do |t|
+  file clib => [mrbcfile, init, config, application].flatten do |t|
     _pp "GEN", "*.rb", "#{clib.relative_path}"
     FileUtils.mkdir_p File.dirname(clib)
     open(clib, 'w') do |f|
       f.puts IO.read(init)
-      mrbc.run f, [bootstrap, config, application].flatten, 'mrbapp_irep'
+      mrbc.run f, [config, application].flatten, 'mrbapp_irep'
     end
   end
   
@@ -35,6 +34,8 @@ Game.each_target do |t|
     dependencies << libfile("#{MRUBY_ROOT}/build/#{t.name}/lib/libmruby")
     dependencies << libfile("#{QGAME_ROOT}/build/#{t.name}/lib/libqgame")
     dependencies << libfile("#{PROJECT_ROOT}/build/#{t.name}/lib/libgame")
+
+    puts dependencies.inspect
 
     file exec => dependencies do |t|
       gem_flags = gems.map { |g| g.linker.flags }

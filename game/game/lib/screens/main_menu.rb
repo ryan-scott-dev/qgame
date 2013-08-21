@@ -1,4 +1,6 @@
-QGame::Screen.new(:main_menu) do
+puts "ASD"
+
+TestGame::Application.screen_manager.define_screen(:main_menu) do
   transition(:out) do |args|
     animate(:transparency).from(1).to(0)
                           .over(0.1)
@@ -16,6 +18,6 @@ QGame::Screen.new(:main_menu) do
        :font_size => 42, :flag => :cartoon, :position => Vec2.new(0, 120), :centered => :horizontal)
 
   button('start_button', :position => Vec2.new(0, 300), :centered => :horizontal) do
-    QGame::ScreenManager.transition_to(:game)
+    TestGame::Application.screen_manager.transition_to(:game)
   end
 end

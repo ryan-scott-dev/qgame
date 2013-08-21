@@ -52,5 +52,9 @@ module QGame
       self.current.submit_render unless self.current.nil?
       self.next_screen.submit_render unless self.next_screen.nil?
     end
+
+    def self.define_screen(screen_name, &block)
+      QGame::Screen.new(screen_name, &block)
+    end
   end
 end
