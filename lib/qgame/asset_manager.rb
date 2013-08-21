@@ -2,18 +2,30 @@ module QGame
   module AssetManager
     @@asset_loaders = {}
     @@assets = {}
+    @@blacklist = ['.', '..']
+    @@blacklist_partial = ['.DS_Store', '.keep', '.gitkeep']
+
+    def self.blacklist
+      @@blacklist
+    end
+
+    def self.blacklist_partial
+      @@blacklist_partial
+    end
 
     def self.load
       start = Time.now
       puts "Loading assets ..."
 
       Dir.entries('./assets').each do |file|
-        next if file == '.' || file == '..'
+        next if blacklist.include?(file)
+        next if blacklist_partial.any? {|partial| file.include?(partial)}
 
         asset_type = file
         if Dir.exists?("./assets/#{asset_type}")
           Dir.entries("./assets/#{asset_type}").each do |asset|
-            next if asset == '.' || asset == '..'
+            next if blacklist.include?(asset)
+            next if blacklist_partial.any? {|partial| asset.include?(partial)}
 
             load_asset(asset_type, "./assets/#{asset_type}/#{asset}")
           end
