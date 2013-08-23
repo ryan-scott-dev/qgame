@@ -43,7 +43,7 @@ module QGame
     end
 
     def destruct
-      QGame::ScreenManager.current.remove(self)
+      QGame::Application.screen_manager.current.remove(self)
       @alive = false
     end
 
@@ -56,7 +56,7 @@ module QGame
     end
 
     def submit_render
-      QGame::RenderManager.submit(self) if @alive
+      QGame::Application.render_manager.submit(self) if @alive
     end
 
     def top
@@ -73,7 +73,7 @@ module QGame
     end
     
     def render
-      view = @screen_space ? Mat4.new : QGame::RenderManager.camera.view
+      view = @screen_space ? Mat4.new : QGame::Application.render_manager.camera.view
       shader.set_uniform('view', view)
 
       shader.set_uniform('position', @position)
