@@ -13,7 +13,7 @@ module QGame
 
       $verbose = false
       other_args.each do |arg|
-        $verbose = true if args == '--VERBOSE'
+        $verbose = true if arg == '--VERBOSE'
       end
 
       load "#{QGAME_ROOT}/tasks/helpers.rake"

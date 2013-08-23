@@ -1,4 +1,21 @@
 
+def header(header_name)
+  if $verbose
+    puts ""
+    puts "----------------------------------"
+    puts header_name
+    puts "----------------------------------"
+  end
+end
+
+def footer
+  if $verbose
+    puts "----------------------------------"
+    puts "Done!"
+    puts ""
+  end
+end
+
 task :prepare_compile do |args|
   load "#{QGAME_ROOT}/tasks/platforms.rake"
 
@@ -27,107 +44,67 @@ task :prepare_compile do |args|
   load "#{QGAME_ROOT}/tasks/ios-sim.rake" if COMPILE_PLATFORM.is_ios?
 
   # load basic rules
-  puts ""
-  puts "----------------------------------"
-  p "Define MRuby build rules"
-  puts "----------------------------------"
+  header "Define MRuby build rules"
   MRuby.each_target do |build|
     build.define_rules
   end
 
   # load basic rules
-  puts ""
-  puts "----------------------------------"
-  p "Define QGame build rules"
-  puts "----------------------------------"
+  header "Define QGame build rules"
   QGame.each_target do |build|
     build.define_rules
   end
 
   # load basic rules
-  puts ""
-  puts "----------------------------------"
-  p "Define Game build rules"
-  puts "----------------------------------"
+  header "Define Game build rules"
   Game.each_target do |build|
     build.define_rules
   end
 
-  puts ""
-  puts "----------------------------------"
-  puts "Loading Compile rules"
-  puts "----------------------------------"
-
+  header "Loading Compile rules"
+  
   load "#{QGAME_ROOT}/tasks/mruby_compile.rake"
   load "#{QGAME_ROOT}/tasks/qgame_compile.rake"
   load "#{QGAME_ROOT}/tasks/game_compile.rake"
   load "#{QGAME_ROOT}/tasks/app_compile.rake"
-  puts "----------------------------------"
-  puts "----------------------------------"
-  puts ""
 end
 
 desc "build all targets, install (locally) in-repo"
 task :compile => :prepare_compile do |args|
-  puts "----------------------------------"
-  puts "Compiling sdl..."
-  puts "----------------------------------"
+  header "Compiling sdl..."
   Rake::Task['sdl:compile'].invoke(args)
   Rake::Task['sdl:ios_compile'].invoke(args) if COMPILE_PLATFORM.is_ios?
   # This should produce a linkable mruby library
-  puts "----------------------------------"
-  puts "Done!"
-  puts ""
-  puts ""
-  puts "----------------------------------"
-  puts "Compiling freetype..."
-  puts "----------------------------------"
+  footer
+
+  header "Compiling freetype..."
   Rake::Task['freetype:compile'].invoke(args)
   Rake::Task['freetype:ios_compile'].invoke(args) if COMPILE_PLATFORM.is_ios?
   # This should produce a linkable mruby library
-  puts "----------------------------------"
-  puts "Done!"
-  puts ""
-  puts ""
-  puts "----------------------------------"
-  puts "Compiling mruby..."
-  puts "----------------------------------"
+  footer
+
+  header "Compiling mruby..."
   Rake::Task['mruby:compile'].invoke(args)
   Rake::Task['mruby:ios_compile'].invoke(args) if COMPILE_PLATFORM.is_ios?
   # This should produce a linkable mruby library
-  puts "----------------------------------"
-  puts "Done!"
-  puts ""
-  puts ""
-  puts "----------------------------------"
-  puts "Compiling qgame..."
-  puts "----------------------------------"
+  footer
+
+  header "Compiling qgame..."
   Rake::Task['qgame:compile'].invoke(args)
   Rake::Task['qgame:ios_compile'].invoke(args) if COMPILE_PLATFORM.is_ios?
   # This should produce a linkable qgame library
-  puts "----------------------------------"
-  puts "Done!"
-  puts ""
-  puts ""
-  puts "----------------------------------"
-  puts "Compiling your files..."
-  puts "----------------------------------"
+  footer
+  
+  header "Compiling your files..."
   Rake::Task['game:compile'].invoke(args)
   Rake::Task['game:ios_compile'].invoke(args) if COMPILE_PLATFORM.is_ios?
-  puts "----------------------------------"
-  puts "Done!"
-  puts ""
-  puts ""
-  puts "----------------------------------"
-  puts "Building the application..."
-  puts "----------------------------------"
+  footer
+
+  header "Building the application..."
   Rake::Task['game:app_compile'].invoke(args)
   
   # This should produce a runnable application
-  puts "----------------------------------"
-  puts "Done!"
-  puts ""
-  puts ""
+  footer
 end
 
 task :clean => :prepare_compile do

@@ -35,8 +35,6 @@ Game.each_target do |t|
     dependencies << libfile("#{QGAME_ROOT}/build/#{t.name}/lib/libqgame")
     dependencies << libfile("#{PROJECT_ROOT}/build/#{t.name}/lib/libgame")
 
-    puts dependencies.inspect
-
     file exec => dependencies do |t|
       gem_flags = gems.map { |g| g.linker.flags }
       gem_flags_before_libraries = gems.map { |g| g.linker.flags_before_libraries }
