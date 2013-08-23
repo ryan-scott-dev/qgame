@@ -149,6 +149,12 @@ module TestGame
       screen
     end
 
+    def remove(child)
+      @screens.each do |screen|
+        screen.delete(child) if screen.include?(child)
+      end
+    end
+
     def tiles_required?
       (QGame::RenderManager.camera.bounds.x + @tile_width) > (@tile_position_offset)
     end

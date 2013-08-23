@@ -36,7 +36,8 @@ module QGame
     end
 
     def destruct
-      QGame::ScreenManager.current.remove(self)
+      self.parent.remove(self)
+      self.parent = nil
     end
 
     def calculate_transparency

@@ -43,7 +43,8 @@ module QGame
     end
 
     def destruct
-      QGame::Application.screen_manager.current.remove(self)
+      self.parent.remove(self)
+      self.parent = nil
       @alive = false
     end
 
