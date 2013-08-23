@@ -11,6 +11,11 @@ module QGame
         ENV['PLATFORM'] = match_data[1] if match_data and match_data[1]
       end
 
+      $verbose = false
+      other_args.each do |arg|
+        $verbose = true if args == '--VERBOSE'
+      end
+
       load "#{QGAME_ROOT}/tasks/helpers.rake"
       load "#{QGAME_ROOT}/tasks/new_project.rake"
       load "#{QGAME_ROOT}/tasks/run.rake"
@@ -18,7 +23,7 @@ module QGame
       load "#{QGAME_ROOT}/tasks/analyse.rake"
       load "#{QGAME_ROOT}/tasks/release.rake"
 
-      Rake.verbose(true)
+      Rake.verbose($verbose)
       Rake::Task[given_args[0]].invoke(other_args)
     end
   end

@@ -73,12 +73,15 @@ module QGame
     end
 
     def build_sdl_unix(args = {})
+      flags = ''
+      flags << '--quiet' unless $verbose
+
       FileUtils.cd args[:directory]
       FileUtils.sh './autogen.sh'
-      FileUtils.sh "./configure --prefix=#{args[:output_dir]}"
-      FileUtils.sh 'make clean'
-      FileUtils.sh 'make'
-      FileUtils.sh 'make install'
+      FileUtils.sh "./configure --prefix=#{args[:output_dir]} #{flags}"
+      FileUtils.sh "make clean #{flags}"
+      FileUtils.sh "make #{flags}"
+      FileUtils.sh "make install #{flags}"
       FileUtils.cd args[:current_dir]
     end
 
