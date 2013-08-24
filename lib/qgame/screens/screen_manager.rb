@@ -1,22 +1,26 @@
 module QGame
   class ScreenManager
-    @@current_screen = nil
-    @@next_screen = nil
+    @@current_screen_stack = []
+    @@next_screen_stack = []
 
     def self.current=(screen)
-      @@current_screen = screen
+      @@current_screen_stack = screen
+    end
+
+    def self.current_screen_stack
+      @@current_screen_stack
     end
 
     def self.current
-      @@current_screen
+      current_screen_stack.first
     end
 
-    def self.next_screen=(screen)
-      @@next_screen = screen
+    def self.next_screen_stack=(screen)
+      @@next_screen_stack = screen
     end
 
-    def self.next_screen
-      @@next_screen
+    def self.next_screen_stack
+      @@next_screen_stack
     end
 
     def self.handle_event(event_type, event)
@@ -24,33 +28,50 @@ module QGame
     end
 
     def self.transition_to(screen_name)
-      self.next_screen = QGame::Screen.find(screen_name).build
-      self.next_screen.pause
-      
-      if !self.current.nil? && self.current.has_transition?(:out)
-        self.current.start_transition(:out, {:to => self.next_screen}) do
-          self.current = self.next_screen
-          self.current.resume
-          self.next_screen = nil
+      next_screen = QGame::Screen.find(screen_name).build
+      next_screen.pause
+      next_screen_stack << next_screen
+
+      if !current_screen_stack.empty? && current_screen_stack.any? {|screen| screen.has_transition?(:out) }
+        current.start_transition(:out, {:to => next_screen}) do
+          current_screen_stack.clear
+          next_screen_stack.each do |screen|
+            current_screen_stack << screen
+            screen.resume
+          end
+          next_screen_stack.clear
         end
-        self.next_screen
+        next_screen
       else
-        self.current = self.next_screen
-        self.current.resume
-        self.next_screen = nil
+        current_screen_stack.clear
+        next_screen_stack.each do |screen|
+          current_screen_stack << screen
+          screen.resume
+        end
+        next_screen_stack.clear
         
         self.current
       end
     end
 
     def self.update
-      self.current.update unless self.current.nil?
-      self.next_screen.update unless self.next_screen.nil?
+      current_screen_stack.each do |screen|
+        screen.update
+      end
+
+      next_screen_stack.each do |screen|
+        screen.update
+      end
     end
 
     def self.submit_render
-      self.current.submit_render unless self.current.nil?
-      self.next_screen.submit_render unless self.next_screen.nil?
+      current_screen_stack.each do |screen|
+        screen.submit_render
+      end
+
+      next_screen_stack.each do |screen|
+        screen.submit_render
+      end
     end
 
     def self.define_screen(screen_name, &block)
