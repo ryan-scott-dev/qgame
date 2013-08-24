@@ -29,15 +29,6 @@ module QGame
           "#{elapsed} / #{min_elapsed} - #{max_elapsed}"
         end
       end
-
-  		(class << ScreenManager
-  			alias_method :old_transition_to, :transition_to
-
-  			define_method(:transition_to) do |screen_name|
-  				screen = old_transition_to(screen_name)
-          screen.overlay(:analyse)
-  			end
-  		end)
   	end
   end
 end

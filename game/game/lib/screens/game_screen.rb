@@ -20,5 +20,7 @@ TestGame::Application.screen_manager.define_screen(:game) do
   add(test)
 
   camera(:follow, :target => player)
+
+  overlay(:analyse) if QGame::Screen.has_screen?(:analyse)
   overlay(:virtual_gamepad) if QGame::Input.input_type_active? :virtual_gamepad
 end

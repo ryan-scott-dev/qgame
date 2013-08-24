@@ -10,6 +10,10 @@ module QGame
       @@screens[screen_name]
     end
 
+    def self.has_screen?(screen_name)
+      @@screens.has_key? screen_name
+    end
+
     def initialize(screen_name, &block)
       @built = false
       @name = screen_name
@@ -23,8 +27,12 @@ module QGame
       @@screens[screen_name] = self
     end
 
+    def reset
+      build
+    end
+
     def build
-      @components.clear
+      destruct
 
       self.instance_eval(&@configure)
       @built = true
@@ -66,9 +74,6 @@ module QGame
     end
 
     def resume
-      stop_handling_events @parent_screen unless @parent_screen.nil?
-      @parent_screen = nil
-
       @paused = false
       QGame::RenderManager.camera = @camera
     end
@@ -113,12 +118,39 @@ module QGame
       args
     end
 
-    def overlay(screen_name)
-      if screen_name.nil?
+    def destruct
+      @components.clear
+      
+      destroy_parent_screen      
+    end
+
+    def destroy_parent_screen
+      if @parent_screen
+        @parent_screen.destruct
         @parent_screen = nil
+      end
+    end
+
+    def overlay(screen_name)
+      if @parent_screen.nil?
+        if screen_name.nil?
+          destroy_parent_screen
+        else
+          @parent_screen = QGame::Screen.find(screen_name).build
+          handle_events @parent_screen
+        end
       else
-        @parent_screen = QGame::Screen.find(screen_name).build
-        handle_events @parent_screen
+        @parent_screen.overlay(screen_name)
+      end
+    end
+
+    def remove_overlay(screen_name)
+      if @parent_screen
+        if @parent_screen.name == screen_name
+          destroy_parent_screen
+        else 
+          @parent_screen.remove_overlay(screen_name)
+        end
       end
     end
 
@@ -242,10 +274,10 @@ module QGame
           component.update
         end
 
-        QGame::RenderManager.camera.update
-
-        @parent_screen.update unless @parent_screen.nil?
+        QGame::RenderManager.camera.update  
       end
+
+      @parent_screen.update unless @parent_screen.nil?
 
       @animations.each do |animation|
         animation.update

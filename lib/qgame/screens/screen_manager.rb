@@ -26,11 +26,14 @@ module QGame
     def self.transition_to(screen_name)
       self.next_screen = QGame::Screen.find(screen_name).build
       self.next_screen.pause
-      
+
       if !self.current.nil? && self.current.has_transition?(:out)
+        
         self.current.start_transition(:out, {:to => self.next_screen}) do
+        
           self.current = self.next_screen
           self.current.resume
+        
           self.next_screen = nil
         end
         self.next_screen
@@ -38,7 +41,7 @@ module QGame
         self.current = self.next_screen
         self.current.resume
         self.next_screen = nil
-        
+      
         self.current
       end
     end

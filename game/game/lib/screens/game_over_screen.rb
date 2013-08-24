@@ -6,7 +6,6 @@ TestGame::Application.screen_manager.define_screen(:game_over) do
        :font_size => 42, :flag => :cartoon, :position => Vec2.new(0, 200), :centered => :horizontal)
 
   button('start_button', :z_index => 1.0, :position => Vec2.new(0, 200), :centered => :horizontal) do
-    TestGame::Application.screen_manager.current.overlay(nil)
-    TestGame::Application.screen_manager.transition_to(:game)
+    TestGame::Application.screen_manager.current.reset
   end
 end
