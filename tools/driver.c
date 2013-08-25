@@ -6,6 +6,7 @@
 */
 
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 
 #include <mruby.h>
@@ -36,7 +37,7 @@ void
 mrb_init_gamegems(mrb_state *);
 
 void
-mrb_mruby_freetype_gl_gem_init(mrb_state*);
+mrb_mruby_freetypegl_gem_init(mrb_state*);
 
 int
 main(int argc, char **argv)
@@ -53,7 +54,7 @@ main(int argc, char **argv)
 
   mrb_value ARGV = mrb_ary_new_capa(mrb, argc);
   for (int i = 0; i < argc; i++) {
-    mrb_ary_push(mrb, ARGV, mrb_str_new(mrb, argv[i], strlen(argv[i])));
+//    mrb_ary_push(mrb, ARGV, mrb_str_new(mrb, argv[i], strlen(argv[i])));
   }
   mrb_define_global_const(mrb, "ARGV", ARGV);
 
@@ -61,7 +62,7 @@ main(int argc, char **argv)
   
   qgame_init(mrb);
   mrb_init_qgamelib(mrb);
-  mrb_mruby_freetype_gl_gem_init(mrb);
+  mrb_mruby_freetypegl_gem_init(mrb);
   
   mrb_init_gamegems(mrb);
   mrb_init_gamelib(mrb);

@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B94A948417C9BADD008A00F8 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B94A948317C9BADD008A00F8 /* libfreetype.a */; };
-		B94A948817C9BAF3008A00F8 /* libSDL2_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B94A948517C9BAF3008A00F8 /* libSDL2_image.a */; };
-		B94A948917C9BAF3008A00F8 /* libSDL2_mixer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B94A948617C9BAF3008A00F8 /* libSDL2_mixer.a */; };
-		B94A948A17C9BAF3008A00F8 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B94A948717C9BAF3008A00F8 /* libSDL2.a */; };
-		B94A948C17C9BB07008A00F8 /* libmruby.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B94A948B17C9BB07008A00F8 /* libmruby.a */; };
+		B94A949A17C9C054008A00F8 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = B94A949917C9C054008A00F8 /* main.c */; };
+		B94A94AA17C9ED46008A00F8 /* libqgame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B94A94A917C9ED46008A00F8 /* libqgame.a */; };
+		B94A94AE17C9ED56008A00F8 /* libSDL2_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B94A94AB17C9ED56008A00F8 /* libSDL2_image.a */; };
+		B94A94AF17C9ED56008A00F8 /* libSDL2_mixer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B94A94AC17C9ED56008A00F8 /* libSDL2_mixer.a */; };
+		B94A94B017C9ED56008A00F8 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B94A94AD17C9ED56008A00F8 /* libSDL2.a */; };
+		B94A94B217C9ED62008A00F8 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B94A94B117C9ED62008A00F8 /* libfreetype.a */; };
+		B94A94B417C9ED82008A00F8 /* libgame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B94A94B317C9ED82008A00F8 /* libgame.a */; };
+		B94A94B617C9ED9E008A00F8 /* libmruby.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B94A94B517C9ED9E008A00F8 /* libmruby.a */; };
 		C3F22E3D177EA50A00DDF76E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E3C177EA50A00DDF76E /* UIKit.framework */; };
 		C3F22E3F177EA50A00DDF76E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E3E177EA50A00DDF76E /* Foundation.framework */; };
 		C3F22E41177EA50A00DDF76E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E40177EA50A00DDF76E /* CoreGraphics.framework */; };
@@ -19,24 +22,24 @@
 		C3F22E51177EA50A00DDF76E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F22E50177EA50A00DDF76E /* Default@2x.png */; };
 		C3F22E53177EA50A00DDF76E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F22E52177EA50A00DDF76E /* Default-568h@2x.png */; };
 		C3F22E5A177EA56200DDF76E /* driver.c in Sources */ = {isa = PBXBuildFile; fileRef = C3F22E59177EA56200DDF76E /* driver.c */; };
-		C3F22E5E177EA68800DDF76E /* libgame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E5D177EA68800DDF76E /* libgame.a */; };
-		C3F22E60177EA69E00DDF76E /* libqgame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E5F177EA69E00DDF76E /* libqgame.a */; };
 		C3F22E72177EA9A900DDF76E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E71177EA9A900DDF76E /* AudioToolbox.framework */; };
 		C3F22E75177EA9EC00DDF76E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E74177EA9EC00DDF76E /* CoreAudio.framework */; };
 		C3F22E77177EA9F500DDF76E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E76177EA9F500DDF76E /* QuartzCore.framework */; };
 		C3F22E79177EA9FC00DDF76E /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E78177EA9FC00DDF76E /* OpenGLES.framework */; };
 		C3F22E7B177EAA7D00DDF76E /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E7A177EAA7D00DDF76E /* ImageIO.framework */; };
 		C3F22E7D177EAAC100DDF76E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F22E7C177EAAC100DDF76E /* MobileCoreServices.framework */; };
-		C3F22E7F177EAC0F00DDF76E /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C3F22E7E177EAC0F00DDF76E /* main.c */; };
 		C3F22E82177EB6A500DDF76E /* assets in Resources */ = {isa = PBXBuildFile; fileRef = C3F22E81177EB6A500DDF76E /* assets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B94A948317C9BADD008A00F8 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfreetype.a; sourceTree = "<group>"; };
-		B94A948517C9BAF3008A00F8 /* libSDL2_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSDL2_image.a; sourceTree = "<group>"; };
-		B94A948617C9BAF3008A00F8 /* libSDL2_mixer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSDL2_mixer.a; sourceTree = "<group>"; };
-		B94A948717C9BAF3008A00F8 /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSDL2.a; sourceTree = "<group>"; };
-		B94A948B17C9BB07008A00F8 /* libmruby.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmruby.a; sourceTree = "<group>"; };
+		B94A949917C9C054008A00F8 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = main.c; path = ../../../../build/ios_i386/tools/main.c; sourceTree = "<group>"; };
+		B94A94A917C9ED46008A00F8 /* libqgame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libqgame.a; path = ../../../../build/ios_i386/lib/libqgame.a; sourceTree = "<group>"; };
+		B94A94AB17C9ED56008A00F8 /* libSDL2_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2_image.a; path = ../../../../build/ios_i386/sdl/lib/libSDL2_image.a; sourceTree = "<group>"; };
+		B94A94AC17C9ED56008A00F8 /* libSDL2_mixer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2_mixer.a; path = ../../../../build/ios_i386/sdl/lib/libSDL2_mixer.a; sourceTree = "<group>"; };
+		B94A94AD17C9ED56008A00F8 /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = ../../../../build/ios_i386/sdl/lib/libSDL2.a; sourceTree = "<group>"; };
+		B94A94B117C9ED62008A00F8 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = ../../../../build/ios_i386/freetype/lib/libfreetype.a; sourceTree = "<group>"; };
+		B94A94B317C9ED82008A00F8 /* libgame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgame.a; path = ../../../build/ios_i386/lib/libgame.a; sourceTree = "<group>"; };
+		B94A94B517C9ED9E008A00F8 /* libmruby.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmruby.a; path = ../../../../dependencies/mruby/build/ios_i386/lib/libmruby.a; sourceTree = "<group>"; };
 		C3F22E39177EA50A00DDF76E /* GameTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3F22E3C177EA50A00DDF76E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C3F22E3E177EA50A00DDF76E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -46,15 +49,12 @@
 		C3F22E50177EA50A00DDF76E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		C3F22E52177EA50A00DDF76E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C3F22E59177EA56200DDF76E /* driver.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = driver.c; path = ../../../../../tools/driver.c; sourceTree = "<group>"; };
-		C3F22E5D177EA68800DDF76E /* libgame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgame.a; path = ../../../build/ios/lib/libgame.a; sourceTree = "<group>"; };
-		C3F22E5F177EA69E00DDF76E /* libqgame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libqgame.a; path = ../../../../build/ios/lib/libqgame.a; sourceTree = "<group>"; };
 		C3F22E71177EA9A900DDF76E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C3F22E74177EA9EC00DDF76E /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		C3F22E76177EA9F500DDF76E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C3F22E78177EA9FC00DDF76E /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		C3F22E7A177EAA7D00DDF76E /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		C3F22E7C177EAAC100DDF76E /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		C3F22E7E177EAC0F00DDF76E /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = main.c; path = ../../../../build/host/tools/main.c; sourceTree = "<group>"; };
 		C3F22E81177EB6A500DDF76E /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../../../assets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,13 +72,13 @@
 				C3F22E3D177EA50A00DDF76E /* UIKit.framework in Frameworks */,
 				C3F22E3F177EA50A00DDF76E /* Foundation.framework in Frameworks */,
 				C3F22E41177EA50A00DDF76E /* CoreGraphics.framework in Frameworks */,
-				C3F22E5E177EA68800DDF76E /* libgame.a in Frameworks */,
-				C3F22E60177EA69E00DDF76E /* libqgame.a in Frameworks */,
-				B94A948417C9BADD008A00F8 /* libfreetype.a in Frameworks */,
-				B94A948817C9BAF3008A00F8 /* libSDL2_image.a in Frameworks */,
-				B94A948917C9BAF3008A00F8 /* libSDL2_mixer.a in Frameworks */,
-				B94A948A17C9BAF3008A00F8 /* libSDL2.a in Frameworks */,
-				B94A948C17C9BB07008A00F8 /* libmruby.a in Frameworks */,
+				B94A94AA17C9ED46008A00F8 /* libqgame.a in Frameworks */,
+				B94A94AE17C9ED56008A00F8 /* libSDL2_image.a in Frameworks */,
+				B94A94AF17C9ED56008A00F8 /* libSDL2_mixer.a in Frameworks */,
+				B94A94B017C9ED56008A00F8 /* libSDL2.a in Frameworks */,
+				B94A94B217C9ED62008A00F8 /* libfreetype.a in Frameworks */,
+				B94A94B417C9ED82008A00F8 /* libgame.a in Frameworks */,
+				B94A94B617C9ED9E008A00F8 /* libmruby.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,13 +112,13 @@
 		C3F22E3B177EA50A00DDF76E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B94A948317C9BADD008A00F8 /* libfreetype.a */,
-				B94A948517C9BAF3008A00F8 /* libSDL2_image.a */,
-				B94A948617C9BAF3008A00F8 /* libSDL2_mixer.a */,
-				B94A948717C9BAF3008A00F8 /* libSDL2.a */,
-				C3F22E5F177EA69E00DDF76E /* libqgame.a */,
-				C3F22E5D177EA68800DDF76E /* libgame.a */,
-				B94A948B17C9BB07008A00F8 /* libmruby.a */,
+				B94A94B517C9ED9E008A00F8 /* libmruby.a */,
+				B94A94B117C9ED62008A00F8 /* libfreetype.a */,
+				B94A94B317C9ED82008A00F8 /* libgame.a */,
+				B94A94AB17C9ED56008A00F8 /* libSDL2_image.a */,
+				B94A94AC17C9ED56008A00F8 /* libSDL2_mixer.a */,
+				B94A94AD17C9ED56008A00F8 /* libSDL2.a */,
+				B94A94A917C9ED46008A00F8 /* libqgame.a */,
 				C3F22E3C177EA50A00DDF76E /* UIKit.framework */,
 				C3F22E3E177EA50A00DDF76E /* Foundation.framework */,
 				C3F22E40177EA50A00DDF76E /* CoreGraphics.framework */,
@@ -129,7 +129,7 @@
 		C3F22E42177EA50A00DDF76E /* GameTest */ = {
 			isa = PBXGroup;
 			children = (
-				C3F22E7E177EAC0F00DDF76E /* main.c */,
+				B94A949917C9C054008A00F8 /* main.c */,
 				C3F22E59177EA56200DDF76E /* driver.c */,
 				C3F22E43177EA50A00DDF76E /* Supporting Files */,
 			);
@@ -221,7 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3F22E5A177EA56200DDF76E /* driver.c in Sources */,
-				C3F22E7F177EAC0F00DDF76E /* main.c in Sources */,
+				B94A949A17C9C054008A00F8 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +287,8 @@
 		C3F22E57177EA50A00DDF76E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_INPUT_FILETYPE = sourcecode.cpp.cpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = __IPHONEOS__;
@@ -297,10 +299,11 @@
 				INFOPLIST_FILE = "GameTest/GameTest-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../dependencies/mruby/build/ios/lib\"",
-					"\"$(SRCROOT)/../../../build/ios/lib\"",
-					"\"$(SRCROOT)/../../../../build/ios/lib\"/**",
-					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../../build/ios_i386/lib\"",
+					"\"$(SRCROOT)/../../../../build/ios_i386/sdl/lib\"",
+					"\"$(SRCROOT)/../../../../build/ios_i386/freetype/lib\"",
+					"\"$(SRCROOT)/../../../build/ios_i386/lib\"",
+					"\"$(SRCROOT)/../../../../dependencies/mruby/build/ios_i386/lib\"",
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -311,6 +314,8 @@
 		C3F22E58177EA50A00DDF76E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_INPUT_FILETYPE = sourcecode.cpp.cpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = __IPHONEOS__;
@@ -321,10 +326,11 @@
 				INFOPLIST_FILE = "GameTest/GameTest-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../dependencies/mruby/build/ios/lib\"",
-					"\"$(SRCROOT)/../../../build/ios/lib\"",
-					"\"$(SRCROOT)/../../../../build/ios/lib\"/**",
-					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../../build/ios_i386/lib\"",
+					"\"$(SRCROOT)/../../../../build/ios_i386/sdl/lib\"",
+					"\"$(SRCROOT)/../../../../build/ios_i386/freetype/lib\"",
+					"\"$(SRCROOT)/../../../build/ios_i386/lib\"",
+					"\"$(SRCROOT)/../../../../dependencies/mruby/build/ios_i386/lib\"",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;

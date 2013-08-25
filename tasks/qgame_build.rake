@@ -88,7 +88,6 @@ module QGame
     def build_sdl_ios(args = {})
       FileUtils.cp_r Dir.glob("#{args[:directory]}/include/**/*.h"), "#{args[:output_dir]}/include/SDL2"
 
-      FileUtils.cp "#{args[:directory]}/include/SDL_config_iphoneos.h", "#{args[:directory]}/include/SDL_config.h"
       FileUtils.cd "#{args[:directory]}/Xcode-IOS/SDL"
       FileUtils.sh "xcodebuild clean"
       FileUtils.sh "xcodebuild build -target libSDL -arch #{args[:target].arch} -sdk #{args[:target].sdk}"
