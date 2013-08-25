@@ -35,7 +35,7 @@ namespace :freetype do
     end
 
     def ios_output_dir
-      "#{QGame.targets['ios'].build_dir}/freetype/"
+      "#{QGAME_ROOT}/build/ios/freetype/"
     end
 
     base_output_dir = "#{QGAME_ROOT}/build/freetype/"
