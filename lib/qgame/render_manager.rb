@@ -7,7 +7,8 @@ module QGame
 
     @@render_batch = ModelRenderBatch.new
     @@submitted_entities = {}
-
+    @@render_duration = Time.now
+    
     def self.camera=(camera)
       @@camera = camera
     end
@@ -17,12 +18,20 @@ module QGame
     end
 
     def self.render
+      start_time = Time.now
+      
       GL.blend_alpha_transparency
       
       @@render_batch.render
       @@submitted_entities.clear
       
       GL.blend_opaque
+
+      @@render_duration = Time.now - start_time
+    end
+
+    def self.render_duration
+      @@render_duration
     end
 
     def self.submit(entity)

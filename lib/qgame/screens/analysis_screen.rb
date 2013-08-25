@@ -28,6 +28,14 @@ module QGame
           
           "#{elapsed} / #{min_elapsed} - #{max_elapsed}"
         end
+
+        dynamic_text(:frequency => 0, :position => Vec2.new(200, 110), :font_size => 10) do
+          elapsed = (QGame::Application.render_manager.render_duration * 1000).to_i
+          min_elapsed = elapsed if elapsed < min_elapsed
+          max_elapsed = elapsed if elapsed > max_elapsed
+          
+          "#{elapsed} / #{min_elapsed} - #{max_elapsed}"
+        end
       end
   	end
   end
