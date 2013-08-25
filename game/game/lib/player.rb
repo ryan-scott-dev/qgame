@@ -105,7 +105,7 @@ module TestGame
 
         @velocity_x = 0
 
-        QGame::ScreenManager.current.overlay(:game_over)
+        Application.screen_manager.current.overlay(:game_over)
       end
     end
 
