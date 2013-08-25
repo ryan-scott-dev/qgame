@@ -49,7 +49,7 @@ module QGame
     end
 
     def submit_render
-      QGame::RenderManager.submit(self)
+      Application.render_manager.submit(self)
     end
 
     def render
@@ -58,7 +58,7 @@ module QGame
       
       shader.set_uniform('texture', 0)
       shader.set_uniform('view', Mat4.new)
-      shader.set_uniform('projection', QGame::RenderManager.projection)
+      shader.set_uniform('projection', Application.render_manager.projection)
 
       shader.set_uniform('position', @position)
       shader.set_uniform('rotation', @rotation)

@@ -10,7 +10,7 @@ module QGame
     end
 
     def bounds
-      @bound = @position + QGame::RenderManager.screen_size
+      @bound = @position + Application.render_manager.screen_size
     end
 
     def view

@@ -7,7 +7,7 @@ module QGame
     end
 
     def center(position)
-      @position = position - (QGame::RenderManager.screen_size / 2.0)
+      @position = position - (Application.render_manager.screen_size / 2.0)
     end
 
     def update

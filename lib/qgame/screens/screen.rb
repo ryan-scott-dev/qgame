@@ -48,11 +48,11 @@ module QGame
     end
 
     def screen_width
-      QGame::RenderManager.screen_width
+      Application.render_manager.screen_width
     end
 
     def screen_height
-      QGame::RenderManager.screen_height
+      Application.render_manager.screen_height
     end
 
     def screen_size
@@ -75,15 +75,15 @@ module QGame
 
     def resume
       @paused = false
-      QGame::RenderManager.camera = @camera
+      Application.render_manager.camera = @camera
     end
 
     def camera(type, args = {})
       case type
       when :fixed  
-        @camera = QGame::RenderManager.camera = QGame::Camera2D.new(args)
+        @camera = Application.render_manager.camera = QGame::Camera2D.new(args)
       when :follow
-        @camera = QGame::RenderManager.camera = QGame::FollowCamera.new(args)
+        @camera = Application.render_manager.camera = QGame::FollowCamera.new(args)
       end
     end
 
@@ -274,7 +274,7 @@ module QGame
           component.update
         end
 
-        QGame::RenderManager.camera.update  
+        Application.render_manager.camera.update  
       end
 
       @parent_screen.update unless @parent_screen.nil?

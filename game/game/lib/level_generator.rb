@@ -57,7 +57,7 @@ module TestGame
     end
 
     def tiles_per_screen
-      (QGame::RenderManager.screen_width / @tile_width).ceil
+      (Application.render_manager.screen_width / @tile_width).ceil
     end
 
     def build(tile_count)
@@ -156,7 +156,7 @@ module TestGame
     end
 
     def tiles_required?
-      (QGame::RenderManager.camera.bounds.x + @tile_width) > (@tile_position_offset)
+      (Application.render_manager.camera.bounds.x + @tile_width) > (@tile_position_offset)
     end
 
     def cleanup_old_tiles
