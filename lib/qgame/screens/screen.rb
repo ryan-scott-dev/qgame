@@ -222,6 +222,11 @@ module QGame
       new_text_input
     end
 
+    def ticker_graph(args = {}, &block)
+      new_graph = QGame::TickerGraph.new(args, &block)
+      add(new_graph)
+    end
+
     def joystick(texture_name, args = {})
       texture = QGame::AssetManager.texture(texture_name)
       texture_base = "#{texture_name}_base"

@@ -6,35 +6,18 @@ module QGame
   	def self.enable
       AnalysisScreen.new(:analyse) do
         object_count = {}
-        min_count = 10000
-        max_count = 0
 
-        min_elapsed = 100000
-        max_elapsed = 0
-
-        dynamic_text(:frequency => 0.1, :position => Vec2.new(100, 100), :font_size => 10) do
+        ticker_graph(:frequency => 0.1, :color => :blue, :label => "Object Pool") do
           ObjectSpace.count_objects(object_count)
-          count = object_count[:TOTAL]
-          min_count = count if count < min_count
-          max_count = count if count > max_count
-
-          "#{count} / #{min_count} - #{max_count}"
+          object_count[:TOTAL]
         end
 
-        dynamic_text(:frequency => 0, :position => Vec2.new(100, 110), :font_size => 10) do
-          elapsed = (QGame::Application.elapsed * 1000).to_i
-          min_elapsed = elapsed if elapsed < min_elapsed
-          max_elapsed = elapsed if elapsed > max_elapsed
-          
-          "#{elapsed} / #{min_elapsed} - #{max_elapsed}"
+        ticker_graph(:frequency => 0.1, :color => :red, :label => "Update Time") do
+          QGame::Application.elapsed
         end
-
-        dynamic_text(:frequency => 0, :position => Vec2.new(200, 110), :font_size => 10) do
-          elapsed = (QGame::Application.render_manager.render_duration * 1000).to_i
-          min_elapsed = elapsed if elapsed < min_elapsed
-          max_elapsed = elapsed if elapsed > max_elapsed
-          
-          "#{elapsed} / #{min_elapsed} - #{max_elapsed}"
+        
+        ticker_graph(:frequency => 0.1, :color => :green, :label => "Render Time") do
+          QGame::Application.render_manager.render_duration
         end
       end
   	end
