@@ -11,7 +11,7 @@ module QGame
   # Values after x_max are not displayed
   # Values are clamped between y_max and y_min
 
-	class Graph
+	class Graph < GraphObject
     attr_accessor :parent
 
 		def initialize(args = {}, &block)
@@ -19,9 +19,7 @@ module QGame
       @label = args[:label] || 'Un-named graph'
       @values_size = args[:values_size] || 600 # 60 seconds
 
-      calculate_range
-
-      super(args)
+      super
     end
 
     def update
