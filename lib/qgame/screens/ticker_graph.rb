@@ -1,14 +1,10 @@
 module QGame
-	class TickerGraph
-
-    attr_accessor :parent
-
+	class TickerGraph < Graph
 		def initialize(args = {}, &block)
       @frequency = args[:frequency] || 1.0
+
       @timer = 0.0
       @calculate_text = block
-      
-      @values = []
 
       super(args)
     end
@@ -22,20 +18,7 @@ module QGame
     end
 
     def add_current_value
-      add_value(self.instance_eval(&@calculate_text))
-    end
-
-    def add_value(value)
-      puts value
-      @values << value
-    end
-
-    def submit_render
-    end
-
-    def destruct
-      self.parent.remove(self)
-      self.parent = nil
+      add_value(Time.now.to_f, self.instance_eval(&@calculate_text))
     end
 	end
 end
