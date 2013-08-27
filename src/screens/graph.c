@@ -6,12 +6,6 @@
 
 /* Render */
 
-/* Add value to graph */
-
-/* Set graph values from array */
-
-/* Set size of graph */
-
 static struct RClass* qgame_graph_object_class = NULL;
 
 struct mrb_data_type graph_object_type = { "GraphObject", graph_object_free };
@@ -19,7 +13,17 @@ struct mrb_data_type graph_object_type = { "GraphObject", graph_object_free };
 struct graph_object* 
 allocate_new_graph_object(mrb_state* mrb) {
 	struct graph_object* new_graph_object = (struct graph_object *)mrb_malloc(mrb, sizeof(struct graph_object));
-	new_graph_object->data = vector_new(sizeof(struct graph_data)); /* Giving bad addresses? */
+	
+	GLuint vao = 0;
+  
+  glGenVertexArrays(1, &vao);
+  glBindVertexArray(vao);
+
+  new_graph_object->vao = vao;
+	new_graph_object->buffer = vertex_buffer_new( "vertex:2f" );
+
+	glBindVertexArray(0);
+
   return new_graph_object; 
 }
 
@@ -27,7 +31,7 @@ void
 graph_object_free(mrb_state *mrb, void *ptr) {
 	struct graph_object* object = ((struct graph_object*)ptr);
 
-	vector_delete(object->data);
+	vertex_buffer_delete(object->buffer);
   mrb_free(mrb, ptr);
 }
 
@@ -59,8 +63,8 @@ qgame_graph_object_push_value(mrb_state *mrb, mrb_value self) {
   new_data.y = y_value;
 
   struct graph_object* graph = graph_object_get_ptr(mrb, self);
-  
-  vector_push_back(graph->data, &new_data);
+  	
+  vertex_buffer_push_back_vertices( graph->buffer, &new_data, 1 );
 
 	return self;
 }

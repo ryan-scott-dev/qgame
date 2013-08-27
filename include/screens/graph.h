@@ -3,11 +3,12 @@
 
 #include <mruby.h>
 
-#include "vector.h"
+#include "vertex-buffer.h"
 
 struct graph_object
 {
-  vector_t* data;
+  vertex_buffer_t *buffer;
+  GLuint vao;
 };
 
 struct graph_data
