@@ -1,5 +1,4 @@
 module QGame
-
   # <= y_max             X                 X     X     
   #                X     .                 .     .     X
   #          X     .     .     X     x     .     .     .
@@ -11,7 +10,15 @@ module QGame
   # Values after x_max are not displayed
   # Values are clamped between y_max and y_min
 
-	class Graph < GraphObject
+  class Graph < GraphObject
+
+    @@shader = nil
+
+    def self.shader
+      @@shader ||= ShaderProgramAsset.new(QGame::AssetManager.vertex('graph'), 
+                                          QGame::AssetManager.fragment('graph'))
+    end
+	
     attr_accessor :parent
 
 		def initialize(args = {}, &block)
@@ -36,10 +43,19 @@ module QGame
     end
 
     def submit_render
+      Application.render_manager.submit(self)
     end
 
     def render
-      # Set shader variables: view, projection, color, step_size
+      shader = Graph.shader
+      self.bind(shader.program_id)
+      
+      shader.set_uniform('view', Mat4.new)
+      shader.set_uniform('projection', Application.render_manager.projection)
+
+      super
+
+      self.unbind
     end
 
     def destruct
