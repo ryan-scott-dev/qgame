@@ -83,7 +83,6 @@ qgame_graph_object_bind(mrb_state *mrb, mrb_value self)
   glBindVertexArray(graph->vao);
 
   if (arg_count > 0) {
-    
     glUseProgram(program_id);
 
     // connect the xyz to the "vert" attribute of the vertex shader
@@ -116,7 +115,7 @@ qgame_graph_object_render(mrb_state *mrb, mrb_value self)
 
   size_t vcount = graph->buffer->vertices->size;
   
-  glDrawArrays( GL_TRIANGLES, 0, vcount );
+  glDrawArrays( GL_LINE_STRIP, 0, vcount );
  	
   return self;
 }

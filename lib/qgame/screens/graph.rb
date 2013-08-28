@@ -51,7 +51,13 @@ module QGame
       self.bind(shader.program_id)
       
       shader.set_uniform('view', Mat4.new)
-      shader.set_uniform('projection', Application.render_manager.projection)
+      shader.set_uniform('z_index', 1.0)
+      shader.set_uniform('transparency', 1.0)
+
+      shader.set_uniform('x_min', @x_min.to_f)
+      shader.set_uniform('x_max', @x_max.to_f)
+      shader.set_uniform('y_min', @y_min.to_f)
+      shader.set_uniform('y_max', @y_max.to_f)
 
       super
 

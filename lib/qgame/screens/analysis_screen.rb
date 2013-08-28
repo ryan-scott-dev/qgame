@@ -6,7 +6,7 @@ module QGame
   	def self.enable
       AnalysisScreen.new(:analyse) do
         object_count = {}
-
+        
         ticker_graph(:frequency => 0.1, :color => :blue, :label => "Object Pool") do
           ObjectSpace.count_objects(object_count)
           object_count[:TOTAL]
