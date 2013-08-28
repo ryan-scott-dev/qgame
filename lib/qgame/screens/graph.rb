@@ -24,7 +24,8 @@ module QGame
 		def initialize(args = {}, &block)
       @color = args[:color] || :black
       @label = args[:label] || 'Un-named graph'
-      @values_size = args[:values_size] || 600 # 60 seconds
+      @values_size = args[:values_size] || 10 # 1 seconds
+      @x_max = @values_size
 
       super
     end
@@ -40,6 +41,8 @@ module QGame
 
       @x_max = x_value if @x_max.nil? || x_value > @x_max 
       @x_min = x_value if @x_min.nil? || x_value < @x_min
+
+      @x_min = @x_max - @values_size if (@x_max - @x_min) > @values_size
     end
 
     def submit_render

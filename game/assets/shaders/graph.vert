@@ -22,6 +22,7 @@ void main()
 	vec2 min = vec2(x_min, y_min);
 	vec2 max = vec2(x_max, y_max);
 	vec2 vertexLocal = (vertex - min) / (max - min);
+	vertexLocal = vec2(vertexLocal.x * 2.0 - 1.0, vertexLocal.y* 2.0 - 1.0);
 
 	mat4 position_mat = mat4(1.0);
 	position_mat[3][2] = z_index;
