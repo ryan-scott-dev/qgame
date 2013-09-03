@@ -18,6 +18,8 @@ module QGame
         set_uniform_vec2(name, value)
       elsif value.is_a? Mat4
         set_uniform_mat4(name, value)
+      elsif value.is_a? Vec4
+        set_uniform_vec4(name, value)
       end
 
     end
