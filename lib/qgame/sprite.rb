@@ -75,16 +75,15 @@ module QGame
     
     def render
       view = @screen_space ? Mat4.new : QGame::Application.render_manager.camera.view
-      shader.set_uniform('view', view)
-
-      shader.set_uniform('position', @position)
-      shader.set_uniform('rotation', @rotation)
-      shader.set_uniform('scale', @scale)
-      shader.set_uniform('offset', @offset)
-      shader.set_uniform('sprite_offset', @sprite_relative_offset)
-      shader.set_uniform('sprite_scale', @sprite_scale)
-      shader.set_uniform('z_index', @z_index)
-      shader.set_uniform('transparency', @absolute_transparency)
+      shader.set_uniform(:view, view)
+      shader.set_uniform(:position, @position)
+      shader.set_uniform(:rotation, @rotation)
+      shader.set_uniform(:scale, @scale)
+      shader.set_uniform(:offset, @offset)
+      shader.set_uniform(:sprite_offset, @sprite_relative_offset)
+      shader.set_uniform(:sprite_scale, @sprite_scale)
+      shader.set_uniform(:z_index, @z_index)
+      shader.set_uniform(:transparency, @absolute_transparency)
 
       model.render
     end

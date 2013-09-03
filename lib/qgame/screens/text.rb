@@ -56,15 +56,14 @@ module QGame
       shader = Text.shader
       @text_buffer.bind(shader.program_id)
       
-      shader.set_uniform('texture', 0)
-      shader.set_uniform('view', Mat4.new)
-      shader.set_uniform('projection', Application.render_manager.projection)
-
-      shader.set_uniform('position', @position)
-      shader.set_uniform('rotation', @rotation)
-      shader.set_uniform('offset', @offset * @size)
-      shader.set_uniform('z_index', @z_index)
-      shader.set_uniform('transparency', @absolute_transparency)
+      shader.set_uniform(:texture, 0)
+      shader.set_uniform(:view, Mat4.new)
+      shader.set_uniform(:projection, Application.render_manager.projection)
+      shader.set_uniform(:position, @position)
+      shader.set_uniform(:rotation, @rotation)
+      shader.set_uniform(:offset, @offset * @size)
+      shader.set_uniform(:z_index, @z_index)
+      shader.set_uniform(:transparency, @absolute_transparency)
 
       @text_buffer.render
 

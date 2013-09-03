@@ -71,16 +71,15 @@ module QGame
     end
 
     def render
-      shader.set_uniform('view', QGame::Application.render_manager.camera.view)
-
-      shader.set_uniform('position', @position)
-      shader.set_uniform('rotation', @rotation)
-      shader.set_uniform('scale', @scale)
-      shader.set_uniform('offset', @offset)
-      shader.set_uniform('sprite_offset', @current_animation[@current_frame.to_i])
-      shader.set_uniform('sprite_scale', frame_offset)
-      shader.set_uniform('z_index', @z_index)
-      shader.set_uniform('transparency', @absolute_transparency)
+      shader.set_uniform(:view, QGame::Application.render_manager.camera.view)
+      shader.set_uniform(:position, @position)
+      shader.set_uniform(:rotation, @rotation)
+      shader.set_uniform(:scale, @scale)
+      shader.set_uniform(:offset, @offset)
+      shader.set_uniform(:sprite_offset, @current_animation[@current_frame.to_i])
+      shader.set_uniform(:sprite_scale, frame_offset)
+      shader.set_uniform(:z_index, @z_index)
+      shader.set_uniform(:transparency, @absolute_transparency)
       
       model.render
     end

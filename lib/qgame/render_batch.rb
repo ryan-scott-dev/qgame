@@ -59,8 +59,8 @@ module QGame
 
       @batch.each do |shader, entities|
         shader.bind
-        shader.set_uniform('projection', Application.render_manager.projection)
-        shader.set_uniform('tex', 0)
+        shader.set_uniform(:projection, Application.render_manager.projection)
+        shader.set_uniform(:tex, 0)
 
         entities.render
 

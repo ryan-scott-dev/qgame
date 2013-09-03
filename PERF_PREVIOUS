@@ -1,0 +1,10 @@
+Main Menu:
+
+Render Allocations:
+	{:MRB_TT_ENV=>9, :MRB_TT_DATA=>8, :TOTAL=>76, :MRB_TT_STRING=>36, :MRB_TT_PROC=>12, :MRB_TT_ARRAY=>11}
+
+Revised Uniform Location Retrieval:
+	{:MRB_TT_ENV=>9, :MRB_TT_DATA=>8, :TOTAL=>76, :MRB_TT_STRING=>36, :MRB_TT_PROC=>12, :MRB_TT_ARRAY=>11}
+
+Changed string uniform names to symbols:
+	{:MRB_TT_ENV=>9, :MRB_TT_DATA=>8, :MRB_TT_ARRAY=>11, :TOTAL=>40, :MRB_TT_PROC=>12}
