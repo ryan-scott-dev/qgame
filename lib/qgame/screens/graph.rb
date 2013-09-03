@@ -62,6 +62,8 @@ module QGame
       shader.set_uniform('y_min', @y_min.to_f)
       shader.set_uniform('y_max', @y_max.to_f)
 
+      shader.set_uniform('graph_color', @color)
+
       super
 
       self.unbind

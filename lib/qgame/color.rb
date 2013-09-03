@@ -12,19 +12,19 @@ class Color < Vec4
   alias_method :a=, :w=
 
   def self.black
-    Color.new
+    Color.new(0, 0, 0, 1)
   end
 
   def self.red
-    Color.new(1, 0, 0, 0)
+    Color.new(1, 0, 0, 1)
   end
 
   def self.green
-    Color.new(0, 1, 0, 0)
+    Color.new(0, 1, 0, 1)
   end
 
   def self.blue
-    Color.new(0, 0, 1, 0)
+    Color.new(0, 0, 1, 1)
   end
 
 end

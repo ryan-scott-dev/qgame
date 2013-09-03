@@ -7,6 +7,7 @@ uniform float x_min;
 uniform float x_max;
 uniform float y_min;
 uniform float y_max;
+uniform vec4 graph_color;
 
 uniform mat4 view;
 uniform mat4 projection;
@@ -29,7 +30,7 @@ void main()
 	
 	mat4 world = position_mat;
 
-    fragColor         = vec4(1, 0, 0, 1);
+    fragColor         = graph_color;
     fragTransparency  = transparency;
     gl_Position       = view*(world*vec4(vertexLocal,0.0,1.0));
 }
