@@ -82,14 +82,13 @@ qgame_shader_program_asset_unbind(mrb_state* mrb, mrb_value self)
 }
 
 mrb_value
-qgame_shader_program_asset_set_uniform_fixnum(mrb_state* mrb, mrb_value self)
+qgame_shader_program_asset_find_uniform_location(mrb_state* mrb, mrb_value self)
 {
   mrb_value program_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "@program_id"));
   GLuint program = mrb_fixnum(program_id);
 
   mrb_value mrb_uniform_name;
-  mrb_int value;
-  mrb_get_args(mrb, "Si", &mrb_uniform_name, &value);
+  mrb_get_args(mrb, "S", &mrb_uniform_name);
   char* uniform_name = mrb_string_value_ptr(mrb, mrb_uniform_name);
 
   GLint uniform_id = glGetUniformLocation(program, uniform_name);
@@ -97,6 +96,16 @@ qgame_shader_program_asset_set_uniform_fixnum(mrb_state* mrb, mrb_value self)
     printf("Program uniform not found: %s\n", uniform_name);
     return self;
   }
+  
+  return mrb_fixnum_value(uniform_id);
+};
+
+mrb_value
+qgame_shader_program_asset_set_uniform_fixnum(mrb_state* mrb, mrb_value self)
+{
+  mrb_int uniform_id;
+  mrb_int value;
+  mrb_get_args(mrb, "ii", &uniform_id, &value);
   
   glUniform1i(uniform_id, value);
 
@@ -106,19 +115,15 @@ qgame_shader_program_asset_set_uniform_fixnum(mrb_state* mrb, mrb_value self)
 mrb_value
 qgame_shader_program_asset_set_uniform_float(mrb_state* mrb, mrb_value self)
 {
-  mrb_value program_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "@program_id"));
-  GLuint program = mrb_fixnum(program_id);
+  // 1. Ensure the sym_id has a cached uniform location
+    // 1.a Get the string for the sym_id
+    // 1.b Find the uniform location for the string
+    // 1.c Store the uniform location 
+  // 2. Assign the value from the cached uniform location
 
-  mrb_value mrb_uniform_name;
+  mrb_int uniform_id;
   mrb_float value;
-  mrb_get_args(mrb, "Sf", &mrb_uniform_name, &value);
-  char* uniform_name = mrb_string_value_ptr(mrb, mrb_uniform_name);
-
-  GLint uniform_id = glGetUniformLocation(program, uniform_name);
-  if(uniform_id == -1) {
-    printf("Program uniform not found: %s\n", uniform_name);
-    return self;
-  }
+  mrb_get_args(mrb, "if", &uniform_id, &value);
   
   glUniform1f(uniform_id, value);
 
@@ -128,19 +133,9 @@ qgame_shader_program_asset_set_uniform_float(mrb_state* mrb, mrb_value self)
 mrb_value
 qgame_shader_program_asset_set_uniform_vec2(mrb_state* mrb, mrb_value self)
 {
-  mrb_value program_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "@program_id"));
-  GLuint program = mrb_fixnum(program_id);
-
-  mrb_value mrb_uniform_name;
+  mrb_int uniform_id;
   mrb_value value;
-  mrb_get_args(mrb, "So", &mrb_uniform_name, &value);
-  char* uniform_name = mrb_string_value_ptr(mrb, mrb_uniform_name);
-
-  GLint uniform_id = glGetUniformLocation(program, uniform_name);
-  if(uniform_id == -1) {
-    printf("Program uniform not found: %s\n", uniform_name);
-    return self;
-  }
+  mrb_get_args(mrb, "io", &uniform_id, &value);
   
   struct vec2* vector = vec2_get_ptr(mrb, value);
   glUniform2fv(uniform_id, 1, vector);
@@ -151,19 +146,9 @@ qgame_shader_program_asset_set_uniform_vec2(mrb_state* mrb, mrb_value self)
 mrb_value
 qgame_shader_program_asset_set_uniform_vec4(mrb_state* mrb, mrb_value self)
 {
-  mrb_value program_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "@program_id"));
-  GLuint program = mrb_fixnum(program_id);
-
-  mrb_value mrb_uniform_name;
+  mrb_int uniform_id;
   mrb_value value;
-  mrb_get_args(mrb, "So", &mrb_uniform_name, &value);
-  char* uniform_name = mrb_string_value_ptr(mrb, mrb_uniform_name);
-
-  GLint uniform_id = glGetUniformLocation(program, uniform_name);
-  if(uniform_id == -1) {
-    printf("Program uniform not found: %s\n", uniform_name);
-    return self;
-  }
+  mrb_get_args(mrb, "io", &uniform_id, &value);
   
   struct vec4* vector = vec4_get_ptr(mrb, value);
   glUniform4fv(uniform_id, 1, vector);
@@ -174,19 +159,9 @@ qgame_shader_program_asset_set_uniform_vec4(mrb_state* mrb, mrb_value self)
 mrb_value
 qgame_shader_program_asset_set_uniform_mat4(mrb_state* mrb, mrb_value self)
 {
-  mrb_value program_id = mrb_iv_get(mrb, self, mrb_intern(mrb, "@program_id"));
-  GLuint program = mrb_fixnum(program_id);
-
-  mrb_value mrb_uniform_name;
+  mrb_int uniform_id;
   mrb_value value;
-  mrb_get_args(mrb, "So", &mrb_uniform_name, &value);
-  char* uniform_name = mrb_string_value_ptr(mrb, mrb_uniform_name);
-
-  GLint uniform_id = glGetUniformLocation(program, uniform_name);
-  if(uniform_id == -1) {
-    printf("Program uniform not found: %s\n", uniform_name);
-    return self;
-  }
+  mrb_get_args(mrb, "io", &uniform_id, &value);
 
   struct mat4* matrix = mat4_get_ptr(mrb, value);
   glUniformMatrix4fv(uniform_id, 1, GL_FALSE, matrix);
@@ -202,6 +177,7 @@ qgame_shader_program_asset_init(mrb_state* mrb, struct RClass* mrb_qgame_class) 
   mrb_define_method(mrb, shader_program_asset_class, "link", qgame_shader_program_asset_link, ARGS_REQ(2));
   mrb_define_method(mrb, shader_program_asset_class, "bind", qgame_shader_program_asset_bind, ARGS_NONE());
   mrb_define_method(mrb, shader_program_asset_class, "unbind", qgame_shader_program_asset_unbind, ARGS_NONE());
+  mrb_define_method(mrb, shader_program_asset_class, "find_uniform_location", qgame_shader_program_asset_find_uniform_location, ARGS_REQ(1));
 
   mrb_define_method(mrb, shader_program_asset_class, "set_uniform_fixnum", qgame_shader_program_asset_set_uniform_fixnum, ARGS_REQ(2));
   mrb_define_method(mrb, shader_program_asset_class, "set_uniform_float", qgame_shader_program_asset_set_uniform_float, ARGS_REQ(2));
