@@ -34,6 +34,9 @@ void
 mrb_init_mrbgems(mrb_state *);
 
 void 
+mrb_init_qgamegems(mrb_state *);
+
+void 
 mrb_init_gamegems(mrb_state *);
 
 void
@@ -51,7 +54,6 @@ main(int argc, char **argv)
     return EXIT_FAILURE;
   }
   
-
   mrb_value ARGV = mrb_ary_new_capa(mrb, argc);
   for (int i = 0; i < argc; i++) {
    mrb_ary_push(mrb, ARGV, mrb_str_new(mrb, argv[i], strlen(argv[i])));
@@ -62,7 +64,7 @@ main(int argc, char **argv)
   
   qgame_init(mrb);
   mrb_init_qgamelib(mrb);
-  mrb_mruby_freetypegl_gem_init(mrb);
+  mrb_init_qgamegems(mrb);
   
   mrb_init_gamegems(mrb);
   mrb_init_gamelib(mrb);
