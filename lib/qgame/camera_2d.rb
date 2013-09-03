@@ -1,24 +1,21 @@
 module QGame
   class Camera2D
-    attr_accessor :position
+    attr_accessor :position, :view
     
     def initialize(args = {})
       @position = args[:position] || Vec2.new
+      @view = Mat4.new
+
+      update
     end
 
     def update
+      @view.f41 = -@position.x
+      @view.f42 = -@position.y
     end
 
     def bounds
       @bound = @position + Application.render_manager.screen_size
-    end
-
-    def view
-      Mat4.new(
-        [1, 0, 0, 0],
-        [0, 1, 0, 0],
-        [0, 0, 1, 0],
-        [-@position.x, -@position.y, 0, 1])
     end
   end
 end

@@ -115,12 +115,6 @@ qgame_shader_program_asset_set_uniform_fixnum(mrb_state* mrb, mrb_value self)
 mrb_value
 qgame_shader_program_asset_set_uniform_float(mrb_state* mrb, mrb_value self)
 {
-  // 1. Ensure the sym_id has a cached uniform location
-    // 1.a Get the string for the sym_id
-    // 1.b Find the uniform location for the string
-    // 1.c Store the uniform location 
-  // 2. Assign the value from the cached uniform location
-
   mrb_int uniform_id;
   mrb_float value;
   mrb_get_args(mrb, "if", &uniform_id, &value);

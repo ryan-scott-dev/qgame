@@ -74,7 +74,7 @@ module QGame
     end
     
     def render
-      view = @screen_space ? Mat4.new : QGame::Application.render_manager.camera.view
+      view = @screen_space ? Mat4.identity : QGame::Application.render_manager.camera.view
       shader.set_uniform(:view, view)
       shader.set_uniform(:position, @position)
       shader.set_uniform(:rotation, @rotation)

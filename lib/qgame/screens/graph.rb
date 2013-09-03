@@ -53,7 +53,7 @@ module QGame
       shader = Graph.shader
       self.bind(shader.program_id)
       
-      shader.set_uniform(:view, Mat4.new)
+      shader.set_uniform(:view, Mat4.identity)
       shader.set_uniform(:z_index, 1.0)
       shader.set_uniform(:transparency, 1.0)
       shader.set_uniform(:x_min, @x_min.to_f)

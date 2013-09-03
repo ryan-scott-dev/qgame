@@ -57,7 +57,7 @@ module QGame
       @text_buffer.bind(shader.program_id)
       
       shader.set_uniform(:texture, 0)
-      shader.set_uniform(:view, Mat4.new)
+      shader.set_uniform(:view, Mat4.identity)
       shader.set_uniform(:projection, Application.render_manager.projection)
       shader.set_uniform(:position, @position)
       shader.set_uniform(:rotation, @rotation)
