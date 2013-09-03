@@ -28,7 +28,7 @@ module TestGame
     timestep = 1.0 / 60.0
     @elapsed = 0.0
     current_time = Time.now
-    
+
     while(@running)
       process_events
 
@@ -45,14 +45,16 @@ module TestGame
         frame_time -= @elapsed
       end
 
-      # render
-      GL.clear
+      QGame::Analyse.object_space(:render_allocation) do
+        # render
+        GL.clear
 
-      # render logic
-      Application.screen_manager.submit_render
-      Application.render_manager.render
+        # render logic
+        QGame::Application.screen_manager.submit_render
+        QGame::Application.render_manager.render
 
-      @window.swap_gl_window
+        @window.swap_gl_window
+      end
 
       error = GL.error
       unless error.nil?
