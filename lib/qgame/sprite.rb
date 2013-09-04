@@ -3,7 +3,7 @@ module QGame
     @@model = nil
     @@shader = nil
     
-    attr_accessor :position, :rotation, :scale, :offset, :texture, :transparency, :parent
+    attr_accessor :position, :rotation, :scale, :offset, :texture, :transparency, :parent, :transformed_position
 
     def initialize(args = {})
       @texture = args[:texture]
@@ -19,6 +19,9 @@ module QGame
       @sprite_scale = args[:sprite_scale] || @sprite_size / @texture.size
       @z_index = args[:z_index] || 0.0
       @local_transparency = args[:transparency] || 1.0
+
+      @transformed_position = Vec2.new
+      calculate_position
 
       @alive = true
 
@@ -61,7 +64,15 @@ module QGame
     end
 
     def top
-      @position.y - (@offset.y * @scale.y)
+      transformed_position.y
+    end
+
+    def center_position
+      @position - (@scale * @offset)
+    end
+
+    def calculate_position
+      @transformed_position = center_position
     end
 
     def inside?(point)

@@ -129,8 +129,6 @@ module TestGame
       update_jumping
       update_falling
       
-      check_collisions
-
       @velocity_x = @max_speed if @velocity_x > @max_speed
       @position.x += @velocity_x * Application.elapsed
 
@@ -138,7 +136,9 @@ module TestGame
       @position.y += @velocity_y * Application.elapsed
 
       game_over if @position.y > 350
-   
+      
+      check_collisions
+      
       super
     end
   end

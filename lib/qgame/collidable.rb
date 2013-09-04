@@ -26,6 +26,8 @@ module QGame
     end
 
     def check_collisions
+      self.calculate_position
+      
       @@collidables.each do |collidable|
         next if collidable == self
         next unless self.can_collide_with?(collidable)

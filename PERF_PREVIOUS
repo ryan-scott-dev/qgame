@@ -1,6 +1,6 @@
-Main Menu:
+Main Menu Render:
 
-Render Allocations:
+Start:
 	{:MRB_TT_ENV=>9, :MRB_TT_DATA=>8, :TOTAL=>76, :MRB_TT_STRING=>36, :MRB_TT_PROC=>12, :MRB_TT_ARRAY=>11}
 
 Revised Uniform Location Retrieval:
@@ -23,3 +23,12 @@ Order of targets:
 
 Two Instances of DATA are Time.now for the render duration.
 Two Instances of DATA are the calculation of a text.rb's offset
+
+
+In Game Update: 
+
+Start:
+	{:MRB_TT_PROC=>7, :MRB_TT_ARRAY=>9, :TOTAL=>553, :MRB_TT_ENV=>6, :MRB_TT_DATA=>531}
+
+Revised allocations during the collision checking pass:
+	{:MRB_TT_DATA=>11, :TOTAL=>41, :MRB_TT_ENV=>8, :MRB_TT_PROC=>10, :MRB_TT_ARRAY=>12}
