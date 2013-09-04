@@ -11,3 +11,9 @@ Changed string uniform names to symbols:
 
 Cleaned up shader views to stop allocating new Mat4 instances.
 	{:MRB_TT_PROC=>12, :MRB_TT_ARRAY=>7, :TOTAL=>32, :MRB_TT_DATA=>4, :MRB_TT_ENV=>9}
+
+Order of targets:
+	Data
+	Env
+	Array
+	Proc

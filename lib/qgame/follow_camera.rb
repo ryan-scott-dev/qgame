@@ -12,6 +12,8 @@ module QGame
 
     def update
       center(@target.position)
+
+      super
     end
   end
 end
