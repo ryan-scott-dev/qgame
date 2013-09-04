@@ -4,8 +4,6 @@
 #include <mruby/class.h>
 #include <mruby/data.h>
 
-/* Render */
-
 static struct RClass* qgame_graph_object_class = NULL;
 
 struct mrb_data_type graph_object_type = { "GraphObject", graph_object_free };
