@@ -52,6 +52,10 @@ module QGame
       Application.render_manager.submit(self)
     end
 
+    def shader_offset
+      @offset * @size # Creating two instances of TT_DATA
+    end
+
     def render
       shader = Text.shader
       @text_buffer.bind(shader.program_id)
@@ -61,7 +65,7 @@ module QGame
       shader.set_uniform(:projection, Application.render_manager.projection)
       shader.set_uniform(:position, @position)
       shader.set_uniform(:rotation, @rotation)
-      shader.set_uniform(:offset, @offset * @size)
+      shader.set_uniform(:offset, shader_offset)
       shader.set_uniform(:z_index, @z_index)
       shader.set_uniform(:transparency, @absolute_transparency)
 
