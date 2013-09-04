@@ -39,22 +39,22 @@ module TestGame
       while ( frame_time > 0.0 )
         @elapsed = Math.min(frame_time, timestep)
 
-        # update
-        Application.screen_manager.update
+        QGame::Analyse.object_space(:update_allocation) do
+          # update
+          Application.screen_manager.update
+        end
 
         frame_time -= @elapsed
       end
 
-      QGame::Analyse.object_space(:render_allocation) do
-        # render
-        GL.clear
+      # render
+      GL.clear
 
-        # render logic
-        QGame::Application.screen_manager.submit_render
-        QGame::Application.render_manager.render
+      # render logic
+      QGame::Application.screen_manager.submit_render
+      QGame::Application.render_manager.render
 
-        @window.swap_gl_window
-      end
+      @window.swap_gl_window
 
       error = GL.error
       unless error.nil?
