@@ -38,12 +38,10 @@ module TestGame
 
       while ( frame_time > 0.0 )
         @elapsed = Math.min(frame_time, timestep)
-
-        QGame::Analyse.object_space(:update_allocation) do
-          # update
-          QGame::Application.screen_manager.update
-        end
-
+    
+        # update
+        QGame::Application.screen_manager.update
+        
         frame_time -= @elapsed
       end
 

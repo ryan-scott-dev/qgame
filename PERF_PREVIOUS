@@ -32,3 +32,12 @@ Start:
 
 Revised allocations during the collision checking pass:
 	{:MRB_TT_DATA=>11, :TOTAL=>41, :MRB_TT_ENV=>8, :MRB_TT_PROC=>10, :MRB_TT_ARRAY=>12}
+
+Level Generating:
+	Start:
+		{:MRB_TT_RANGE=>1, :MRB_TT_PROC=>153, :MRB_TT_HASH=>152, :MRB_TT_ENV=>77, :MRB_TT_DATA=>468, :TOTAL=>927, :MRB_TT_OBJECT=>76}
+		{:MRB_TT_STRING=>2, :MRB_TT_RANGE=>9, :MRB_TT_PROC=>145, :MRB_TT_ARRAY=>4, :MRB_TT_HASH=>140, :MRB_TT_ENV=>79, :MRB_TT_DATA=>424, :TOTAL=>869, :MRB_TT_OBJECT=>66}
+		{:MRB_TT_STRING=>1, :MRB_TT_RANGE=>5, :MRB_TT_PROC=>139, :MRB_TT_ARRAY=>2, :MRB_TT_HASH=>136, :MRB_TT_ENV=>73, :MRB_TT_DATA=>414, :TOTAL=>836, :MRB_TT_OBJECT=>66}
+
+	1. Merging of hashes (Proc, Hash)
+	2. 
