@@ -10,10 +10,6 @@ module QGame
       @on_pressed = block
     end
 
-    def update
-      super
-    end
-
     def handle_mouse_down(event)
       return unless @mode == :on_press
       mouse_pos = Vec2.new(event.mouse_button_x, event.mouse_button_y)

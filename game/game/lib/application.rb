@@ -41,7 +41,7 @@ module TestGame
 
         QGame::Analyse.object_space(:update_allocation) do
           # update
-          Application.screen_manager.update
+          QGame::Application.screen_manager.update
         end
 
         frame_time -= @elapsed
