@@ -28,6 +28,8 @@ module QGame
         set_uniform_mat4(location, value)
       elsif value.is_a? Vec4
         set_uniform_vec4(location, value)
+      elsif value.is_a? Color
+        set_uniform_vec4(location, value)
       end
 
     end
