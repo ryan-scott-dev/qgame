@@ -44,6 +44,10 @@ module QGame
       QGame::ScreenManager
     end
 
+    def self.scenario_manager
+      QGame::ScenarioManager
+    end
+
     def title
       Application.conf[:title]
     end

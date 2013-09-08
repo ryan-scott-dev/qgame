@@ -13,6 +13,12 @@ module TestGame
       QGame::AnalysisScreen.enable 
     end
 
+    scenario_arg = ARGV.select{|arg| arg.include? '--scenario='}.first
+    if scenario_arg
+      scenario_name = scenario_arg.gsub('--scenario=', '')
+      scenario = QGame::Scenario.find(scenario_name.to_sym)
+    end
+
     QGame::ConsoleOverlayScreen.enable
 
     on_event :quit do |event|
@@ -23,7 +29,11 @@ module TestGame
       Application.render_manager.resize_window(event.resize_width, event.resize_height)
     end
 
-    Application.screen_manager.transition_to(:main_menu)
+    if scenario
+      QGame::ScenarioScreen.enable(scenario)
+    else
+      Application.screen_manager.transition_to(:main_menu)
+    end
 
     handle_events Application.screen_manager
     

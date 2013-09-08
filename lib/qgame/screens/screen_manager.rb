@@ -23,8 +23,12 @@ module QGame
       current.handle_event(event_type, event) unless current.nil?
     end
 
-    def self.transition_to(screen_name)
-      self.next_screen = QGame::Screen.find(screen_name).build
+    def self.transition_to(screen_name, args = {})
+      screen = QGame::Screen.find(screen_name)
+
+      raise "Unable to find the screen #{screen_name}" if screen.nil?
+
+      self.next_screen = screen.build
       self.next_screen.pause
 
       if !self.current.nil? && self.current.has_transition?(:out)
