@@ -1,5 +1,5 @@
 MRuby::GemBox.new do |conf|
-  conf.gem './game-test-gem'
-  conf.gem './game-reload-gem'
-  conf.gem './qgame-console-gem'
+  conf.gem './game-test'
+  conf.gem './game-reload'
+  conf.gem './qgame-console'
 end
