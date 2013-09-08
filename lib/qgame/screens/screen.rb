@@ -123,6 +123,8 @@ module QGame
         component.destruct
       end
 
+      event_handlers.clear
+
       destroy_parent_screen      
     end
 
