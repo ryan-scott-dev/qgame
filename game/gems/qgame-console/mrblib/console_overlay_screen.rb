@@ -8,7 +8,7 @@ module QGame
 
     def self.toggle_overlay
       if @@overlay.nil?
-        @@overlay = !QGame::Application.screen_manager.current.overlay(:console_overlay) 
+        @@overlay = QGame::Application.screen_manager.current.overlay(:console_overlay) 
       else
         QGame::Application.screen_manager.current.remove_overlay(:console_overlay)
         @@overlay.destruct
