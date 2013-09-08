@@ -11,7 +11,8 @@ module QGame
       @text_display = QGame::Text.new({:text => args[:default_text], :z_index => 1.0, :parent => self}.merge(args))
 
       texture = QGame::AssetManager.texture(args[:background])
-      @background = QGame::Sprite.new({:texture => texture, :scale => texture.size, :z_index => 0.2, :parent => self}.merge(args))
+      @background = QGame::Sprite.new({:texture => texture, :scale => texture.size, 
+        :z_index => 0.2, :screen_space => true, :parent => self}.merge(args))
       @buffer = ''
     end
 
