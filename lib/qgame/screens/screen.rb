@@ -139,8 +139,10 @@ module QGame
           @parent_screen = QGame::Screen.find(screen_name).build
           handle_events @parent_screen
         end
+
+        return @parent_screen
       else
-        @parent_screen.overlay(screen_name)
+        return @parent_screen.overlay(screen_name)
       end
     end
 

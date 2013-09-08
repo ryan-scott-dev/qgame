@@ -4,9 +4,21 @@ module QGame
   end
 
   class ConsoleOverlayScreen < Screen
+    @@overlay = nil
+
+    def self.toggle_overlay
+      if @@overlay.nil?
+        @@overlay = Game::Application.screen_manager.current.overlay(:console_overlay) 
+      else
+        Game::Application.screen_manager.current.remove_overlay(:console_overlay)
+        @@overlay.destruct
+        @@overlay = nil
+      end
+    end
+
     def self.enable
       Game::Application.current.on_event :key_down do |event|
-        puts "Console" if QGame::Input.is_down? :dev_console
+        toggle_overlay if QGame::Input.is_down? :dev_console
       end
 
       Game::Application.screen_manager.define_screen(:console_overlay) do
