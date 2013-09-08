@@ -1,7 +1,13 @@
 module QGame
   class KeyboardInput
     def is_down?(input_alias)
-      input_alias.nil? ? false : SDL.key_state_from_name(input_alias) 
+      return false if input_alias.nil?
+
+      if input_alias.is_a?(Symbol) || input_alias.is_a?(String)
+        return SDL.key_state_from_name(input_alias.to_s)
+      elsif input_alias.is_a?(Array)
+        return input_alias.all? { |key| is_down?(key) }
+      end
     end
   end
 

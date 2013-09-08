@@ -13,6 +13,8 @@ module TestGame
       QGame::AnalysisScreen.enable 
     end
 
+    QGame::ConsoleOverlayScreen.enable
+
     on_event :quit do |event|
       @running = false
     end

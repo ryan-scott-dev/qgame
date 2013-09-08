@@ -6,7 +6,7 @@ TestGame::Application.configure do
   if profile.mobile?
     conf[:input] = []
   elsif profile.desktop?
-    conf[:input] = []
+    conf[:input] = [:keyboard]
   end
 
 end

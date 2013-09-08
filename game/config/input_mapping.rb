@@ -6,6 +6,9 @@ TestGame::InputMapping.new(QGame::KeyboardInput) do
   map :right => :move_right
 
   map :space => :jump
+
+  map ['left shift', :`] => :dev_console
+  map ['right shift', :`] => :dev_console
 end
 
 TestGame::InputMapping.new(QGame::GamepadInput) do
