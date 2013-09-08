@@ -19,6 +19,7 @@ module QGame
       @flag = args[:flag] || :normal
       @z_index = args[:z_index] || 0.0
       @local_transparency = args[:transparency] || 1.0
+      @parent = args[:parent] || nil
 
       @text_buffer = FreetypeGL::FontBuffer.create(@font, @font_size)
       self.text = @text
@@ -36,8 +37,8 @@ module QGame
     end
 
     def destruct
-      self.parent.remove(self)
-      self.parent = nil
+      @parent.remove(self) if @parent
+      @parent = nil
     end
 
     def calculate_transparency

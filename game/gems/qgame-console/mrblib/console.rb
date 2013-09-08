@@ -5,7 +5,7 @@ module QGame
       @history_offset = 0
       @output = []
 
-      super
+      super(args)
     end
 
     def output(str)
@@ -72,7 +72,7 @@ module QGame
 
   class Screen
     def console(args = {})
-      new_text_input = QGame::Console.new(args)
+      new_text_input = QGame::Console.new(args.merge({:parent => self}))
 
       on_event(:mouse_up) do |event|
         new_text_input.handle_mouse_up(event)

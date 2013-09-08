@@ -3,7 +3,7 @@ module QGame
     @@model = nil
     @@shader = nil
     
-    attr_accessor :position, :rotation, :scale, :offset, :texture, :transparency, :parent, :transformed_position
+    attr_accessor :position, :rotation, :scale, :offset, :texture, :parent, :transformed_position
 
     def initialize(args = {})
       @texture = args[:texture]
@@ -46,8 +46,8 @@ module QGame
     end
 
     def destruct
-      self.parent.remove(self)
-      self.parent = nil
+      @parent.remove(self) if @parent
+      @parent = nil
       @alive = false
     end
 

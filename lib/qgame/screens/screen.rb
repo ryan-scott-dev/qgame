@@ -119,13 +119,17 @@ module QGame
     end
 
     def destruct
-      @components.clear
-      
+      @components.each do |component|
+        component.destruct
+      end
+
       destroy_parent_screen      
     end
 
     def destroy_parent_screen
       if @parent_screen
+        stop_handling_events @parent_screen
+        
         @parent_screen.destruct
         @parent_screen = nil
       end
