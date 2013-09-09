@@ -3,11 +3,16 @@ module QGame
   end
 
   class ScenarioScreen < Screen
-  	def self.enable(scenario)
+    def self.enable(scenario)
       ScenarioScreen.new(:scenario_screen) do
-      	
+        load_scenario(scenario)
       end
-  	end
+    end
 
+    def load_scenario(scenario)
+      scenario.build(self)
+
+      add(scenario)
+    end
   end
 end

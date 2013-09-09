@@ -31,6 +31,7 @@ module TestGame
 
     if scenario
       QGame::ScenarioScreen.enable(scenario)
+      Application.screen_manager.transition_to(:scenario_screen)
     else
       Application.screen_manager.transition_to(:main_menu)
     end

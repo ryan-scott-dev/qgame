@@ -287,7 +287,7 @@ module QGame
           component.update
         end
 
-        Application.render_manager.camera.update  
+        @camera.update unless @camera.nil?
       end
 
       @parent_screen.update unless @parent_screen.nil?
