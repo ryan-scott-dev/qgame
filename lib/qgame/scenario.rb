@@ -11,6 +11,7 @@ module QGame
     end
 
     include QGame::Buildable
+    include QGame::BuildableHelpers
     include QGame::Composite
 
     attr_accessor :name, :transparency, :parent
@@ -39,25 +40,10 @@ module QGame
     def submit_render
       submit_render_children
     end
-
+    
     def calculate_transparency
       @components.each do |component|
         component.calculate_transparency
-      end
-    end
-
-    def text(text, args = {}) 
-      new_text = QGame::Text.new({:text => text}.merge(args))
-      add(new_text)
-      new_text
-    end
-
-    def camera(type, args = {})
-      case type
-      when :fixed  
-        @camera = Application.render_manager.camera = QGame::Camera2D.new(args)
-      when :follow
-        @camera = Application.render_manager.camera = QGame::FollowCamera.new(args)
       end
     end
   end
