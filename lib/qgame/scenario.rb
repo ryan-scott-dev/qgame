@@ -56,6 +56,7 @@ module QGame
     end
 
     def terminate
+      
       Application.current.quit
     end
   end

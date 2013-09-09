@@ -19,7 +19,7 @@ module QGame
                                           QGame::AssetManager.fragment('graph'))
     end
 	
-    attr_accessor :parent
+    attr_accessor :parent, :x_min, :x_max, :y_min, :y_max
 
 		def initialize(args = {}, &block)
       @color = Color.send(args[:color]) || Color.black

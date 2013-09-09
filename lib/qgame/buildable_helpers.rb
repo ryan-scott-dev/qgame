@@ -120,6 +120,20 @@ module QGame
     def ticker_graph(args = {}, &block)
       new_graph = QGame::TickerGraph.new(args, &block)
       add(new_graph)
+
+      @graph_label_count = 0 unless @graph_label_count
+
+      dynamic_text(args.merge({:position => Vec2.new(20, 20 + 20 * @graph_label_count)})) do
+        args[:label] + ' ' + sprintf(args[:label_format], new_graph.y_max)
+      end
+
+      dynamic_text(args.merge({:position => Vec2.new(20, screen_height - 20 - 20 * @graph_label_count)})) do
+        args[:label] + ' ' + sprintf(args[:label_format], new_graph.y_min)
+      end
+
+      @graph_label_count += 1
+
+      new_graph
     end
 
     def joystick(texture_name, args = {})
