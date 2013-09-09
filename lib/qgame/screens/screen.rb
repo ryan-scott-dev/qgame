@@ -49,7 +49,7 @@ module QGame
 
     def resume
       @paused = false
-      Application.render_manager.camera = @camera
+      Application.render_manager.camera = @camera unless @camera.nil?
     end
 
     def destruct

@@ -33,7 +33,6 @@ module QGame
 
     def update
       update_children
-
       @camera.update unless @camera.nil?
     end
 

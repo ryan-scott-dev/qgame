@@ -1,6 +1,15 @@
-TestGame::Application.scenario_manager.define_scenario(:jumping_collisions) do
+TestGame::Application.scenario_manager.define_scenario(:jumping_collisions) do  
+  level_generator = TestGame::LevelGenerator.new(nil)
+  add(level_generator)
+
   camera(:fixed)
 
-  text('Eddy Example', :z_index => 1.0, :font => './assets/fonts/ObelixPro.ttf', 
-       :font_size => 42, :flag => :cartoon, :position => Vec2.new(0, 200))
+  test = TestGame::Test.new(:position => Vec2.new(100, 300))
+  add(test)
+
+  test = TestGame::Test.new(:position => Vec2.new(200, 300))
+  add(test)
+
+  test = TestGame::Test.new(:position => Vec2.new(300, 300))
+  add(test)
 end
