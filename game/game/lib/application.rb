@@ -22,7 +22,7 @@ module TestGame
     QGame::ConsoleOverlayScreen.enable
 
     on_event :quit do |event|
-      @running = false
+      self.quit
     end
 
     on_event :window_resized do |event|

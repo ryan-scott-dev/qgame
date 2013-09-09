@@ -32,6 +32,11 @@ module QGame
     end
 
     def update
+      if @termination_duration
+        terminate if @termination_duration <= 0
+        @termination_duration -= Application.elapsed
+      end
+
       update_children
       @camera.update unless @camera.nil?
     end
@@ -47,7 +52,11 @@ module QGame
     end
 
     def terminate_after(duration)
-      
+      @termination_duration = duration
+    end
+
+    def terminate
+      Application.current.quit
     end
   end
 end
