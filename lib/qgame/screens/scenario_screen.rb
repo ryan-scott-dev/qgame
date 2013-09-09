@@ -6,6 +6,8 @@ module QGame
     def self.enable(scenario)
       ScenarioScreen.new(:scenario_screen) do
         load_scenario(scenario)
+
+        overlay(:analyse) if QGame::Screen.has_screen?(:analyse)
       end
     end
 
