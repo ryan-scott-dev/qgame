@@ -10,6 +10,9 @@ module QGame
       @@scenarios.has_key? scenario_name
     end
 
+    include QGame::Buildable
+    include QGame::Composite
+
     attr_accessor :name, :transparency, :parent
     
     def initialize(scenario_name, &block)
@@ -23,47 +26,18 @@ module QGame
       @@scenarios[scenario_name] = self
     end
 
-    def reset
-      build
-    end
-
-    def build(parent)
-      destruct
-
-      self.instance_eval(&@configure)
-      @built = true
-      self
-    end
-
     def destruct
-      @components.each do |component|
-        component.destruct
-      end
+      destruct_children
     end
-
-    def remove(entity)
-      entity.parent = nil
-      @components.delete(entity)
-    end
-
-    def add(entity)
-      entity.parent = self
-      @components << entity
-    end
-
 
     def update
-      @components.each do |component|
-        component.update
-      end
-      
-      @camera.update
+      update_children
+
+      @camera.update unless @camera.nil?
     end
 
     def submit_render
-      @components.each do |component|
-        component.submit_render
-      end
+      submit_render_children
     end
 
     def calculate_transparency

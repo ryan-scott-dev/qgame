@@ -10,7 +10,7 @@ module QGame
     end
 
     def load_scenario(scenario)
-      scenario.build(self)
+      scenario.build
 
       add(scenario)
     end

@@ -3,6 +3,8 @@ module QGame
     @@screens = {}
 
     include QGame::EventManager
+    include QGame::Buildable
+    include QGame::Composite
 
     attr_accessor :name, :paused, :camera, :transparency
     
@@ -27,18 +29,6 @@ module QGame
       @@screens[screen_name] = self
     end
 
-    def reset
-      build
-    end
-
-    def build
-      destruct
-
-      self.instance_eval(&@configure)
-      @built = true
-      self
-    end
-
     def transparency=(val)
       self.instance_variable_set('@transparency', val)
 
@@ -57,16 +47,6 @@ module QGame
 
     def screen_size
       @screen_size ||= Vec2.new(screen_width, screen_height)
-    end
-
-    def remove(entity)
-      entity.parent = nil
-      @components.delete(entity)
-    end
-
-    def add(entity)
-      entity.parent = self
-      @components << entity
     end
 
     def pause
@@ -119,9 +99,7 @@ module QGame
     end
 
     def destruct
-      @components.each do |component|
-        component.destruct
-      end
+      destruct_children
 
       event_handlers.clear
 
@@ -283,9 +261,7 @@ module QGame
 
     def update
       unless @paused
-        @components.each do |component|
-          component.update
-        end
+        update_children
 
         @camera.update unless @camera.nil?
       end
@@ -298,9 +274,7 @@ module QGame
     end
 
     def submit_render
-      @components.each do |component|
-        component.submit_render
-      end
+      submit_render_children
 
       @parent_screen.submit_render unless @parent_screen.nil?
     end
