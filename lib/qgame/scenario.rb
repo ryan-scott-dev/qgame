@@ -45,5 +45,9 @@ module QGame
         component.calculate_transparency
       end
     end
+
+    def terminate_after(duration)
+      
+    end
   end
 end

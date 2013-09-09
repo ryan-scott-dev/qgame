@@ -12,4 +12,6 @@ TestGame::Application.scenario_manager.define_scenario(:jumping_collisions) do
 
   test = TestGame::Test.new(:position => Vec2.new(300, 300))
   add(test)
+
+  terminate_after(10.seconds)
 end

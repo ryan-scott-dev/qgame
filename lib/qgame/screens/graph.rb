@@ -24,7 +24,7 @@ module QGame
 		def initialize(args = {}, &block)
       @color = Color.send(args[:color]) || Color.black
       @label = args[:label] || 'Un-named graph'
-      @values_size = args[:values_size] || 10 # 1 seconds
+      @values_size = args[:values_size] || 10.seconds
       @x_max = @values_size
 
       super
