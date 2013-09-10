@@ -124,11 +124,11 @@ module QGame
       @graph_label_count = 0 unless @graph_label_count
 
       dynamic_text(args.merge({:position => Vec2.new(20, 20 + 20 * @graph_label_count)})) do
-        args[:label] + ' ' + sprintf(args[:label_format], new_graph.y_max)
+        args[:label] + ': ' + sprintf(args[:label_format], new_graph.y_max)
       end
 
       dynamic_text(args.merge({:position => Vec2.new(20, screen_height - 20 - 20 * @graph_label_count)})) do
-        args[:label] + ' ' + sprintf(args[:label_format], new_graph.y_min)
+        args[:label] + ': ' + sprintf(args[:label_format], new_graph.y_min)
       end
 
       @graph_label_count += 1
