@@ -7,7 +7,11 @@ module QGame
         @camera = Application.render_manager.camera = QGame::Camera2D.new(args)
       when :follow
         @camera = Application.render_manager.camera = QGame::FollowCamera.new(args)
+      when :lookat
+        @camera = Application.render_manager.camera = QGame::LookAtCamera.new(args)
       end
+
+      @camera
     end
 
     def screen_width
