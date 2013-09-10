@@ -26,6 +26,10 @@ module QGame
       Vec2.new((screen_height / 2.0), (screen_width / 2.0))
     end
 
+    def perspective
+      Application.render_manager.perspective
+    end
+
     def center_horizontal_position
       Vec2.new(screen_center.x, 0)
     end

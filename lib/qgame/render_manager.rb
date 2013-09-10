@@ -4,17 +4,39 @@ module QGame
     @@projection = nil
     @@width = 0
     @@height = 0
+    @@fov = 0.785
+    @@near = 1.0
+    @@far = 1000.0
 
     @@render_batch = ModelRenderBatch.new
     @@submitted_entities = {}
     @@render_duration = Time.now
-    
+    @@projection_mode = :orthogonal
+
     def self.camera=(camera)
       @@camera = camera
     end
 
     def self.camera
       @@camera
+    end
+
+    def self.orthogonal
+      @@projection_mode = :orthogonal
+      @@projection = Mat4.orthogonal_2d(0, @@width, 0, @@height)
+    end
+
+    def self.orthogonal?
+      @@projection_mode == :orthogonal
+    end
+
+    def self.perspective
+      @@projection_mode = :perspective
+      @@projection = Mat4.perspective(@@fov, @@width / @@height, @@near, @@far)
+    end
+
+    def self.perspective?
+      @@projection_mode == :perspective
     end
 
     def self.render
@@ -47,7 +69,12 @@ module QGame
       @screen_size = Vec2.new(new_width, new_height)
 
       GL.viewport(0, 0, new_width, new_height)
-      @@projection = Mat4.orthogonal_2d(0, new_width, 0, new_height)
+
+      if perspective?
+        perspective
+      elsif orthogonal?
+        orthogonal
+      end
     end
 
     def self.projection
