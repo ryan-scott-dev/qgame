@@ -165,5 +165,12 @@ module QGame
       add(new_joystick)
       new_joystick
     end
+
+    def stack_container(args = {}, &block)
+      new_container = QGame::StackContainer.new(args, &block)
+      new_container.build
+      add(new_container)
+      new_container
+    end
   end
 end
