@@ -22,8 +22,6 @@ module QGame
 
       @components.each do |component|
         component.position += offset
-
-        puts component.position
       end
       @position = new_position
     end
@@ -32,14 +30,13 @@ module QGame
       super
 
       # Rearrange children based on container type
+      offset = Vec2.new
       @components.each do |component|
+        component.position.y += @position.y + @size.y
+
         @size.x = component.size.x if component.size.y > size.x
         @size.y += component.size.y
-
-        component.position += @position
       end
-
-      puts @size
     end
 
     def destruct

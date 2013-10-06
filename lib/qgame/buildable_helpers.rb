@@ -172,13 +172,13 @@ module QGame
       float_args.each do |float_arg|
         case float_arg
         when :left
-          float_position.x = component.size.x / 2.0
+          float_position.x = component.size.x
         when :right
-          float_position.x = size.x - component.size.x / 2.0
+          float_position.x = size.x - component.size.x
         when :top
           float_position.y = component.size.y
         when :bottom
-          float_position.y = size.y - component.size.y / 2.0
+          float_position.y = size.y - component.size.y
         when :middle_x
           float_position.x = size.x / 2.0 - component.size.x / 2.0
         when :middle_y
