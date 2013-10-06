@@ -80,7 +80,7 @@ module QGame
 
       new_button = QGame::Button.new({:screen_space => true, :texture => texture, :texture_pressed => texture_pressed, 
         :scale => texture.size, :mode => :on_release}.merge(args), &block)
-      new_button.position += center_horizontal_position if args[:centered] && args[:centered] == :horizontal
+      apply_float(args[:float], new_button)
 
       on_event(:mouse_up) do |event|
         new_button.handle_mouse_up(event)
@@ -172,7 +172,7 @@ module QGame
       float_args.each do |float_arg|
         case float_arg
         when :left
-          float_position.x = component.size.x
+          float_position.x = component.size.x / 2.0
         when :right
           float_position.x = size.x - component.size.x
         when :top
@@ -195,9 +195,11 @@ module QGame
 
     def stack_container(args = {}, &block)
       new_container = QGame::StackContainer.new(args, &block)
+      add(new_container)
+
       new_container.build
       apply_float(args[:float], new_container)
-      add(new_container)
+      
       new_container
     end
   end
