@@ -35,7 +35,7 @@ module QGame
     end
 
     def center_position_from_size(size)
-      Vec2.new((screen_height / 2) - (size.x / 2), (screen_width / 2) - (size.y / 2))
+      Vec2.new((screen_width / 2) - (size.x / 2), (screen_height / 2) - (size.y / 2))
     end
 
     def centered_args_from_texture(args)
@@ -95,9 +95,8 @@ module QGame
     end
 
     def text(text, args = {}) 
-
       new_text = QGame::Text.new({:text => text}.merge(args))
-      new_text.position += center_horizontal_position if args[:centered] && args[:centered] == :horizontal
+      apply_float(args[:float], new_text)
       add(new_text)
       new_text
     end
@@ -166,9 +165,38 @@ module QGame
       new_joystick
     end
 
+    def apply_float(float_args, component)
+      float_position = Vec2.new
+
+      float_args = [float_args] unless float_args.is_a? Array
+      float_args.each do |float_arg|
+        case float_arg
+        when :left
+          float_position.x = component.size.x / 2.0
+        when :right
+          float_position.x = size.x - component.size.x / 2.0
+        when :top
+          float_position.y = component.size.y
+        when :bottom
+          float_position.y = size.y - component.size.y / 2.0
+        when :middle_x
+          float_position.x = size.x / 2.0 - component.size.x / 2.0
+        when :middle_y
+          float_position.y = size.y / 2.0 - component.size.y / 2.0
+        when :middle
+          float_position.x = size.x / 2.0 - component.size.x / 2.0
+          float_position.y = size.y / 2.0 - component.size.y / 2.0
+        end
+      end
+
+      component.position += float_position
+      float_position
+    end
+
     def stack_container(args = {}, &block)
       new_container = QGame::StackContainer.new(args, &block)
       new_container.build
+      apply_float(args[:float], new_container)
       add(new_container)
       new_container
     end

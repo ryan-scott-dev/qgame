@@ -9,7 +9,7 @@ module QGame
     include QGame::Composite
 
     attr_accessor :name, :paused, :transparency
-    
+
     def self.find(screen_name)
       @@screens[screen_name]
     end
@@ -37,6 +37,10 @@ module QGame
       @components.each do |component|
         component.calculate_transparency
       end
+    end
+
+    def size
+      screen_size
     end
 
     def screen_size

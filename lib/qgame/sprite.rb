@@ -4,6 +4,7 @@ module QGame
     @@shader = nil
     
     attr_accessor :position, :rotation, :scale, :offset, :texture, :parent, :transformed_position
+    alias_method :size, :scale
 
     def initialize(args = {})
       @texture = args[:texture]
