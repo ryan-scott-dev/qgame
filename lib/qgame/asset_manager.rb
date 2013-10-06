@@ -65,6 +65,7 @@ module QGame
       unless assets.has_key? asset.type
         assets[asset.type] = {} 
         singleton_class.define_method asset.type do |name|
+          raise "Unable to find a #{asset.type} with the name: #{name}" unless assets[asset.type].has_key? name
           assets[asset.type][name]
         end
       end
