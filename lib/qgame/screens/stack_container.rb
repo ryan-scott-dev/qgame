@@ -1,7 +1,6 @@
 module QGame
   class StackContainer
 
-    include QGame::EventManager
     include QGame::Buildable
     include QGame::BuildableHelpers
     include QGame::Composite
@@ -24,6 +23,10 @@ module QGame
         component.position += offset
       end
       @position = new_position
+    end
+
+    def on_event(event, &block)
+      parent.on_event(event, &block)
     end
 
     def build
