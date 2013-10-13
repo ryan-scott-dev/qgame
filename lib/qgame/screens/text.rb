@@ -60,7 +60,8 @@ module QGame
     def render
       shader = Text.shader
       @text_buffer.bind(shader.program_id)
-      
+      GL.blend_alpha_transparency_without_depth
+
       shader.set_uniform(:texture, 0)
       shader.set_uniform(:view, Mat4.identity)
       shader.set_uniform(:projection, Application.render_manager.projection)
@@ -72,6 +73,7 @@ module QGame
 
       @text_buffer.render
 
+      GL.blend_alpha_transparency
       @text_buffer.unbind
     end
   end
