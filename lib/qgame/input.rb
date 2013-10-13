@@ -11,6 +11,12 @@ module QGame
     end
   end
 
+  class MouseInput
+    def self.mouse_position
+      Vec2.new(SDL.mouse_position_x, SDL.mouse_position_y)
+    end
+  end
+
   class GamepadInput
   end
 
