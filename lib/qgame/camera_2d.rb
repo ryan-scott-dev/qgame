@@ -17,5 +17,9 @@ module QGame
     def bounds
       @bound = @position + Application.render_manager.screen_size
     end
+
+    def to_world_space(screen_point)
+      return screen_point + @position
+    end
   end
 end
