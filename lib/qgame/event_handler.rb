@@ -15,9 +15,12 @@ module QGame
 
     def call_event_handler(event_type, event)
       return nil unless event_handlers.has_key? event_type
+      return nil if event_handlers[event_type].nil?
       
       event_handlers[event_type].each do |handler|
         handler.call(event)
+
+        break if event.handled
       end
     end
 

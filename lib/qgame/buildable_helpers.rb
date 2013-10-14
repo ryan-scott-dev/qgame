@@ -2,13 +2,17 @@ module QGame
   module BuildableHelpers
 
     def camera(type, args = {})
-      case type
-      when :fixed 
-        @camera = Application.render_manager.camera = QGame::Camera2D.new(args)
-      when :follow
-        @camera = Application.render_manager.camera = QGame::FollowCamera.new(args)
-      when :lookat
-        @camera = Application.render_manager.camera = QGame::LookAtCamera.new(args)
+      if type.is_a? Symbol
+        case type
+        when :fixed 
+          @camera = Application.render_manager.camera = QGame::Camera2D.new(args)
+        when :follow
+          @camera = Application.render_manager.camera = QGame::FollowCamera.new(args)
+        when :lookat
+          @camera = Application.render_manager.camera = QGame::LookAtCamera.new(args)
+        end
+      else
+        @camera = Application.render_manager.camera = type
       end
 
       @camera

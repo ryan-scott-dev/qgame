@@ -1,5 +1,40 @@
 module QGame
-  class KeyboardInput
+  class BaseInput
+    def initialize(input_mapping)
+      @input_mapping = input_mapping
+      @handlers = {}
+    end
+
+    def attach_handler(input_alias, &block)
+      @handlers[input_alias] = [] unless @handlers.has_key?(input_alias)
+      @handlers[input_alias] << block
+    end
+
+    def responds_to?(input_alias)
+      @input_mapping.responds_to?(input_alias)
+    end
+
+    def raise_input_for_key(key, event)
+      input_aliases = @input_mapping.aliases_for_key([key])
+      input_aliases.each do |input_alias|
+        raise_input(input_alias, event)
+      end
+    end
+
+    def raise_input(input_alias, event)
+      return false unless responds_to?(input_alias)
+      return false if @handlers[input_alias].nil?
+
+      @handlers[input_alias].each do |callback|
+        callback.call(event)
+      end
+    end
+
+    def start
+    end
+  end
+
+  class KeyboardInput < BaseInput
     def is_down?(input_alias)
       return false if input_alias.nil?
 
@@ -11,17 +46,54 @@ module QGame
     end
   end
 
-  class MouseInput
+  class MouseInput < BaseInput
+    def start
+      QGame::Application.current.on_event(:mouse_down) do |event|
+        handle_mouse_down(event)
+      end
+
+      QGame::Application.current.on_event(:mouse_up) do |event|
+        handle_mouse_up(event)
+      end
+
+      QGame::Application.current.on_event(:mouse_moved) do |event|
+        handle_mouse_motion(event)
+      end
+    end
+
+    def handle_mouse_motion(event)
+      if event.is_mouse_left_down?
+        raise_input_for_key(:drag, event)
+      end
+
+      if !event.handled
+        raise_input_for_key(:motion, event)
+      end
+    end
+
+    def handle_mouse_up(event)
+      raise_input_for_key(:up, event)
+    end
+
+    def handle_mouse_down(event)
+      raise_input_for_key(:down, event)
+    end
+
     def self.mouse_position
       Vec2.new(SDL.mouse_position_x, SDL.mouse_position_y)
     end
   end
 
-  class GamepadInput
+  class TouchInput < BaseInput
   end
 
-  class VirtualGamepadInput
-    def initialize
+  class GamepadInput < BaseInput
+  end
+
+  class VirtualGamepadInput < BaseInput
+    def initialize(input_mapping)
+      super
+
       @input_states = {}
     end
 
@@ -39,7 +111,7 @@ module QGame
 
     def initialize(input_klass, &block)
       Input.create_mapping(input_klass, self)
-      @input_manager = input_klass.new
+      @input_manager = input_klass.new(self)
       @key_mapping = {}
 
       instance_eval(&block)
@@ -56,6 +128,14 @@ module QGame
       @key_mapping
     end
 
+    def aliases_for_key(key)
+      aliases = []
+      @key_mapping.each do |input_alias, mapped_key|
+        aliases << input_alias if key == mapped_key
+      end
+      aliases
+    end
+
     def map_like(other)
       input_mapping = Input.fetch_mapping_for_class(other).input_map
       
@@ -68,9 +148,26 @@ module QGame
     end
 
     def is_down?(input_alias)
-      return false unless @key_mapping.has_key? input_alias
+      return false unless responds_to?(input_alias)
 
       @key_mapping[input_alias].any? {|key| @input_manager.is_down? key}
+    end
+
+    def responds_to?(input_alias)
+      return @key_mapping.has_key?(input_alias)
+    end
+
+    def attach_handler(input_alias, &block)
+      return false unless responds_to?(input_alias)
+
+      @input_manager.attach_handler(input_alias, &block)
+    end
+
+    def update
+    end
+
+    def start
+      @input_manager.start
     end
   end
 
@@ -85,6 +182,12 @@ module QGame
       case input_option
       when :keyboard
         KeyboardInput
+      when :mouse
+        MouseInput
+      when :touch
+        TouchInput
+      when :gamepad
+        GamepadInput
       when :virtual_gamepad
         VirtualGamepadInput
       end
@@ -113,6 +216,18 @@ module QGame
 
     def self.is_down?(input_alias)
       input_types.any? {|input_type| input_type.is_down?(input_alias)}
+    end
+
+    def self.on(input_alias, &block)
+      input_types.each {|input_type| input_type.attach_handler(input_alias, &block)}
+    end
+
+    def self.update
+      input_types.each {|input_type| input_type.update }
+    end
+
+    def self.start
+      input_types.each {|input_type| input_type.start }
     end
   end
 end

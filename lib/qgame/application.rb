@@ -70,6 +70,7 @@ module QGame
 
     def setup_input
       QGame::Input.setup(Application.conf[:input])
+      QGame::Input.start
     end
 
     def start
@@ -77,6 +78,8 @@ module QGame
       SDL.set_gl_version(3, 2)
       @window = SDL::Window.create(title, 0, 0, start_width, start_height, window_flags)
       @context = @window.create_gl_context
+      @@current = self
+      
       setup_input
 
       Application.render_manager.resize_window(@window.width, @window.height)
@@ -86,8 +89,6 @@ module QGame
       AssetManager.register_asset_loader("textures", TextureAssetLoader.new)
       AssetManager.register_asset_loader("sounds", SoundAssetLoader.new)
       AssetManager.load
-
-      @@current = self
     end
 
 
