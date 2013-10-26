@@ -5,7 +5,7 @@ module QGame
     end
 
     def on_event(event_type, &block)
-      event_handlers[event_type] = [] unless event_handlers.has_key? event_type
+      event_handlers[event_type] ||= []
       event_handlers[event_type] << block
     end
 

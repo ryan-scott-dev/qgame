@@ -6,7 +6,7 @@ module QGame
     end
 
     def attach_handler(input_alias, &block)
-      @handlers[input_alias] = [] unless @handlers.has_key?(input_alias)
+      @handlers[input_alias] ||= []
       @handlers[input_alias] << block
     end
 
@@ -102,7 +102,7 @@ module QGame
     end
 
     def is_down?(input_alias)
-      @input_states.has_key?(input_alias) && @input_states[input_alias]
+      @input_states[input_alias]
     end
   end
 

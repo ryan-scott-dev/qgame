@@ -70,7 +70,6 @@ module QGame
         end
       end
 
-      assets[asset.type][asset.name] = {} unless assets[asset.type].has_key? asset.name
       assets[asset.type][asset.name] = asset
     end
   end

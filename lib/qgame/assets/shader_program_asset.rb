@@ -11,8 +11,7 @@ module QGame
     end
 
     def uniform_location(name)      
-      @uniform_locations[name] = self.find_uniform_location(name.to_s) unless @uniform_locations.has_key? name
-      @uniform_locations[name]
+      @uniform_locations[name] ||= self.find_uniform_location(name.to_s)
     end
 
     def set_uniform(name, value)

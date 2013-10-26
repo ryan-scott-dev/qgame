@@ -10,7 +10,7 @@ module QGame
       if texture.nil?
         @queue << entity
       else
-        @batch[texture] = [] unless @batch.has_key? texture
+        @batch[texture] ||= []
         @batch[texture] << entity
       end
     end
@@ -46,7 +46,7 @@ module QGame
       if shader.nil?
         @queue << entity
       else
-        @batch[shader] = TextureRenderBatch.new unless @batch.has_key? shader
+        @batch[shader] ||= TextureRenderBatch.new
         @batch[shader].submit(entity)
       end
     end
@@ -80,7 +80,7 @@ module QGame
       if model.nil?
         @queue << entity
       else
-        @batch[model] = ShaderRenderBatch.new unless @batch.has_key? model
+        @batch[model] ||= ShaderRenderBatch.new
         @batch[model].submit(entity)
       end
     end
