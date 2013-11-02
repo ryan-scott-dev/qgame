@@ -1,8 +1,13 @@
 Game::Build.new do |conf|
   toolchain :clang
+  conf.mrbc do |mrbc|
+    mrbc.compile_options += ' -g'
+  end
 
   # C compiler settings
   conf.cc do |cc|
+    cc.defines = %w(ENABLE_DEBUG)
+
     cc.include_paths = ["#{QGAME_ROOT}/include", "#{MRUBY_ROOT}/include"]
     cc.include_paths << "#{QGAME_ROOT}/build/#{conf.name}/freetype/include"
     cc.include_paths << "#{QGAME_ROOT}/build/#{conf.name}/freetype/include/freetype2"
@@ -11,7 +16,7 @@ Game::Build.new do |conf|
 
   # Linker settings
   conf.linker do |linker|
-    linker.libraries = %w(SDL2_image SDL2_mixer SDL2 GL freetype)
+    linker.libraries = %w(SDL2_image SDL2_mixer SDL2 GL GLU freetype)
 
     linker.library_paths << "#{QGAME_ROOT}/build/#{conf.name}/sdl/lib"
     linker.library_paths << "/System/Library/Frameworks/OpenGL.framework/Libraries"
@@ -26,8 +31,14 @@ QGame::Build.new do |conf|
 
   gem_include_paths = Dir.glob("build/mrbgems/**/include")
 
+  conf.mrbc do |mrbc|
+    mrbc.compile_options += ' -g'
+  end
+
   # C compiler settings
   conf.cc do |cc|
+    cc.defines = %w(ENABLE_DEBUG)
+
     cc.include_paths = ["#{QGAME_ROOT}/include", "#{MRUBY_ROOT}/include"]
     cc.include_paths.concat gem_include_paths
     cc.include_paths << "#{QGAME_ROOT}/build/#{conf.name}/freetype/include"
@@ -49,5 +60,13 @@ MRuby::Build.new do |conf|
 
   conf.gembox 'default'
   conf.gem :core => "mruby-eval"
+
+  conf.mrbc do |mrbc|
+    mrbc.compile_options += ' -g'
+  end
+
+  conf.cc do |cc|
+    cc.defines = %w(ENABLE_DEBUG)
+  end
   # load specific platform settings
 end
