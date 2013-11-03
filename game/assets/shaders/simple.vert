@@ -25,5 +25,5 @@ void main() {
     position_mat[3][2] = position.z;
     
     mat4 world = position_mat * scale_mat;
-    gl_Position = view * world * vec4(vert, 1);
+    gl_Position = projection * view * world * vec4(vert, 1);
 }
