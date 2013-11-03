@@ -4,14 +4,14 @@ module QGame
     @@projection = nil
     @@width = 0
     @@height = 0
-    @@fov = 0.785
-    @@near = 1.0
+    @@fov = 60
+    @@near = 0.1
     @@far = 1000.0
 
     @@render_batch = ModelRenderBatch.new
     @@submitted_entities = {}
     @@render_duration = Time.now
-    @@projection_mode = :perspective
+    @@projection_mode = :orthogonal
 
     def self.camera=(camera)
       @@camera = camera

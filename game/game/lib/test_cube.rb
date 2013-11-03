@@ -49,7 +49,7 @@ module TestGame
     end
     
     def render
-      view = @screen_space ? Mat4.identity : QGame::Application.render_manager.camera.view
+      view = QGame::Application.render_manager.camera.view
       shader.set_uniform(:view, view)
       shader.set_uniform(:position, @position)
       shader.set_uniform(:scale, @scale)
