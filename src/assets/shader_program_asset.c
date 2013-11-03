@@ -4,6 +4,7 @@
 #include <mruby/variable.h>
 
 #include "mrb_vec2.h"
+#include "mrb_vec3.h"
 #include "mrb_vec4.h"
 #include "mrb_mat4.h"
 
@@ -138,6 +139,19 @@ qgame_shader_program_asset_set_uniform_vec2(mrb_state* mrb, mrb_value self)
 }
 
 mrb_value
+qgame_shader_program_asset_set_uniform_vec3(mrb_state* mrb, mrb_value self)
+{
+  mrb_int uniform_id;
+  mrb_value value;
+  mrb_get_args(mrb, "io", &uniform_id, &value);
+  
+  struct vec3* vector = vec3_get_ptr(mrb, value);
+  glUniform3fv(uniform_id, 1, vector);
+
+  return self;
+}
+
+mrb_value
 qgame_shader_program_asset_set_uniform_vec4(mrb_state* mrb, mrb_value self)
 {
   mrb_int uniform_id;
@@ -177,5 +191,6 @@ qgame_shader_program_asset_init(mrb_state* mrb, struct RClass* mrb_qgame_class) 
   mrb_define_method(mrb, shader_program_asset_class, "set_uniform_float", qgame_shader_program_asset_set_uniform_float, ARGS_REQ(2));
   mrb_define_method(mrb, shader_program_asset_class, "set_uniform_mat4", qgame_shader_program_asset_set_uniform_mat4, ARGS_REQ(2));
   mrb_define_method(mrb, shader_program_asset_class, "set_uniform_vec2", qgame_shader_program_asset_set_uniform_vec2, ARGS_REQ(2));
+  mrb_define_method(mrb, shader_program_asset_class, "set_uniform_vec3", qgame_shader_program_asset_set_uniform_vec3, ARGS_REQ(2));
   mrb_define_method(mrb, shader_program_asset_class, "set_uniform_vec4", qgame_shader_program_asset_set_uniform_vec4, ARGS_REQ(2));
 }

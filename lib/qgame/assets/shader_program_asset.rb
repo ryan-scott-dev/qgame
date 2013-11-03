@@ -23,6 +23,8 @@ module QGame
         set_uniform_float(location, value)
       elsif value.is_a? Vec2
         set_uniform_vec2(location, value)
+      elsif value.is_a? Vec3
+        set_uniform_vec3(location, value)
       elsif value.is_a? Mat4
         set_uniform_mat4(location, value)
       elsif value.is_a? Vec4
