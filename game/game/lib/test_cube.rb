@@ -9,7 +9,7 @@ module TestGame
     def initialize(args = {})
       @texture = args[:texture]
       @position = args[:position] || Vec3.new
-      @rotation = args[:rotation] || 0.0
+      @rotation = args[:rotation] || Vec3.new
       @scale = args[:scale] || Vec3.new(1)
 
       @alive = true
@@ -39,6 +39,9 @@ module TestGame
     end
 
     def update
+      @rotation.x += Application.elapsed
+      @rotation.y += Application.elapsed
+      @rotation.z += Application.elapsed
     end
 
     def calculate_transparency
@@ -53,6 +56,7 @@ module TestGame
       shader.set_uniform(:view, view)
       shader.set_uniform(:position, @position)
       shader.set_uniform(:scale, @scale)
+      shader.set_uniform(:rotation, @rotation)
       
       model.render
     end
