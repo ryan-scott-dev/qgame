@@ -4,7 +4,7 @@ module QGame
     
     def initialize(args = {})
       @position = args[:position] || Vec3.new
-      @target = args[:target] || Vec3.new(1)
+      @target = args[:target] || Vec3.new
       @up = args[:up] || Vec3.new(0, 1, 0)
 
       @view = Mat4.new
@@ -13,24 +13,30 @@ module QGame
     end
 
     def update
-      z_axis = (@target - @position).normalize!
-      x_axis = Vec3.cross(@up, z_axis).normalize!
-      y_axis = Vec3.cross(z_axis, x_axis)
+      offset = Mat4.new
+      offset.f41 = -@position.x
+      offset.f42 = -@position.y
+      offset.f43 = -@position.z
 
-      @view.f11 = x_axis.x
-      @view.f12 = x_axis.y
-      @view.f13 = x_axis.z
-      @view.f14 = -x_axis.dot(@position)
+      view_temp = Mat4.new
 
-      @view.f21 = y_axis.x
-      @view.f22 = y_axis.y
-      @view.f23 = y_axis.z
-      @view.f24 = -y_axis.dot(@position)
+      forward = (@target - @position).normalize!
+      side = Vec3.cross(@up, forward).normalize!
+      up = Vec3.cross(forward, side)
 
-      @view.f31 = z_axis.x
-      @view.f32 = z_axis.y
-      @view.f33 = z_axis.z
-      @view.f34 = -z_axis.dot(@position)
+      view_temp.f11 = side.x
+      view_temp.f21 = side.y
+      view_temp.f31 = side.z
+
+      view_temp.f12 = up.x
+      view_temp.f22 = up.y
+      view_temp.f32 = up.z
+      
+      view_temp.f13 = -forward.x
+      view_temp.f23 = -forward.y
+      view_temp.f33 = -forward.z
+
+      @view = view_temp * offset
     end
   end
 end

@@ -11,7 +11,7 @@ module QGame
     @@render_batch = ModelRenderBatch.new
     @@submitted_entities = {}
     @@render_duration = Time.now
-    @@projection_mode = :orthogonal
+    @@projection_mode = :perspective
 
     def self.camera=(camera)
       @@camera = camera
