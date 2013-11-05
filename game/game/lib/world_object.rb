@@ -1,6 +1,6 @@
 module TestGame
   class WorldObject
-    attr_accessor :position, :rotation, :scale, :parent, :model, :shader
+    attr_accessor :position, :rotation, :scale, :parent, :model, :shader, :world_mat
     alias_method :size, :scale
 
     def initialize(args = {})
@@ -8,6 +8,7 @@ module TestGame
       @position = args[:position] || Vec3.new
       @rotation = args[:rotation] || Vec3.new
       @scale = args[:scale] || Vec3.new(1)
+      @world_mat = Mat4.new
       @model = QGame::AssetManager.model(args[:model] || 'cube')
 
       vertex_name = args[:vertex_shader] || args[:shader] || 'simple'
@@ -25,6 +26,7 @@ module TestGame
     end
 
     def update
+      @world_mat = @world_mat.calculate_transform(@position, @rotation, @scale)
     end
 
     def calculate_transparency
@@ -37,9 +39,7 @@ module TestGame
     def render
       view = QGame::Application.render_manager.camera.view
       shader.set_uniform(:view, view)
-      shader.set_uniform(:position, @position)
-      shader.set_uniform(:scale, @scale)
-      shader.set_uniform(:rotation, @rotation)
+      shader.set_uniform(:world, @world_mat)
       
       model.render
     end

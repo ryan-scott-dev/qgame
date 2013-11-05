@@ -16,6 +16,8 @@ module TestGame
       @rotation.x += Application.elapsed
       @rotation.y += Application.elapsed
       @rotation.z += Application.elapsed
+
+      super
     end
   end
 end
