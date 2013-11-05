@@ -1,16 +1,14 @@
 module TestGame
   class WorldObject; end
-  
-  class TestCube < WorldObject
-    @@model = nil
-    @@shader = nil
+  module Textured; end
     
-    attr_accessor :position, :rotation, :scale, :texture, :parent
+  class TestCube < WorldObject
+    include Textured
+
+    attr_accessor :position, :rotation, :scale, :parent
     alias_method :size, :scale
 
     def initialize(args = {})
-      @texture = args[:texture]
-      
       super({:shader => 'simple', :model => 'cube'}.merge(args))
     end
 
