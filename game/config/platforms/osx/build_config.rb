@@ -6,7 +6,7 @@ Game::Build.new do |conf|
 
   # C compiler settings
   conf.cc do |cc|
-    cc.defines = %w(ENABLE_DEBUG, MRB_USE_FLOAT)
+    cc.defines = %w(ENABLE_DEBUG MRB_USE_FLOAT)
 
     cc.include_paths = ["#{QGAME_ROOT}/include", "#{MRUBY_ROOT}/include"]
     cc.include_paths << "#{QGAME_ROOT}/build/#{conf.name}/freetype/include"
@@ -37,7 +37,7 @@ QGame::Build.new do |conf|
 
   # C compiler settings
   conf.cc do |cc|
-    cc.defines = %w(ENABLE_DEBUG, MRB_USE_FLOAT)
+    cc.defines = %w(ENABLE_DEBUG MRB_USE_FLOAT)
 
     cc.include_paths = ["#{QGAME_ROOT}/include", "#{MRUBY_ROOT}/include"]
     cc.include_paths.concat gem_include_paths
@@ -66,7 +66,7 @@ MRuby::Build.new do |conf|
   end
 
   conf.cc do |cc|
-    cc.defines = %w(ENABLE_DEBUG, MRB_USE_FLOAT)
+    cc.defines = %w(ENABLE_DEBUG MRB_USE_FLOAT)
   end
   # load specific platform settings
 end

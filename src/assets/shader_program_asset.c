@@ -133,7 +133,7 @@ qgame_shader_program_asset_set_uniform_vec2(mrb_state* mrb, mrb_value self)
   mrb_get_args(mrb, "io", &uniform_id, &value);
   
   struct vec2* vector = vec2_get_ptr(mrb, value);
-  glUniform2fv(uniform_id, 1, vector);
+  glUniform2fv(uniform_id, 1, (const GLfloat *)vector);
 
   return self;
 }
@@ -146,7 +146,7 @@ qgame_shader_program_asset_set_uniform_vec3(mrb_state* mrb, mrb_value self)
   mrb_get_args(mrb, "io", &uniform_id, &value);
   
   struct vec3* vector = vec3_get_ptr(mrb, value);
-  glUniform3fv(uniform_id, 1, vector);
+  glUniform3fv(uniform_id, 1, (const GLfloat *)vector);
 
   return self;
 }
@@ -159,7 +159,7 @@ qgame_shader_program_asset_set_uniform_vec4(mrb_state* mrb, mrb_value self)
   mrb_get_args(mrb, "io", &uniform_id, &value);
   
   struct vec4* vector = vec4_get_ptr(mrb, value);
-  glUniform4fv(uniform_id, 1, vector);
+  glUniform4fv(uniform_id, 1, (const GLfloat *)vector);
 
   return self;
 }
@@ -172,7 +172,7 @@ qgame_shader_program_asset_set_uniform_mat4(mrb_state* mrb, mrb_value self)
   mrb_get_args(mrb, "io", &uniform_id, &value);
 
   struct mat4* matrix = mat4_get_ptr(mrb, value);
-  glUniformMatrix4fv(uniform_id, 1, GL_FALSE, matrix);
+  glUniformMatrix4fv(uniform_id, 1, GL_FALSE, (const GLfloat *)matrix);
 
   return self;
 }
