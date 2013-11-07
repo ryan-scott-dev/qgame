@@ -23,7 +23,7 @@ module QGame
 
     def self.orthogonal
       @@projection_mode = :orthogonal
-      @@projection = Mat4.orthogonal_2d(0, @@width, 0, @@height)
+      @@projection = Mat4.orthogonal(0, @@width, 0, @@height, 0, 1)
     end
 
     def self.orthogonal?
