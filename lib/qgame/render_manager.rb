@@ -93,5 +93,30 @@ module QGame
       @@height
     end
 
+    def self.screen_to_world_ray(point)
+      x = ((2.0 * point.x) / screen_width) - 1.0;
+      y = 1.0 - (2.0 * point.y / screen_height);
+      
+      viewProjection = camera.view * projection
+      viewProjectionInverse = viewProjection.invert
+      
+      near_pos = Vec4.new(x, y, 0, 1)
+      transformed_near_pos = viewProjectionInverse.transform(near_pos)
+      return nil if transformed_near_pos.w == 0
+      transformed_near_pos /= transformed_near_pos.w
+
+      far_pos = Vec4.new(x, y, 1, 1)
+      transformed_far_pos = viewProjectionInverse.transform(far_pos)
+      return nil if transformed_far_pos.w == 0
+      transformed_far_pos /= transformed_far_pos.w
+
+      near_3 = Vec3.new(transformed_near_pos.x, transformed_near_pos.y, transformed_near_pos.z)
+      far_3 = Vec3.new(transformed_far_pos.x, transformed_far_pos.y, transformed_far_pos.z)
+
+      origin = near_3
+      direction = (far_3 - near_3).normalize
+
+      QGame::Ray.new(origin, direction)
+    end
   end
 end

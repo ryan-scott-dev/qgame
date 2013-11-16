@@ -40,7 +40,7 @@ module TestGame
       view = QGame::Application.render_manager.camera.view
       shader.set_uniform(:view, view)
       shader.set_uniform(:world, @world_mat)
-      
+
       model.render
     end
   end
