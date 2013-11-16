@@ -44,6 +44,7 @@ module TestGame
 
     while(@running)
       process_events
+      QGame::Input.update
 
       new_time = Time.now
       frame_time = new_time - current_time

@@ -32,6 +32,9 @@ module QGame
 
     def start
     end
+
+    def update
+    end
   end
 
   class KeyboardInput < BaseInput
@@ -85,6 +88,20 @@ module QGame
 
     def handle_mouse_down(event)
       raise_input_for_key(:down, event)
+
+      if !event.handled
+        if event.is_mouse_left_down?
+          raise_input_for_key(:left_down, event)
+        end
+      end
+    end
+
+    def update
+      if SDL.is_mouse_left_down?
+        raise_input_for_key(:left_held, nil)
+      end
+
+      super
     end
 
     def self.mouse_position
@@ -172,6 +189,7 @@ module QGame
     end
 
     def update
+      @input_manager.update
     end
 
     def start

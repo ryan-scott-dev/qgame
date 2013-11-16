@@ -6,6 +6,8 @@ module TestGame
 
     def initialize(args = {})
       @direction = Vec3.new(0, 0, 1)
+      @shoot_cooldown = 0
+
       super(args)
     end
 
@@ -44,6 +46,16 @@ module TestGame
       10
     end
 
+    def shoot
+      return unless @shoot_cooldown <= 0
+
+      @shoot_cooldown = 1
+      bullet_pos = Vec3.new(1, 0, 0)
+      bullet_pos = @world_mat.transform(bullet_pos)
+
+      @parent.add(Bullet.new(:position => @position, :velocity => bullet_pos * 30))
+    end
+
     def update
       facing_angle = calculate_facing_angle
       @rotation.y = facing_angle
@@ -51,6 +63,9 @@ module TestGame
 
       @position += move_direction * move_speed * Application.elapsed
 
+      # shoot  
+      @shoot_cooldown -= Application.elapsed
+      
       super
     end
 

@@ -19,6 +19,8 @@ end
 
 TestGame::InputMapping.new(QGame::MouseInput) do
   map :mouse_wheel => :camera_zoom
+
+  map :left_held => :shoot
 end
 
 TestGame::InputMapping.new(QGame::GamepadInput) do
