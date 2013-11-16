@@ -33,4 +33,10 @@ class Numeric
     self * 2.weeks
   end
   alias :fortnight :fortnights
+
+  def clamp(range)
+    return range.begin if self < range.begin
+    return range.end if self > range.end
+    self
+  end
 end

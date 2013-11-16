@@ -17,6 +17,10 @@ TestGame::InputMapping.new(QGame::KeyboardInput) do
   map ['right shift', :`] => :dev_console
 end
 
+TestGame::InputMapping.new(QGame::MouseInput) do
+  map :mouse_wheel => :camera_zoom
+end
+
 TestGame::InputMapping.new(QGame::GamepadInput) do
   map :left => :move_left
   map :right => :move_right

@@ -59,6 +59,10 @@ module QGame
       QGame::Application.current.on_event(:mouse_moved) do |event|
         handle_mouse_motion(event)
       end
+
+      QGame::Application.current.on_event(:mouse_wheel) do |event|
+        handle_mouse_wheel(event)
+      end
     end
 
     def handle_mouse_motion(event)
@@ -69,6 +73,10 @@ module QGame
       if !event.handled
         raise_input_for_key(:motion, event)
       end
+    end
+
+    def handle_mouse_wheel(event)
+      raise_input_for_key(:mouse_wheel, event)
     end
 
     def handle_mouse_up(event)

@@ -3,7 +3,7 @@ TestGame::Application.scenario_manager.define_scenario(:test_3d) do
   player = TestGame::TestPlayer.new(:position => Vec3.new(0, 2, 0))
   add(player)
 
-  camera(:follow_3d, :follow => player, :offset => Vec3.new(20))
+  camera(TestGame::GameCamera.new(:follow => player))
   perspective
 
   # add(TestGame::TestCube.new(:position => Vec3.new(0, 0, 0),
