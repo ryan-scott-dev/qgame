@@ -9,6 +9,10 @@ module TestGame
       @shoot_cooldown = 0
 
       super(args)
+
+      QGame::Input.on(:shoot) do |shoot_event|
+        shoot
+      end
     end
 
     def calculate_move_direction

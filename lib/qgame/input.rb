@@ -98,7 +98,7 @@ module QGame
 
     def update
       if SDL.is_mouse_left_down?
-        raise_input_for_key(:left_held, nil)
+        raise_input_for_key(:left_held, SDL::Event.new)
       end
 
       super
