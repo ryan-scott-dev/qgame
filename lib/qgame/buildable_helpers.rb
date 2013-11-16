@@ -10,6 +10,8 @@ module QGame
           @camera = Application.render_manager.camera = QGame::FollowCamera.new(args)
         when :lookat
           @camera = Application.render_manager.camera = QGame::LookAtCamera.new(args)
+        when :follow_3d
+          @camera = Application.render_manager.camera = QGame::FollowCamera3D.new(args)
         end
       else
         @camera = Application.render_manager.camera = type
