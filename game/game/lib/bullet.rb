@@ -6,7 +6,8 @@ module TestGame
 
     def initialize(args = {})
       @velocity = args[:velocity] || Vec3.new()
-      @life = 10
+      @life = 1
+      args[:scale] = Vec3.new(0.1)
       super(args)
     end
 

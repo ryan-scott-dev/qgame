@@ -8,6 +8,7 @@ module TestGame
       @direction = Vec3.new(0, 0, 1)
       @shoot_cooldown = 0
 
+      args[:scale] = Vec3.new(1, 2, 1)
       super(args)
 
       QGame::Input.on(:shoot) do |shoot_event|
@@ -57,7 +58,7 @@ module TestGame
       bullet_pos = Vec3.new(1, 0, 0)
       bullet_pos = @world_mat.transform(bullet_pos)
 
-      @parent.add(Bullet.new(:position => @position, :velocity => bullet_pos * 30))
+      @parent.add(Bullet.new(:position => @position, :velocity => bullet_pos * 30, :rotation => @rotation))
     end
 
     def update
