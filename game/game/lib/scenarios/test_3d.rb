@@ -30,6 +30,8 @@ TestGame::Application.scenario_manager.define_scenario(:test_3d) do
   # add(TestGame::TestCube.new(:position => Vec3.new(4, 4, 4),
   #                            :texture => QGame::AssetManager.texture('wood')))
   
-
   add(TestGame::TestPlane.new(:texture => QGame::AssetManager.texture('wood')))
+
+  add(TestGame::Enemy.new(:position => Vec3.new(-10, 2, 0)))
+  add(TestGame::Enemy.new(:position => Vec3.new(10, 2, 0)))
 end

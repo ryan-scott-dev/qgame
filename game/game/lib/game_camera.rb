@@ -3,7 +3,7 @@ module TestGame
     def initialize(args = {})
       @follow = args[:follow]
       @offset_direction = args[:offset_direction] || Vec3.new(1)
-      @offset_magnitude = args[:offset_magnitude] || 20
+      @offset_magnitude = args[:offset_magnitude] || 40
 
       super(args)
 
@@ -15,7 +15,7 @@ module TestGame
 
     def handle_zoom_change(zoom_delta)
       @offset_magnitude += zoom_delta
-      @offset_magnitude = @offset_magnitude.clamp(5..40)
+      @offset_magnitude = @offset_magnitude.clamp(20..60)
     end
 
     def update_position(position)
