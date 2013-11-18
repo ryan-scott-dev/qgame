@@ -2,13 +2,16 @@ module TestGame
   class WorldObject; end
 
   class TestPlayer < WorldObject
-    include QGame::EventHandler
+    include QGame::Collidable
+    include TestGame::BoundingBox
 
     def initialize(args = {})
       @direction = Vec3.new(0, 0, 1)
       @shoot_cooldown = 0
+      @bounds = AABB.new
 
       args[:scale] = Vec3.new(1, 2, 1)
+      collides_as :player
       super(args)
 
       QGame::Input.on(:shoot) do |shoot_event|
@@ -31,7 +34,7 @@ module TestGame
         move_direction.z += 1
       end
       move_direction.normalize! if (move_direction.x != 0 && move_direction.z != 0)
-      @world_mat.transform(move_direction)
+      @world_mat.rotate_point(move_direction)
     end
 
     def calculate_facing_angle
@@ -56,7 +59,7 @@ module TestGame
 
       @shoot_cooldown = 1
       bullet_pos = Vec3.new(1, 0, 0)
-      bullet_pos = @world_mat.transform(bullet_pos)
+      bullet_pos = @world_mat.rotate_point(bullet_pos)
 
       @parent.add(Bullet.new(:position => @position, :velocity => bullet_pos * 30, :rotation => @rotation))
     end
@@ -70,7 +73,10 @@ module TestGame
 
       # shoot  
       @shoot_cooldown -= Application.elapsed
-      
+
+      update_bounds
+      check_collisions
+
       super
     end
 

@@ -18,16 +18,16 @@ module QGame
     end
 
     def can_collide_with?(other)
+      @on_collision = {} if @on_collision.nil?
       @on_collision.has_key? other.collide_flag
     end
 
     def collide_with(other)
+      @on_collision = {} if @on_collision.nil?
       self.instance_exec(other, &@on_collision[other.collide_flag])
     end
 
     def check_collisions
-      self.calculate_position
-      
       @@collidables.each do |collidable|
         next if collidable == self
         next unless self.can_collide_with?(collidable)

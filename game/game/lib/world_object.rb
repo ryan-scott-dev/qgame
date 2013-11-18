@@ -1,6 +1,6 @@
 module TestGame
   class WorldObject
-    attr_accessor :position, :rotation, :scale, :parent, :model, :shader, :world_mat
+    attr_accessor :position, :rotation, :scale, :parent, :model, :shader, :world_mat, :alive
     alias_method :size, :scale
 
     def initialize(args = {})

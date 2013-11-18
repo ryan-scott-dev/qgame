@@ -2,7 +2,8 @@ module TestGame
   class WorldObject; end
 
   class Enemy < WorldObject
-    include QGame::EventHandler
+    include QGame::Collidable
+    include TestGame::BoundingBox
 
     attr_accessor :health
 
@@ -12,9 +13,22 @@ module TestGame
       @health = args[:health] || 10
       @health_indicator = WorldText.new(:text => @health.to_s, :color => Color.red)
       @health_indicator_offset = Vec3.new(0, 5, 0)
-      
+      @bounds = AABB.new
+
       args[:scale] = Vec3.new(1, 2, 1)
+      
+      collides_as :enemy
+
+      collides_with :projectile do |other|
+        self.receive_damage(other)
+        other.collided
+      end
+
       super(args)
+    end
+
+    def receive_damage(cause)
+      self.health -= cause.damage
     end
 
     def health=(val)
@@ -27,6 +41,12 @@ module TestGame
         @health_indicator.update 
         @health_indicator.position = @position + @health_indicator_offset
       end
+
+      update_bounds
+      check_collisions
+
+      self.destruct if @health <= 0
+
       super
     end
 
